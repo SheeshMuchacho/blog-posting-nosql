@@ -1,33 +1,142 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-/* Root color variables for light mode */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
 :root {
-  --background: #ffffff;
-  --foreground: #1a1a1a;
-  --primary: #1e3a8a; /* Tailwind blue-900 */
-  --secondary: #3b82f6; /* Tailwind blue-500 */
-  --font-sans: 'Inter', system-ui, sans-serif;
+  --primary: #144272;
+  --secondary: #2c74b3;
+  --text-dark: #1e293b;
+  --text-light: #64748b;
+  --white: #ffffff;
+  --light-bg: #f8fafc;
 }
 
-/* Global body styles */
+/* Base Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 body {
-  background-color: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-sans);
-  line-height: 1.6;
+  font-family: 'Poppins', sans-serif;
+  color: var(--text-dark);
+  background-color: var(--light-bg);
 }
 
-/* Utility classes (optional overrides) */
-a {
-  color: var(--secondary);
-  text-decoration: none;
+/* Custom Utilities */
+@layer components {
+
+  .nav-shadow {
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  }
+
+  /* Mobile menu styling */
+  .mobile-nav {
+    @apply fixed top-0 right-0 z-50 flex h-screen w-full flex-col bg-white p-6 transition-all duration-300 lg:hidden;
+    box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+  }
+
+  .btn_white {
+    @apply border border-white bg-white px-6 py-2 text-primary rounded-full font-medium hover:shadow-md transition duration-300;
+  }
+
+  .btn_white_text {
+    @apply border border-white bg-white px-6 py-2 text-gray-800 rounded-full font-medium hover:shadow-md transition duration-300;
+  }
+
+  .btn_primary {
+    @apply border border-primary bg-primary px-6 py-2 text-white rounded-full font-medium hover:bg-secondary hover:border-secondary hover:shadow-md transition duration-300;
+  }
+
+  .btn_secondary {
+    @apply border border-secondary bg-secondary px-6 py-2 text-white rounded-full font-medium hover:bg-primary hover:border-primary hover:shadow-md transition duration-300;
+  }
+
+  .btn_outline_primary {
+    @apply border-2 border-primary bg-transparent px-6 py-2 text-primary rounded-full font-medium hover:bg-primary hover:text-white hover:shadow-md transition duration-300;
+  }
+
+  .btn_outline_secondary {
+    @apply border-2 border-secondary bg-transparent px-6 py-2 text-secondary rounded-full font-medium hover:bg-secondary hover:text-white hover:shadow-md transition duration-300;
+  }
+
+  /* === LAYOUT === */
+  .max-container {
+    @apply mx-auto max-w-[1440px];
+  }
+
+  .padding-container {
+    @apply px-4 sm:px-6 lg:px-20;
+  }
+
+  .flexCenter {
+    @apply flex items-center justify-center;
+  }
+
+  .flexBetween {
+    @apply flex items-center justify-between;
+  }
+
+  .flexStart {
+    @apply flex items-center justify-start;
+  }
+
+  .flexEnd {
+    @apply flex items-center justify-end;
+  }
+
+  .regular-64 { @apply text-4xl md:text-5xl lg:text-6xl font-normal leading-tight; }
+  .regular-40 { @apply text-2xl md:text-3xl lg:text-4xl font-normal leading-tight; }
+  .regular-32 { @apply text-xl md:text-2xl lg:text-3xl font-normal leading-tight; }
+  .regular-24 { @apply text-lg md:text-xl lg:text-2xl font-normal; }
+  .regular-20 { @apply text-base md:text-lg lg:text-xl font-normal; }
+  .regular-18 { @apply text-base md:text-lg font-normal; }
+  .regular-16 { @apply text-sm md:text-base font-normal; }
+  .regular-14 { @apply text-xs md:text-sm font-normal; }
+
+  .medium-14 { @apply text-xs md:text-sm font-medium; }
+
+  .bold-88 { @apply text-5xl md:text-6xl lg:text-7xl font-bold leading-tight; }
+  .bold-64 { @apply text-4xl md:text-5xl lg:text-6xl font-bold leading-tight; }
+  .bold-52 { @apply text-3xl md:text-4xl lg:text-5xl font-bold leading-tight; }
+  .bold-40 { @apply text-2xl md:text-3xl lg:text-4xl font-bold leading-tight; }
+  .bold-32 { @apply text-xl md:text-2xl lg:text-3xl font-bold leading-tight; }
+  .bold-20 { @apply text-base md:text-lg lg:text-xl font-bold; }
+  .bold-18 { @apply text-base md:text-lg font-bold; }
+  .bold-16 { @apply text-sm md:text-base font-bold; }
+
+  .nav-link {
+    @apply text-text-dark relative font-medium hover:text-secondary after:absolute after:bottom-[-4px] after:left-0 after:h-[2px] after:w-0 after:bg-secondary after:transition-all after:duration-300 hover:after:w-full;
+  }
+
+  .nav-link-active {
+    @apply text-secondary after:absolute after:bottom-[-4px] after:left-0 after:h-[2px] after:w-full after:bg-secondary;
+  }
+
+  .mobile-nav {
+    @apply fixed top-0 right-0 z-50 flex h-screen w-full flex-col bg-white p-10 transition-all duration-300 lg:hidden;
+  }
 }
 
-a:hover {
-  text-decoration: underline;
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
 }
 
-button {
-  font-family: inherit;
-  cursor: pointer;
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Adding Tailwind theme colors */
+@layer base {
+  :root {
+    --color-primary: 20 66 114; /* #144272 */
+    --color-secondary: 44 116 179; /* #2c74b3 */
+    --color-text-dark: 30 41 59; /* #1e293b */
+    --color-text-light: 100 116 139; /* #64748b */
+  }
 }
