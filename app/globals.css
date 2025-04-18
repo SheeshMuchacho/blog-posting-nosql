@@ -22,9 +22,38 @@
 }
 
 body {
-  font-family: 'Poppins', sans-serif;
+  font: poppins, sans-serif;
   color: var(--text-dark);
-  background-color: var(--light-bg);
+}
+
+/* Image Animations */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes slowRotate {
+  0% {
+    transform: rotate(30deg);
+  }
+  50% {
+    transform: rotate(38deg);
+  }
+  100% {
+    transform: rotate(30deg);
+  }
+}
+
+.animate-float {
+  animation: float 4s ease-in-out infinite;
+}
+
+.animate-slow-rotate {
+  animation: slowRotate 6s ease-in-out infinite;
 }
 
 /* Custom Utilities */
@@ -40,28 +69,36 @@ body {
     box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
   }
 
-  .btn_white {
-    @apply border border-white bg-white px-6 py-2 text-primary rounded-full font-medium hover:shadow-md transition duration-300;
+  .btn {
+    @apply px-4 py-2 text-sm rounded-lg font-medium inline-flex items-center justify-center tracking-tight hover:shadow-md transition duration-300;
+  }
+
+  .btn-white {
+    @apply border-2 border-white bg-white text-primary hover:bg-transparent hover:text-white;
+  }
+
+  .btn-outline-white {
+    @apply border-2 border-white bg-transparent text-white hover:bg-white hover:text-primary;
   }
 
   .btn_white_text {
-    @apply border border-white bg-white px-6 py-2 text-gray-800 rounded-full font-medium hover:shadow-md transition duration-300;
+    @apply border border-white bg-white text-gray-800;
   }
 
-  .btn_primary {
-    @apply border border-primary bg-primary px-6 py-2 text-white rounded-full font-medium hover:bg-secondary hover:border-secondary hover:shadow-md transition duration-300;
+  .btn-primary {
+    @apply border-2 border-secondary bg-primary text-white hover:bg-secondary hover:border-secondary;
   }
 
-  .btn_secondary {
-    @apply border border-secondary bg-secondary px-6 py-2 text-white rounded-full font-medium hover:bg-primary hover:border-primary hover:shadow-md transition duration-300;
+  .btn-secondary {
+    @apply border border-secondary bg-secondary text-white hover:bg-primary hover:border-primary;
   }
 
-  .btn_outline_primary {
-    @apply border-2 border-primary bg-transparent px-6 py-2 text-primary rounded-full font-medium hover:bg-primary hover:text-white hover:shadow-md transition duration-300;
+  .btn-outline-primary {
+    @apply border-2 border-primary bg-transparent text-primary hover:bg-primary hover:text-white;
   }
 
-  .btn_outline_secondary {
-    @apply border-2 border-secondary bg-transparent px-6 py-2 text-secondary rounded-full font-medium hover:bg-secondary hover:text-white hover:shadow-md transition duration-300;
+  .btn-outline-secondary {
+    @apply border-2 border-secondary bg-transparent text-secondary hover:bg-secondary hover:text-white;
   }
 
   /* === LAYOUT === */
@@ -70,7 +107,7 @@ body {
   }
 
   .padding-container {
-    @apply px-4 sm:px-6 lg:px-20;
+    @apply px-4 sm:px-3 lg:px-20;
   }
 
   .flexCenter {
@@ -87,38 +124,6 @@ body {
 
   .flexEnd {
     @apply flex items-center justify-end;
-  }
-
-  .regular-64 { @apply text-4xl md:text-5xl lg:text-6xl font-normal leading-tight; }
-  .regular-40 { @apply text-2xl md:text-3xl lg:text-4xl font-normal leading-tight; }
-  .regular-32 { @apply text-xl md:text-2xl lg:text-3xl font-normal leading-tight; }
-  .regular-24 { @apply text-lg md:text-xl lg:text-2xl font-normal; }
-  .regular-20 { @apply text-base md:text-lg lg:text-xl font-normal; }
-  .regular-18 { @apply text-base md:text-lg font-normal; }
-  .regular-16 { @apply text-sm md:text-base font-normal; }
-  .regular-14 { @apply text-xs md:text-sm font-normal; }
-
-  .medium-14 { @apply text-xs md:text-sm font-medium; }
-
-  .bold-88 { @apply text-5xl md:text-6xl lg:text-7xl font-bold leading-tight; }
-  .bold-64 { @apply text-4xl md:text-5xl lg:text-6xl font-bold leading-tight; }
-  .bold-52 { @apply text-3xl md:text-4xl lg:text-5xl font-bold leading-tight; }
-  .bold-40 { @apply text-2xl md:text-3xl lg:text-4xl font-bold leading-tight; }
-  .bold-32 { @apply text-xl md:text-2xl lg:text-3xl font-bold leading-tight; }
-  .bold-20 { @apply text-base md:text-lg lg:text-xl font-bold; }
-  .bold-18 { @apply text-base md:text-lg font-bold; }
-  .bold-16 { @apply text-sm md:text-base font-bold; }
-
-  .nav-link {
-    @apply text-text-dark relative font-medium hover:text-secondary after:absolute after:bottom-[-4px] after:left-0 after:h-[2px] after:w-0 after:bg-secondary after:transition-all after:duration-300 hover:after:w-full;
-  }
-
-  .nav-link-active {
-    @apply text-secondary after:absolute after:bottom-[-4px] after:left-0 after:h-[2px] after:w-full after:bg-secondary;
-  }
-
-  .mobile-nav {
-    @apply fixed top-0 right-0 z-50 flex h-screen w-full flex-col bg-white p-10 transition-all duration-300 lg:hidden;
   }
 }
 

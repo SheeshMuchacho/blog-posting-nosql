@@ -40,4 +40,28 @@ export interface DropdownItem {
     },
     { key: 'careers', label: 'Careers', href: '/careers' },
   ];
+
+  export const FOOTER_LINKS = [
+    {
+      title: 'Company',
+      links: ['About Us', 'Careers', 'Contact Us'],
+    },
+    {
+      title: 'Services',
+      links: [
+        'Content Syndication',
+        'Lead Generation',
+        'Intent Data',
+        'Display Advertising',
+        'Webinar & Events',
+        'ABM',
+        'Demand Generation',
+      ],
+    },
+    {
+      title: 'Resources',
+      links: ['Blog', 'Resource Library'],
+    },
+  ];
+  
   
