@@ -1,67 +1,91 @@
+// constants/index.ts
+
 export interface DropdownItem {
-    key: string;
-    label: string;
-    href: string;
-  }
-  
-  export interface NavLink {
-    key: string;
-    label: string;
-    href: string;
-    dropdown?: DropdownItem[];
-  }
-  
-  export const NAV_LINKS: NavLink[] = [
-    { key: 'home', label: 'Home', href: '/' },
-    {
-      key: 'services',
-      label: 'Services',
-      href: '/services',
-      dropdown: [
-        { key: 'content-syndication', label: 'Content Syndication', href: '/content-syndication' },
-        { key: 'lead-generation', label: 'Lead Generation', href: '/lead-generation' },
-        { key: 'intent-data', label: 'Intent Data', href: '/intent-data' },
-        { key: 'display-advertising', label: 'Display Advertising', href: '/display-advertising' },
-        { key: 'webinar-&-events', label: 'Webinar & Events', href: '/webinar-&-events' },
-        { key: 'abm', label: 'ABM', href: '/abm' },
-        { key: 'demand-generation', label: 'Demand Generation', href: '/demand-generation' },
-      ],
-    },
-    { key: 'about', label: 'About', href: '/about' },
-    {
-      key: 'resources',
-      label: 'Resources',
-      href: '/resources',
-      dropdown: [
-        { key: 'blog', label: 'Blog', href: '/blog' },
-        { key: 'resource-library', label: 'Resource Library', href: 'resource-library' },
+  key: string;
+  label: string;
+  href: string;
+}
 
-      ],
-    },
-    { key: 'careers', label: 'Careers', href: '/careers' },
-  ];
+export interface NavLink {
+  key: string;
+  label: string;
+  href: string;
+  dropdown?: DropdownItem[];
+}
 
-  export const FOOTER_LINKS = [
-    {
-      title: 'Company',
-      links: ['About Us', 'Careers', 'Contact Us'],
-    },
-    {
-      title: 'Services',
-      links: [
-        'Content Syndication',
-        'Lead Generation',
-        'Intent Data',
-        'Display Advertising',
-        'Webinar & Events',
-        'ABM',
-        'Demand Generation',
-      ],
-    },
-    {
-      title: 'Resources',
-      links: ['Blog', 'Resource Library'],
-    },
-  ];
-  
-  
+export interface FooterLink {
+  label: string;
+  href: string;
+}
+
+export interface FooterSection {
+  title: string;
+  links: FooterLink[];
+}
+
+export interface SocialLink {
+  icon: string;
+  href: string;
+  label: string;
+}
+
+export const NAV_LINKS: NavLink[] = [
+  { key: 'home', label: 'Home', href: '/' },
+  {
+    key: 'services',
+    label: 'Services',
+    href: '/services',
+    dropdown: [
+      { key: 'content-syndication', label: 'Content Syndication', href: '/content-syndication' },
+      { key: 'lead-generation', label: 'Lead Generation', href: '/lead-generation' },
+      { key: 'intent-data', label: 'Intent Data', href: '/intent-data' },
+      { key: 'display-advertising', label: 'Display Advertising', href: '/display-advertising' },
+      { key: 'webinar-&-events', label: 'Webinar & Events', href: '/webinar-&-events' },
+      { key: 'abm', label: 'ABM', href: '/abm' },
+      { key: 'demand-generation', label: 'Demand Generation', href: '/demand-generation' },
+    ],
+  },
+  { key: 'about', label: 'About', href: '/about' },
+  {
+    key: 'resources',
+    label: 'Resources',
+    href: '/resources',
+    dropdown: [
+      { key: 'blog', label: 'Blog', href: '/blog' },
+      { key: 'resource-library', label: 'Resource Library', href: '/resource-library' },
+    ],
+  },
+  { key: 'careers', label: 'Careers', href: '/careers' },
+];
+
+export const FOOTER_LINKS: FooterSection[] = [
+  {
+    title: "Quick Links",
+    links: [
+      { label: "Home", href: "/" },
+      { label: "About Us", href: "/about" },
+      { label: "Services", href: "/services" },
+      { label: "Blog", href: "/blog" },
+      { label: "Careers", href: "/careers" },
+    ]
+  },
+  {
+    title: "Our Services",
+    links: [
+      { label: "Content Syndication", href: "/content-syndication" },
+      { label: "Lead Generation", href: "/lead-generation" },
+      { label: "Intent Data", href: "/intent-data" },
+      { label: "Display Advertising", href: "/display-advertising" },
+      { label: "Webinar & Events", href: "/webinar-&-events" },
+      { label: "ABM", href: "/abm" },
+      { label: "Demand Generation", href: "/demand-generation" },
+    ]
+  }
+];
+
+export const SOCIAL_LINKS: SocialLink[] = [
+  { icon: "/icons/facebook.svg", href: "https://facebook.com", label: "Facebook" },
+  { icon: "/icons/x.svg", href: "https://x.com", label: "X" },
+  { icon: "/icons/instagram.svg", href: "https://instagram.com", label: "Instagram" },
+  { icon: "/icons/linkedin.svg", href: "https://linkedin.com", label: "LinkedIn" },
+];

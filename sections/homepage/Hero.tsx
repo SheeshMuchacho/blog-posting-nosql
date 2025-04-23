@@ -15,7 +15,7 @@ const Hero = () => {
         <div className="md:flex items-center justify-between">
             <div className="md:w-[478px] md:mr-8">
                 <div className="text-sm inline-flex border border-black/20 px-3 py-1 rounded-lg tracking-tight">Empower your business</div>
-                <h1 className="text-5xl md:text-7xl font-bold tracking-tighter bg-gradient-to-b from-black to-[#144272] text-transparent bg-clip-text mt-6">
+                <h1 className="text-5xl md:text-7xl font-bold tracking-tighter bg-gradient-to-b from-secondary to-black text-transparent bg-clip-text mt-6">
                     Exceptional Solutions for your Business
                 </h1>
                 <p className="text-xl text-[#010D3E] tracking-tight mt-6">

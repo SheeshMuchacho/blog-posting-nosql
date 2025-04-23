@@ -86,7 +86,7 @@ body {
   }
 
   .btn-primary {
-    @apply border-2 border-secondary bg-primary text-white hover:bg-secondary hover:border-secondary;
+    @apply border-2 border-primary bg-primary text-white hover:bg-secondary hover:border-secondary;
   }
 
   .btn-secondary {
