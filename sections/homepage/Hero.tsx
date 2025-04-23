@@ -6,6 +6,7 @@ import cylinder from "@/public/cylinder.png";
 import noodle from "@/public/noodle.png";
 import Image from "next/image";
 import { useState } from "react";
+import { AuroraText } from "@/components/AuroraText";
 
 const Hero = () => {
   const [isHovered, setIsHovered] = useState(false);
@@ -15,8 +16,8 @@ const Hero = () => {
         <div className="md:flex items-center justify-between">
             <div className="md:w-[478px] md:mr-8">
                 <div className="text-sm inline-flex border border-black/20 px-3 py-1 rounded-lg tracking-tight">Empower your business</div>
-                <h1 className="text-5xl md:text-7xl font-bold tracking-tighter bg-gradient-to-b from-secondary to-black text-transparent bg-clip-text mt-6">
-                    Exceptional Solutions for your Business
+                <h1 className="text-5xl md:text-7xl font-bold tracking-tighter bg-clip-text mt-6">
+                    Exceptional <AuroraText>Solution</AuroraText> for your Business
                 </h1>
                 <p className="text-xl text-[#010D3E] tracking-tight mt-6">
                     From data to delivery, we provide a seamless, all-in-one marketing solution tailored to meet every aspect of your business's growth strategy.
