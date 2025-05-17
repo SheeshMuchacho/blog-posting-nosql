@@ -32,7 +32,7 @@ export default function HeroSection() {
           </div>
 
           <div
-            className="md:h-[648px] md:flex-1 relative mt-8 md:mt-0"
+            className="md:h-[648px] md:flex-1 relative z-20 mt-8 md:mt-0"
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
           >
