@@ -59,7 +59,7 @@ const Navbar = () => {
         <div className="max-container flexBetween padding-container">
           {/* Logo */}
           <Link href="/" className="flex-shrink-0">
-            <Image src="/logoblueT.png" alt="logo" width={120} height={28} className="object-contain" />
+            <Image src="/logo/logoblueT.png" alt="logo" width={120} height={28} className="object-contain" />
           </Link>
 
           {/* Desktop Links */}

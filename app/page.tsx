@@ -1,13 +1,12 @@
-import Hero from "@/sections/homepage/Hero"
-import { Reach } from "@/sections/homepage/Reach"
-// import { ServicesSection } from "@/sections/homepage/Services"
+// pages/index.tsx (or wherever your HomePage is)
+import HeroSection from '@/sections/hero-section';
+import ServicesSection from '@/sections/services-section';
 
 export default function HomePage() {
   return (
     <>
-    <Hero />
-    {/* <ServicesSection/> */}
-    {/* <Reach /> */}
+      <HeroSection />
+      <ServicesSection />
     </>
-  )
+  );
 }

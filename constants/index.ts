@@ -105,49 +105,18 @@ export interface ServiceFeature {
   icon: string;
 }
 
-export const REACH_FEATURES: ServiceFeature[] = [
-  {
-    title: "Content Syndication",
-    description: "Reach segmented global prospects through impactful email campaigns.",
-    icon: "Cloud",
-    slug: "content-syndication",
-  },
+export const services = [
   {
     title: "Lead Generation",
-    description: "Attract and qualify leads to grow your sales pipeline efficiently.",
-    icon: "Users",
-    slug: "lead-generation",
-  },
-  {
-    title: "Intent Data",
-    description: "Track and identify buyer intent for smarter targeting.",
-    icon: "Code",
-    slug: "intent-data",
-  },
-  {
-    title: "Display Advertising",
-    description: "Showcase your brand with high-visibility ad placements.",
-    icon: "Palette",
-    slug: "display-advertising",
-  },
-  {
-    title: "Webinar & Events",
-    description: "Engage audiences through interactive online experiences.",
-    icon: "DeviceMobile",
-    slug: "webinar-&-events",
+    description: "Comprehensive lead generation solutions to identify, nurture, and convert qualified prospects into loyal customers."
   },
   {
     title: "ABM",
-    description: "Target high-value accounts with personalized campaigns.",
-    icon: "Api",
-    slug: "abm",
+    description: "Account-Based Marketing strategies to target high-value accounts with personalized campaigns and measurable results."
   },
   {
     title: "Demand Generation",
-    description: "Create interest and drive demand for your offerings.",
-    icon: "Speedboat",
-    slug: "demand-generation",
-  },
+    description: "End-to-end demand generation programs to increase brand awareness and drive qualified interest in your products."
+  }
 ];
-
 
