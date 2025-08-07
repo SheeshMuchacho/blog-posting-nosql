@@ -107,17 +107,17 @@ export default function ServicesSection() {
   ];
 
   return (
-    <section className="py-20 bg-gray-50 overflow-hidden relative">
+    <section className="py-20 bg-[radial-gradient(ellipse_140%_10%_at_top_left,#183EC2,#ffffff_100%)] overflow-hidden relative">
       {/* Squares Background */}
       <SquaresBackground />
       
       <div className="padding-container max-w-screen-xl mx-auto relative z-10">
         <div className="text-center mb-16">
           <div className="text-sm inline-flex border border-black/20 px-3 py-1 rounded-lg tracking-tight mb-4 bg-white/80 backdrop-blur-sm">Our Services</div>
-          <h2 className="text-4xl font-bold mb-6 bg-gradient-to-r from-blue-600 to-indigo-800 bg-clip-text text-transparent">
+          <h2 className="text-4xl font-bold mb-6 bg-gradient-to-r from-[#010D3E] to-blue-800 bg-clip-text text-transparent">
             Excellent Solutions That Drive Growth
           </h2>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+          <p className="text-xl text-gray-700 max-w-2xl mx-auto">
             We deliver data-driven marketing strategies that connect you with your ideal customers and accelerate business growth.
           </p>
         </div>

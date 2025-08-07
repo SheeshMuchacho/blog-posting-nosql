@@ -12,7 +12,7 @@ export default function HeroSection() {
   const [isHovered, setIsHovered] = useState(false);
 
   return (
-    <section className="pt-8 pb-20 md:pt-6 md:pb-10 bg-[radial-gradient(ellipse_200%_100%_at_bottom_left,#183EC2,#ffffff_100%)] overflow-x-clip">
+    <section className="pt-8 pb-20 md:pt-6 md:pb-10 bg-[radial-gradient(ellipse_140%_100%_at_bottom_left,#183EC2,#ffffff_100%)] overflow-x-clip">
       <div className="padding-container max-w-screen-xl mx-auto">
         <div className="md:flex items-center justify-between">
           <div className="md:w-[478px] md:mr-8">

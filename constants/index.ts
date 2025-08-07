@@ -1,4 +1,5 @@
 // constants/index.ts
+import { Globe, Users, MapPin, TrendingUp, Building, Zap, Star } from "lucide-react";
 
 export interface DropdownItem {
   key: string;
@@ -120,3 +121,67 @@ export const services = [
   }
 ];
 
+export const REACH_DATA = [
+  { 
+    region: "North America", 
+    count: "11.7M", 
+    countNumber: 11700000, 
+    color: "from-emerald-500 to-teal-600",
+    bgColor: "bg-emerald-50",
+    description: "United States & Canada"
+  },
+  { 
+    region: "EMEA", 
+    count: "6.0M", 
+    countNumber: 6000000, 
+    color: "from-blue-500 to-indigo-600",
+    bgColor: "bg-blue-50",
+    description: "Europe, Middle East & Africa"
+  },
+  { 
+    region: "APAC", 
+    count: "5.5M", 
+    countNumber: 5500000, 
+    color: "from-purple-500 to-violet-600",
+    bgColor: "bg-purple-50",
+    description: "Asia Pacific Region"
+  },
+  { 
+    region: "ANZ", 
+    count: "686K", 
+    countNumber: 686000, 
+    color: "from-orange-500 to-red-600",
+    bgColor: "bg-orange-50",
+    description: "Australia & New Zealand"
+  },
+  { 
+    region: "Middle East", 
+    count: "681K", 
+    countNumber: 681000, 
+    color: "from-amber-500 to-yellow-600",
+    bgColor: "bg-amber-50",
+    description: "Middle Eastern Markets"
+  },
+  { 
+    region: "Africa", 
+    count: "537K", 
+    countNumber: 537000, 
+    color: "from-green-500 to-emerald-600",
+    bgColor: "bg-green-50",
+    description: "African Continent"
+  },
+  { 
+    region: "LATAM", 
+    count: "413K", 
+    countNumber: 413000, 
+    color: "from-pink-500 to-rose-600",
+    bgColor: "bg-pink-50",
+    description: "Latin America"
+  }
+];
+
+export const REACH_STATS = {
+  totalContacts: REACH_DATA.reduce((sum, region) => sum + region.countNumber, 0),
+  totalRegions: REACH_DATA.length,
+  totalCountries: 195
+};
