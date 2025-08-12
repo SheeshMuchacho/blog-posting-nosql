@@ -5,14 +5,14 @@ import Image from 'next/image';
 import cogImage from '@/public/gen.png';
 import cylinder from '@/public/cylinder.png';
 import noodle from '@/public/noodle.png';
-import Button from '@/components/Button';
-import { AuroraText } from '@/components/AuroraText';
+import Button from '@/components/ui/Button';
+import { AuroraText } from '@/components/ui/AuroraText';
 
 export default function HeroSection() {
   const [isHovered, setIsHovered] = useState(false);
 
   return (
-    <section className="pt-8 pb-20 md:pt-6 md:pb-10 bg-[radial-gradient(ellipse_140%_100%_at_bottom_left,#183EC2,#ffffff_100%)] overflow-x-clip">
+    <section className="pt-8 pb-20 md:pt-6 md:pb-10 bg-[radial-gradient(ellipse_200%_100%_at_bottom_left,#183EC2,#ffffff_100%)] overflow-x-clip">
       <div className="padding-container max-w-screen-xl mx-auto">
         <div className="md:flex items-center justify-between">
           <div className="md:w-[478px] md:mr-8">

@@ -3,7 +3,7 @@
 import { useState, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import Button from "./Button";
+import Button from "./ui/Button";
 import { NAV_LINKS, SOCIAL_LINKS } from '@/constants';
 
 // Find the services dropdown items for the footer

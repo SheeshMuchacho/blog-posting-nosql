@@ -136,6 +136,12 @@ body {
   scrollbar-width: none;
 }
 
+.bg-grid-gray-900 {
+  background-image:
+    linear-gradient(to right, rgb(17 24 39 / 0.1) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(17 24 39 / 0.1) 1px, transparent 1px);
+}
+
 /* Adding Tailwind theme colors */
 @layer base {
   :root {
@@ -163,5 +169,8 @@ body {
   100% {
     background-position: 0% 50%;
   }
+}
 
+.card {
+  @apply p-10 border border-solid border-[#222222]/10 rounded-3xl shadow-[0_7px_14px_#EAEAEA] max-w-xs w-full
 }
