@@ -10,9 +10,8 @@ import { AuroraText } from '@/components/ui/AuroraText';
 
 export default function HeroSection() {
   const [isHovered, setIsHovered] = useState(false);
-
   return (
-    <section className="pt-8 pb-20 md:pt-6 md:pb-10 bg-[radial-gradient(ellipse_200%_100%_at_bottom_left,#183EC2,#ffffff_100%)] overflow-x-clip">
+  <section className="pt-8 pb-20 md:pt-6 md:pb-10 bg-white bg-[radial-gradient(125%_125%_at_50%_10%,#fff_40%,#0022EE_100%)] bg-fixed overflow-x-clip">
       <div className="padding-container max-w-screen-xl mx-auto">
         <div className="md:flex items-center justify-between">
           <div className="md:w-[478px] md:mr-8">

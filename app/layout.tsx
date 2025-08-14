@@ -5,7 +5,7 @@ import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
   title: "Acumen Intelligence",
-  description: "B2B Lead Generation",
+  description: "B2B Marketing Solutions",
 };
 
 export default function RootLayout({
@@ -16,14 +16,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        
+
         <Navbar />
 
         <main>
           {children}
         </main>
 
-        
         <Footer />
 
       </body>

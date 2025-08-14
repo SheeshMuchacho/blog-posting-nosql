@@ -1,6 +1,5 @@
-// pages/index.tsx (or wherever your HomePage is)
-import HeroSection from '@/components/home/hero-section';
-import ServicesSection from '@/components/home/services-section';
+import HeroSection from '@/components/home/hero';
+import ServicesSection from '@/components/home/services';
 import { Testimonials } from '@/components/home/testimonials';
 
 export default function HomePage() {

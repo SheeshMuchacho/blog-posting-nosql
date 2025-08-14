@@ -72,12 +72,14 @@ const Navbar = () => {
                     if (link.dropdown) dropdownRefs.current[link.key] = el;
                   }}
                   className="relative"
+                  onMouseEnter={() => link.dropdown && setActiveDropdown(link.key)}
+                  onMouseLeave={() => link.dropdown && setActiveDropdown(null)}
                 >
                   {link.dropdown ? (
                     <div>
                       <button
+                        type="button"
                         className="text-text-dark text-sm font-medium hover:text-secondary transition-all flex items-center"
-                        onClick={() => handleDropdownToggle(link.key)}
                         aria-expanded={activeDropdown === link.key}
                       >
                         {link.label}
