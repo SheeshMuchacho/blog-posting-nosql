@@ -49,7 +49,7 @@ const Footer = () => {
   return (
     <footer className="bg-white text-primary">
       {/* Main Footer Content */}
-      <div className="max-container padding-container py-12">
+      <div className="max-container padding-container pb-12 pt-4">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
           {/* Company Info */}
           <div className="flex flex-col">

@@ -7,6 +7,7 @@ import cylinder from '@/public/cylinder.png';
 import noodle from '@/public/noodle.png';
 import Button from '@/components/ui/Button';
 import { AuroraText } from '@/components/ui/AuroraText';
+import Link from 'next/link';
 
 export default function HeroSection() {
   const [isHovered, setIsHovered] = useState(false);
@@ -26,7 +27,9 @@ export default function HeroSection() {
             </p>
             <div className="flex gap-2 items-center mt-[30px]">
               <Button type="button" title="Explore Solutions" className="btn btn-primary" />
-              <Button type="button" title="Learn more" className="btn btn-outline-white" icon="/icons/arrow-right.svg" />
+              <Link href="/about">
+                <Button type="button" title="Learn more" className="btn btn-white" icon="/icons/arrow-right.svg" />
+              </Link>
             </div>
           </div>
 

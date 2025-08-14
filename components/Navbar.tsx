@@ -49,15 +49,11 @@ const Navbar = () => {
     }));
   };
 
-  const handleDropdownToggle = (key: string) => {
-    setActiveDropdown(activeDropdown === key ? null : key);
-  };
-
   return (
     <>
       <nav className={`sticky top-0 z-40 w-full transition-all duration-300 backdrop-blur-md ${scrolled ? "bg-white/80 shadow-sm py-3" : "bg-white/60 py-4"}`}>
         <div className="max-container flexBetween padding-container">
-          {/* Logo */}
+
           <Link href="/" className="flex-shrink-0">
             <Image src="/logo/logoblueT.png" alt="logo" width={120} height={28} className="object-contain" />
           </Link>
@@ -68,7 +64,7 @@ const Navbar = () => {
               {NAV_LINKS.map((link) => (
                 <li
                   key={link.key}
-                  ref={el => {
+                  ref={(el) => {
                     if (link.dropdown) dropdownRefs.current[link.key] = el;
                   }}
                   className="relative"
@@ -77,8 +73,9 @@ const Navbar = () => {
                 >
                   {link.dropdown ? (
                     <div>
-                      <button
-                        type="button"
+                      {/* Change button to Link for proper routing */}
+                      <Link
+                        href={link.href} // Use the href for proper navigation
                         className="text-text-dark text-sm font-medium hover:text-secondary transition-all flex items-center"
                         aria-expanded={activeDropdown === link.key}
                       >
@@ -92,7 +89,9 @@ const Navbar = () => {
                         >
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                         </svg>
-                      </button>
+                      </Link>
+                      
+                      {/* Dropdown content */}
                       <div
                         className={`absolute top-full left-1/2 transform -translate-x-1/2 mt-2 w-48 bg-white rounded-md shadow-lg overflow-hidden transition-all duration-300 origin-top z-40 ${
                           activeDropdown === link.key ? "opacity-100 scale-100" : "opacity-0 scale-95 invisible"
@@ -122,7 +121,6 @@ const Navbar = () => {
             </ul>
           </div>
 
-          {/* Desktop CTA */}
           <div className="hidden lg:block">
             <Button type="button" title="Contact Us" className="btn btn-outline-secondary text-xs px-6 py-2 rounded-full" />
           </div>

@@ -1,14 +1,14 @@
 "use client";
 
-import avatar1 from "@/public/avatar-1.png";
-import avatar2 from "@/public/avatar-2.png";
-import avatar3 from "@/public/avatar-3.png";
-import avatar4 from "@/public/avatar-4.png";
-import avatar5 from "@/public/avatar-5.png";
-import avatar6 from "@/public/avatar-6.png";
-import avatar7 from "@/public/avatar-7.png";
-import avatar8 from "@/public/avatar-8.png";
-import avatar9 from "@/public/avatar-9.png";
+import avatar1 from "@/public/avatar/avatar-1.png";
+import avatar2 from "@/public/avatar/avatar-2.png";
+import avatar3 from "@/public/avatar/avatar-3.png";
+import avatar4 from "@/public/avatar/avatar-4.png";
+import avatar5 from "@/public/avatar/avatar-5.png";
+import avatar6 from "@/public/avatar/avatar-6.png";
+import avatar7 from "@/public/avatar/avatar-7.png";
+import avatar8 from "@/public/avatar/avatar-8.png";
+import avatar9 from "@/public/avatar/avatar-9.png";
 import Image from "next/image";
 import { twMerge } from "tailwind-merge";
 import { motion } from 'framer-motion';
@@ -33,7 +33,7 @@ type Testimonial = (typeof testimonials)[number];
 
 function TestimonialCard({ text, imageSrc, name, username }: Testimonial) {
   return (
-    <div className="testimonial-card">
+    <div className="p-10 border border-solid border-[#222222]/10 rounded-3xl shadow-[0_7px_14px_#EAEAEA] max-w-xs w-full bg-white/60 backdrop-blur-md">
       <div>{text}</div>
       <div className="flex items-center gap-2 mt-5">
         <Image
@@ -44,8 +44,8 @@ function TestimonialCard({ text, imageSrc, name, username }: Testimonial) {
           className="h-10 w-10 rounded-full"
         />
         <div className="flex flex-col">
-          <div className="font-medium tracking-tight leading-5">{name}</div>
-          <div className="leading-5 tracking-tight">{username}</div>
+          <div className="font-medium tracking-tight leading-5 text-left">{name}</div>
+          <div className="leading-5 tracking-tight text-left text-gray-400">{username}</div>
         </div>
       </div>
     </div>
@@ -62,25 +62,31 @@ function MarqueeColumn({
   items: Testimonial[];
   className?: string;
   duration?: number;
-  reverse?: boolean; 
+  reverse?: boolean;
   height?: string;
 }) {
-  // duplicate the items to create a seamless loop
-  const repeated = [...items, ...items];
+  const repeated = [...items, ...items];  // This is to create the infinite loop effect.
 
   return (
     <div
       className={twMerge(
         "relative overflow-hidden will-change-transform",
         height,
-        "[mask-image:linear-gradient(to_bottom,transparent,black_20%,black_70%,transparent)]",
+        "[mask-image:linear-gradient(to_bottom,transparent,black_20%,black_80%,transparent)]",
         className
       )}
     >
       <motion.div
         className="flex flex-col gap-6"
-        animate={{ y: reverse ? ["-30%", "0%"] : ["0%", "-30%"] }}
-        transition={{ duration, ease: "linear", repeat: Infinity }}
+        animate={{
+          y: reverse ? ["0%", "-30%"] : ["-30%", "0%"],
+        }}
+        transition={{
+          duration,
+          ease: "linear",
+          repeat: Infinity, // Ensures infinite loop
+          repeatType: "loop", // Ensures it loops smoothly without glitches
+        }}
       >
         {repeated.map((item, idx) => (
           <div
@@ -101,7 +107,7 @@ export const Testimonials = () => {
       <div
         aria-hidden="true"
         className="
-         absolute h-full w-full bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_70%,transparent_160%)]
+         absolute h-full w-full bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_70%,transparent_200%)]
         "
       />
 

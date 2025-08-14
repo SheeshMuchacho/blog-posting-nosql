@@ -2,30 +2,28 @@
 
 import AnimatedCard from "@/components/ui/AnimatedCard"; 
 
-export const MissionVision = () => {
+export const MissionVisionSection = () => {
   return (
-    <section className="max-container padding-container py-16">
+    <section className="max-container padding-container py-5">
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-
         <AnimatedCard 
           style={1}
           title="Our Vision"
-          description="To be the leading digital agency known for creating exceptional experiences that drive innovation and transform businesses across all industries."
+          description="To be the global leader in B2B demand generation, empowering businesses with data-driven strategies that accelerate growth and connect them to decision makers."
         />
         
         <AnimatedCard 
-          style={2}
+          style={1}
           title="Our Mission"
-          description="Our mission is to deliver exceptional digital solutions that drive growth and success for our clients."
+          description="To deliver unmatched lead generation through innovative marketing automation, precision targeting, and strategic partnerships that drive client success across every industry worldwide."
         />
 
-        <div className="relative bg-gray-100 rounded-2xl overflow-hidden">
-          <img
-            src="/path-to-your-image.jpg"
-            alt="Vision and Mission Illustration"
-            className="w-full h-full object-cover"
-          />
-        </div>
+        <AnimatedCard 
+        style={1}
+        title="Our Values"
+        description="We prioritize trust, innovation, and measurable results, building lasting partnerships through transparent communication and a relentless focus on client success."
+        />
+
       </div>
     </section>
   );

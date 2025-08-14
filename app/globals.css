@@ -74,7 +74,7 @@ body {
   }
 
   .btn-white {
-    @apply border-2 border-white bg-white text-primary hover:bg-transparent hover:text-white;
+    @apply border-2 border-white bg-white text-primary hover:bg-gray-50 hover:text-black;
   }
 
   .btn-outline-white {
@@ -131,87 +131,6 @@ body {
     box-shadow:
       0 0 0 2px var(--tw-ring-color, currentColor),
       0 0 0 calc(2px + var(--tw-ring-offset-width, 0px)) var(--tw-ring-offset-color, transparent);
-  }
-
-  .testimonial-card {
-    @apply p-10 border border-solid border-[#222222]/10 rounded-3xl shadow-[0_7px_14px_#EAEAEA] max-w-xs w-full bg-white/30 backdrop-blur-md
-  }
-
-  .card {
-    position: relative;
-    padding: 2rem;
-    background-color: white;
-    border-radius: 1rem;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    overflow: visible;
-    z-index: 1;
-  }
-
-  .card-1 {
-    --cardAccent: #3f9f47;
-  }
-  .card-2 {
-    --cardAccent: #ff3636;
-  }
-  .card-3 {
-    --cardAccent: #00a9ff;
-  }
-
-  .card-1::after {
-    animation: hue-rotate-special 7s linear infinite reverse;
-  }
-
-  .card-2::after {
-    animation: hue-rotate-special 9s linear infinite;
-  }
-
-  .card-3::after {
-    animation: hue-rotate-special 5s linear infinite alternate-reverse;
-  }
-
-  @keyframes hue-rotate-special {
-    to {
-      filter: drop-shadow(0px 0px 35px var(--cardAccent)) hue-rotate(360deg);
-    }
-  }
-
-  .svg-1 {
-    animation: dash-1 7s linear infinite reverse;
-  }
-  .svg-2 {
-    animation: dash-2 9s linear infinite;
-  }
-  .svg-3 {
-    animation: dash-3 5s linear infinite alternate-reverse;
-  }
-
-  @keyframes dash-1 {
-    to {
-      stroke-dashoffset: -397px;
-    }
-  }
-
-  @keyframes dash-2 {
-    to {
-      stroke-dashoffset: -438px;
-    }
-  }
-
-  @keyframes dash-3 {
-    to {
-      stroke-dashoffset: -463px;
-    }
-  }
-
-  .circle {
-    position: absolute;
-    top: -1rem;
-    right: -1rem;
-    width: 70px;
-    height: 70px;
-    border: 20px solid var(--cardAccent);
-    border-radius: 50%;
-    z-index: 1;
   }
 
   /* === LAYOUT === */

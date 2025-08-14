@@ -4,6 +4,7 @@ import Button from '@/components/ui/Button';
 import SpotlightCard from '@/components/ui/SpotlightCard';
 import { Target, BarChart3, Globe } from 'lucide-react';
 import { motion } from 'framer-motion';
+import Link from 'next/link';
 
 export default function ServicesSection() {
 
@@ -18,7 +19,7 @@ export default function ServicesSection() {
   };
 
   return (
-    <section className="relative py-12 overflow-hidden h-full w-full bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_70%,transparent_160%)]">
+    <section className="relative py-12 overflow-hidden h-full w-full bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_70%,transparent_200%)]">
       <motion.div
         className="padding-container max-w-screen-xl mx-auto relative z-10"
         initial="hidden"
@@ -43,13 +44,13 @@ export default function ServicesSection() {
               className="will-change-transform"
               whileHover={{ y: -4, transition: { duration: 0.2 } }}
             >
-              {/* If SpotlightCard accepts className, you can also add hover styles inside it */}
               <SpotlightCard icon={s.icon} title={s.title} description={s.description} />
             </motion.li>
           ))}
         </motion.ul>
 
         <div className="text-center mt-16 flex justify-center">
+          <Link href="/services">
           <Button
             type="button"
             title="Explore All Services"
@@ -59,6 +60,7 @@ export default function ServicesSection() {
               group relative justify-center gap-2 rounded-md transition-all duration-300 ease-out 
               hover:ring-2 hover:ring-secondary hover:ring-offset-1 btn-shine"
           />
+          </Link>
         </div>
       </motion.div>
     </section>
