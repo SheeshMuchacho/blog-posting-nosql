@@ -40,7 +40,6 @@ export default function ServiceCard({
       onMouseLeave={() => setOpacity(0)}
       className={`bg-white rounded-2xl shadow-lg overflow-hidden relative transition-all duration-300 hover:-translate-y-1 hover:shadow-xl cursor-pointer group ${className}`}
     >
-      {/* Blue moving gradient effect */}
       <div
         className="pointer-events-none absolute inset-0 transition-opacity duration-300"
         style={{
@@ -49,7 +48,6 @@ export default function ServiceCard({
         }}
       />
 
-      {/* Image section */}
       <div className="relative h-48 bg-gray-100 overflow-hidden">
         <img 
           src={image} 
@@ -58,14 +56,12 @@ export default function ServiceCard({
         />
       </div>
       
-      {/* Icon in the center */}
       <div className="absolute left-1/2 transform -translate-x-1/2 -translate-y-1/2 top-48">
         <div className="flex items-center justify-center w-16 h-16 bg-white rounded-full shadow-lg border-4 border-white">
           <Icon className="w-8 h-8 text-blue-600" />
         </div>
       </div>
 
-      {/* Card content */}
       <div className="pt-12 pb-6 px-6">
         <h3 className="text-xl font-semibold text-gray-800 text-center mb-3">
           {title}

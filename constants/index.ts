@@ -91,8 +91,8 @@ export interface SocialLink {
 }
 
 export const SOCIAL_LINKS: SocialLink[] = [
-  { icon: "/icons/facebook.svg", href: "https://facebook.com", label: "Facebook" },
-  { icon: "/icons/x.svg", href: "https://x.com", label: "X" },
-  { icon: "/icons/instagram.svg", href: "https://instagram.com", label: "Instagram" },
-  { icon: "/icons/linkedin.svg", href: "https://linkedin.com", label: "LinkedIn" },
+  { icon: "/icons/facebook.png", href: "https://facebook.com", label: "Facebook" },
+  { icon: "/icons/x.png", href: "https://x.com", label: "X" },
+  { icon: "/icons/instagram.png", href: "https://instagram.com", label: "Instagram" },
+  { icon: "/icons/linkedin.png", href: "https://linkedin.com", label: "LinkedIn" },
 ];
