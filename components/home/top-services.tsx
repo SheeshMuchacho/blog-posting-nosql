@@ -6,7 +6,7 @@ import { Target, BarChart3, Globe } from 'lucide-react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 
-export default function ServicesSection() {
+export default function TopServices() {
 
   const containerV = {
     hidden: { opacity: 0, y: 16 },

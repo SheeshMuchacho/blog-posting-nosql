@@ -21,7 +21,6 @@ export default function ServiceCard({
   const [opacity, setOpacity] = useState(0);
   const divRef = useRef<HTMLDivElement>(null);
 
-  // Handle mouse movement for the gradient
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     const div = divRef.current;
     if (!div) return;

@@ -6,7 +6,6 @@ import Link from "next/link";
 import Button from "./ui/Button";
 import { NAV_LINKS, SOCIAL_LINKS } from '@/constants';
 
-// Find the services dropdown items for the footer
 const servicesItems = NAV_LINKS.find(link => link.key === 'services')?.dropdown || [];
 
 const Footer = () => {
@@ -85,18 +84,19 @@ const Footer = () => {
               {/* Social Links */}
               <div className="flex gap-4">
                 {SOCIAL_LINKS.map((social, index) => (
-                  <Link 
-                    key={index} 
-                    href={social.href} 
-                    className="w-10 h-10 rounded-full bg-white hover:bg-blue-400 flex items-center justify-center transition-all duration-300 hover:scale-110 group"
+                  <Link
+                    key={index}
+                    href={social.href}
                     aria-label={social.label}
+                    style={{ backgroundColor: social.bg }}
+                    className="w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 group"
                   >
-                    <Image 
-                      src={social.icon} 
-                      alt={social.label} 
-                      width={20} 
-                      height={20} 
-                      className="group-hover:scale-110 transition-transform"
+                    <Image
+                      src={social.icon}
+                      alt={social.label}
+                      width={20}
+                      height={20}
+                      className="transition-colors duration-300"
                     />
                   </Link>
                 ))}
@@ -159,7 +159,7 @@ const Footer = () => {
                     <Button 
                       type="submit"
                       title="Subscribe" 
-                      className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-white hover:bg-gray-200 text-white px-6 py-2 rounded-lg transition-all duration-300 hover:scale-105 font-medium" 
+                      className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-white hover:bg-blue-500 text-sm text-black hover:text-white px-5 py-2 rounded-lg transition-all duration-300 hover:scale-105 font-medium" 
                     />
                   </div>
                   {emailError && (

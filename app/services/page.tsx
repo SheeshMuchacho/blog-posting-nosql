@@ -1,9 +1,9 @@
-import { SolutionsSection } from "@/components/services/solutions";
+import { ServicesSection } from "@/components/services/services";
 
 export default function Services() {
     return (
         <>
-        <SolutionsSection/>
+        <ServicesSection/>
         </>
     )
 }

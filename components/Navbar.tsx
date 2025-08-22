@@ -6,7 +6,7 @@ import Link from "next/link";
 import Button from "./ui/Button";
 import { NAV_LINKS } from "@/constants";
 
-const SCROLL_THRESHOLD = 24; // small buffer to avoid jitter at top
+const SCROLL_THRESHOLD = 24;
 
 const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -56,7 +56,7 @@ const Navbar = () => {
         className={[
           "fixed top-0 left-0 right-0 z-40 transition-all duration-300",
           scrolled
-            ? "bg-white/95 backdrop-blur-lg shadow-lg border border-white/20"
+            ? "bg-white/80 backdrop-blur-lg shadow-lg border border-white/20"
             : "bg-white/60 backdrop-blur-md shadow-none border-transparent",
         ].join(" ")}
       >

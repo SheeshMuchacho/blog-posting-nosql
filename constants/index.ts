@@ -73,7 +73,7 @@ export const FOOTER_LINKS: FooterSection[] = [
   {
     title: "Our Services",
     links: [
-      { label: "Content Syndication", href: "/content-syndication" },
+      { label: "Content Syndication", href: "/services/content-syndication" },
       { label: "Lead Generation", href: "/lead-generation" },
       { label: "Intent Data", href: "/intent-data" },
       { label: "Display Advertising", href: "/display-advertising" },
@@ -88,11 +88,14 @@ export interface SocialLink {
   icon: string;
   href: string;
   label: string;
+  bg: string; 
 }
 
 export const SOCIAL_LINKS: SocialLink[] = [
-  { icon: "/icons/facebook.png", href: "https://facebook.com", label: "Facebook" },
-  { icon: "/icons/x.png", href: "https://x.com", label: "X" },
-  { icon: "/icons/instagram.png", href: "https://instagram.com", label: "Instagram" },
-  { icon: "/icons/linkedin.png", href: "https://linkedin.com", label: "LinkedIn" },
+  { icon: "/icons/facebook-white.png",  href: "https://facebook.com",  label: "Facebook",  bg: "#1877F2" },
+  { icon: "/icons/x-white.png",         href: "https://x.com",         label: "X",        bg: "#000000" },
+  { icon: "/icons/instagram-white.png", href: "https://instagram.com", label: "Instagram",bg: "#DB5461" },
+  { icon: "/icons/linkedin-white.png",  href: "https://linkedin.com",  label: "LinkedIn", bg: "#0A66C2" },
 ];
+
+

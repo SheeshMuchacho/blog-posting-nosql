@@ -7,6 +7,7 @@ export type SpotlightCardProps = {
   title: string;
   description: string;
   className?: string;
+  showBtn?: boolean;
 };
 
 export default function SpotlightCard({
@@ -14,6 +15,7 @@ export default function SpotlightCard({
   title,
   description,
   className = '',
+  showBtn,
 }: SpotlightCardProps) {
   const divRef = useRef<HTMLDivElement>(null);
   const [position, setPosition] = useState({ x: 0, y: 0 });
@@ -53,6 +55,7 @@ export default function SpotlightCard({
         </div>
         <h3 className="text-2xl font-bold mb-4">{title}</h3>
         <p className="text-gray-600 mb-6">{description}</p>
+        {showBtn && (
         <button className="flex items-center text-blue-600 font-medium group">
           Learn more
           <svg
@@ -63,6 +66,7 @@ export default function SpotlightCard({
             <path d="M5 12h14M13 5l7 7-7 7" stroke="currentColor" strokeWidth="2" />
           </svg>
         </button>
+        )}
       </div>
     </div>
   );
