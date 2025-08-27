@@ -22,7 +22,7 @@ export function ServiceTemplate({ service }: { service: Service }) {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.3 }}
-          className="text-4xl sm:text-6xl font-bold tracking-tight mt-6 bg-gradient-to-r from-[#144272] via-[#2c74b3] to-[#144272] bg-clip-text text-transparent"
+          className="text-4xl sm:text-6xl font-bold tracking-tight py-6 bg-gradient-to-r from-[#144272] via-[#2c74b3] to-[#144272] bg-clip-text text-transparent"
         >
           {service.title}
         </motion.h1>
@@ -31,7 +31,7 @@ export function ServiceTemplate({ service }: { service: Service }) {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.4 }}
-          className="text-xl text-gray-600 mt-6 max-w-3xl leading-relaxed"
+          className="text-xl text-gray-600 max-w-3xl leading-relaxed"
         >
           {service.description}
         </motion.p>
@@ -75,13 +75,7 @@ function HeroSection({ section, service, index }: { section: any; service: Servi
         delay: index * 0.1,
         ease: [0.25, 0.46, 0.45, 0.94]
       }}
-      className="relative bg-gradient-to-br from-gray-50 via-blue-50/30 to-white overflow-hidden"
-    >
-      {/* Background decorations */}
-      <div className="absolute inset-0 bg-[linear-gradient(45deg,transparent_25%,rgba(44,116,179,0.02)_50%,transparent_75%)] bg-[length:60px_60px]" />
-      <div className="absolute top-20 left-10 w-72 h-72 bg-gradient-to-br from-[#2c74b3]/5 to-transparent rounded-full blur-3xl" />
-      <div className="absolute bottom-20 right-10 w-96 h-96 bg-gradient-to-tl from-[#144272]/5 to-transparent rounded-full blur-3xl" />
-
+      className="relative bg-gradient-to-br from-gray-50 via-blue-50/30 to-white overflow-hidden">
       <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <motion.div
@@ -117,7 +111,7 @@ function HeroSection({ section, service, index }: { section: any; service: Servi
               onMouseLeave={() => setIsHovered(false)}
             >
               <div className="relative aspect-[4/3] w-full rounded-3xl overflow-hidden shadow-2xl group">
-                <div className="absolute inset-0 bg-gradient-to-tr from-[#144272]/20 via-transparent to-[#2c74b3]/20 z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <div className="absolute inset-0 z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                 <Image
                   src={typeof section.image === "string" ? section.image : section.image}
                   alt={service.title}
@@ -211,7 +205,7 @@ function CardsSection({ section, index = 0 }: CardsSectionProps & { index?: numb
           </motion.div>
         )}
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 items-start">
           {section.items.map((item, i) => (
             <motion.div
               key={i}

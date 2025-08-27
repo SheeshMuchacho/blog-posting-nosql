@@ -46,10 +46,8 @@ export function ExpandableCard({
           : "0 8px 25px rgba(20, 66, 114, 0.08), 0 3px 8px rgba(44, 116, 179, 0.06)"
       }}
     >
-      {/* Dynamic background gradient */}
       <div className={`absolute inset-0 bg-gradient-to-br ${cardStyle} opacity-40`} />
       
-      {/* Animated border effect */}
       <motion.div
         className="absolute inset-0 rounded-2xl"
         animate={{
@@ -58,13 +56,6 @@ export function ExpandableCard({
             : "transparent"
         }}
         transition={{ duration: 0.3 }}
-      />
-
-      {/* Floating decorative elements */}
-      <motion.div
-        animate={{ rotate: [0, 360] }}
-        transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
-        className="absolute top-4 right-4 w-8 h-8 border border-[#2c74b3]/20 rounded-full"
       />
       
       {isExpanded && (
