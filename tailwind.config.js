@@ -27,6 +27,22 @@ module.exports = {
         lg: "1200px",
         "2xl": "1536px",
       },
+      keyframes: {
+        loadingAnimation: {
+          "0%": { borderRadius: "50% 50% 50% 50%", transform: "rotate(0deg)" },
+          "12.5%": { borderRadius: "0% 50% 50% 50%" },
+          "25%": { borderRadius: "0% 0% 50% 50%", transform: "rotate(90deg)" },
+          "37.5%": { borderRadius: "0% 0% 0% 50%" },
+          "50%": { borderRadius: "0% 0% 0% 0%", transform: "rotate(180deg)" },
+          "62.5%": { borderRadius: "50% 0% 0% 0%" },
+          "75%": { borderRadius: "50% 50% 0% 0%", transform: "rotate(270deg)" },
+          "87.5%": { borderRadius: "50% 50% 50% 0%" },
+          "100%": { borderRadius: "50% 50% 50% 50%", transform: "rotate(360deg)" },
+        },
+      },
+      animation: {
+        loading: "loadingAnimation 4s ease-in-out infinite",
+      },
     },
   },
   plugins: [],
