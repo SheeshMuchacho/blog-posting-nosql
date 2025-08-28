@@ -1,31 +1,32 @@
 import { allServiceSlugs, serviceLoaders, ServiceSlug } from "@/content/services";
 import { StaticImageData } from "next/image";
+import type { LStr } from "@/lib/i18n";
 
 export type Section =
   | {
       type: "hero";
-      heading: string;
-      body: string;
+      heading: LStr;
+      body: LStr;
       image?: StaticImageData | string;
     }
   | {
       type: "cards";
-      heading?: string;
-      items: { title: string; body: string }[];
+      heading?: LStr;
+      items: { title: LStr; body: LStr; subtitle?: LStr }[];
     }
   | {
       type: "text";
-      heading: string;
-      body: string;
+      heading: LStr;
+      body: LStr;
       image?: StaticImageData | string;
       align?: "left" | "right";
-      cta?: { label: string; href?: string }; 
+      cta?: { label: LStr; href?: string };
     };
 
 export type Service = {
   slug: string;
-  title: string;
-  description: string;
+  title: LStr;
+  description: LStr;
   ogImage?: StaticImageData | string;
   sections: Section[];
 };

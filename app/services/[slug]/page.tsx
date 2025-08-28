@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { ServiceTemplate } from "@/components/services/service-template";
 import { getAllServiceSlugs, loadService } from "@/lib/service-data";
+import { getRequestLocale, tServer } from "@/lib/i18n-server";
 
 export function generateStaticParams() {
   return getAllServiceSlugs().map((slug) => ({ slug }));
@@ -10,12 +11,17 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
   const svc = await loadService(params.slug);
   if (!svc) return { title: "Service" };
+
+  const lang = await getRequestLocale();
+  const title = tServer(svc.title, lang);
+  const description = tServer(svc.description, lang);
+
   return {
-    title: `${svc.title} • Services`,
-    description: svc.description,
+    title: `${title} • Services`,
+    description,
     openGraph: {
-      title: svc.title,
-      description: svc.description,
+      title,
+      description,
       images: svc.ogImage
         ? [{ url: typeof svc.ogImage === "string" ? svc.ogImage : (svc.ogImage as any).src }]
         : [],

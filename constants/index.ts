@@ -38,16 +38,7 @@ export const NAV_LINKS: NavLink[] = [
       { key: 'resource-library', label: 'Resource Library', href: '/resource-library' },
     ],
   },
-  {
-    key: 'languages',
-    label: 'Languages',
-    href: '/languages',
-    dropdown: [
-      { key: 'english', label: 'English', href: '/english' },
-      { key: 'japanese', label: '日本語', href: '/japanese' },
-      { key: 'korean', label: '한국인', href: '/korean' },
-    ],
-  },];
+];
 
 export interface FooterLink {
   label: string;

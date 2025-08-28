@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import Button from "./ui/Button";
 import { NAV_LINKS } from "@/constants";
+import LangSwitcher from "./ui/LangSwitcher";
 
 const SCROLL_THRESHOLD = 24;
 
@@ -141,13 +142,12 @@ const Navbar = () => {
             </div>
 
             {/* Desktop CTA */}
-            <div className="hidden lg:block">
+            <div className="hidden lg:flex items-center gap-4">
+              <LangSwitcher />
               <Button
                 type="button"
                 title="Contact Us"
-                className={["btn btn-outline-secondary rounded-full transition-all duration-300", scrolled ? "text-sm px-5 py-2" : "text-xs px-6 py-2"].join(
-                  " "
-                )}
+                className={["btn btn-outline-primary rounded-lg transition-all duration-300", scrolled ? "text-sm px-5 py-2" : "text-xs px-6 py-2"].join(" ")}
               />
             </div>
 
@@ -253,8 +253,11 @@ const Navbar = () => {
             </li>
           ))}
         </ul>
-
+        <div className="mb-4">
+          <LangSwitcher />
+        </div>
         <Button type="button" title="Contact Us" className="btn btn-outline-secondary text-xs w-full" />
+
       </aside>
     </>
   );
