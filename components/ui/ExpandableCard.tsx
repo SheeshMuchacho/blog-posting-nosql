@@ -1,8 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { ChevronDown } from "lucide-react";
+import { useState, useEffect, useRef } from "react";
+import { motion } from "framer-motion";
 
 interface ExpandableCardProps {
   title: string;
@@ -11,6 +10,9 @@ interface ExpandableCardProps {
   index?: number;
   className?: string;
   defaultExpanded?: boolean;
+  onHeightChange?: (height: number) => void;
+  targetHeight?: number;
+  icon?: React.ReactNode;
 }
 
 export function ExpandableCard({ 
@@ -19,10 +21,13 @@ export function ExpandableCard({
   subtitle, 
   index = 0,
   className = "",
-  defaultExpanded = true
+  defaultExpanded = true,
+  onHeightChange,
+  targetHeight,
+  icon
 }: ExpandableCardProps) {
-  const [isExpanded, setIsExpanded] = useState(defaultExpanded);
   const [isHovered, setIsHovered] = useState(false);
+  const contentRef = useRef<HTMLDivElement>(null);
 
   const cardStyles = [
     "from-[#144272]/10 to-[#2c74b3]/5",
@@ -32,10 +37,17 @@ export function ExpandableCard({
 
   const cardStyle = cardStyles[index % cardStyles.length];
 
+  useEffect(() => {
+    if (contentRef.current) {
+      const height = contentRef.current.scrollHeight;
+      onHeightChange?.(height);
+    }
+  }, [content, onHeightChange]);
+
   return (
     <motion.div
       layout
-      className={`relative bg-white rounded-2xl overflow-hidden border border-gray-200/50 ${className}`}
+      className={`relative bg-white rounded-2xl overflow-hidden border border-gray-200/50 h-full flex flex-col ${className}`}
       whileHover={{ y: -4, scale: 1.02 }}
       transition={{ duration: 0.3, ease: "easeOut" }}
       onMouseEnter={() => setIsHovered(true)}
@@ -58,19 +70,13 @@ export function ExpandableCard({
         transition={{ duration: 0.3 }}
       />
       
-      {isExpanded && (
-        <motion.div
-          animate={{ y: [-2, 2, -2] }}
-          transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute bottom-4 left-4 w-2 h-2 bg-gradient-to-r from-[#144272] to-[#2c74b3] rounded-full opacity-60"
-        />
-      )}
-
       <motion.div
-        className="relative p-6 cursor-pointer select-none"
-        onClick={() => setIsExpanded(!isExpanded)}
-        whileTap={{ scale: 0.98 }}
-      >
+        animate={{ y: [-2, 2, -2] }}
+        transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+        className="absolute bottom-4 left-4 w-2 h-2 bg-gradient-to-r from-[#144272] to-[#2c74b3] rounded-full opacity-60"
+      />
+
+      <div className="relative p-6 flex-shrink-0">
         <div className="flex items-start justify-between">
           <div className="flex-1 pr-4">
             {/* Card number indicator */}
@@ -92,57 +98,34 @@ export function ExpandableCard({
             )}
           </div>
           
-          <motion.div
-            animate={{ rotate: isExpanded ? 180 : 0 }}
-            transition={{ duration: 0.4, ease: [0.04, 0.62, 0.23, 0.98] }}
-            className="flex-shrink-0 w-10 h-10 flex items-center justify-center rounded-full bg-gradient-to-r from-[#144272]/10 to-[#2c74b3]/10 group-hover:from-[#144272]/20 group-hover:to-[#2c74b3]/20 transition-colors duration-300"
-          >
-            <ChevronDown className="w-5 h-5 text-[#2c74b3]" />
-          </motion.div>
+          {/* Custom icon in top right */}
+          {icon && (
+            <motion.div
+              className="flex-shrink-0 w-10 h-10 flex items-center justify-center rounded-full bg-gradient-to-r from-[#144272]/10 to-[#2c74b3]/10 text-[#2c74b3]"
+              whileHover={{ scale: 1.1, rotate: 5 }}
+              transition={{ duration: 0.2 }}
+            >
+              {icon}
+            </motion.div>
+          )}
         </div>
-      </motion.div>
+      </div>
 
-      <AnimatePresence>
-        {isExpanded && (
-          <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ 
-              height: "auto", 
-              opacity: 1,
-              transition: {
-                height: { duration: 0.4, ease: [0.04, 0.62, 0.23, 0.98] },
-                opacity: { duration: 0.3, delay: 0.1 }
-              }
-            }}
-            exit={{ 
-              height: 0, 
-              opacity: 0,
-              transition: {
-                height: { duration: 0.3, ease: [0.04, 0.62, 0.23, 0.98] },
-                opacity: { duration: 0.2 }
-              }
-            }}
-            className="overflow-hidden relative"
-          >
-            {/* Subtle separator */}
-            <div className="mx-6 h-px bg-gradient-to-r from-transparent via-[#2c74b3]/20 to-transparent" />
-            
-            <div className="px-6 pb-12">
-              <motion.div
-                initial={{ y: -10 }}
-                animate={{ y: 0 }}
-                exit={{ y: -10 }}
-                transition={{ duration: 0.3, delay: 0.1 }}
-                className="pt-3"
-              >
-                <p className="text-gray-700 leading-loose text-base">
-                  {content}
-                </p>
-              </motion.div>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      <div className="flex-1 relative">
+        {/* Subtle separator */}
+        <div className="mx-6 h-px bg-gradient-to-r from-transparent via-[#2c74b3]/20 to-transparent" />
+        
+        <div 
+          ref={contentRef}
+          className="px-6 pb-12"
+        >
+          <div className="pt-3">
+            <p className="text-gray-700 leading-loose text-base">
+              {content}
+            </p>
+          </div>
+        </div>
+      </div>
     </motion.div>
   );
 }

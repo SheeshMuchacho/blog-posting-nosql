@@ -123,6 +123,12 @@ type CardsSectionProps = {
 };
 
 function CardsSection({ section, index = 0, lang }: CardsSectionProps) {
+  const [maxContentHeight, setMaxContentHeight] = useState(0);
+
+  const handleHeightChange = (h: number) => {
+    setMaxContentHeight((prev) => (h > prev ? h : prev));
+  };
+
   const cardVariants = {
     hidden: { opacity: 0, y: 80, rotateX: 45, scale: 0.8 },
     visible: (i: number) => ({
@@ -142,7 +148,13 @@ function CardsSection({ section, index = 0, lang }: CardsSectionProps) {
   };
 
   return (
-    <motion.section initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true, amount: 0.2 }} transition={{ duration: 0.6 }} className="relative overflow-hidden">
+    <motion.section
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      viewport={{ once: true, amount: 0.2 }}
+      transition={{ duration: 0.6 }}
+      className="relative overflow-hidden"
+    >
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-14 pt-6">
         {section.heading && (
           <motion.div
@@ -155,14 +167,35 @@ function CardsSection({ section, index = 0, lang }: CardsSectionProps) {
             <h2 className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-[#144272] via-[#2c74b3] to-[#144272] bg-clip-text text-transparent mb-4">
               {t(section.heading, lang)}
             </h2>
-            <motion.div initial={{ width: 0 }} whileInView={{ width: 96 }} viewport={{ once: true }} transition={{ duration: 0.8, delay: 0.4 }} className="h-1 bg-gradient-to-r from-[#144272] to-[#2c74b3] mx-auto rounded-full" />
+            <motion.div
+              initial={{ width: 0 }}
+              whileInView={{ width: 96 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+              className="h-1 bg-gradient-to-r from-[#144272] to-[#2c74b3] mx-auto rounded-full"
+            />
           </motion.div>
         )}
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 items-start">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 items-stretch h-full">
           {section.items.map((item, i) => (
-            <motion.div key={i} variants={cardVariants as any} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.3 }} custom={i} className="group perspective-1000">
-              <ExpandableCard title={t(item.title, lang)} subtitle={item.subtitle ? t(item.subtitle, lang) : undefined} content={t(item.body, lang)} index={i} />
+            <motion.div
+              key={i}
+              variants={cardVariants as any}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.3 }}
+              custom={i}
+              className="group perspective-1000"
+            >
+              <ExpandableCard
+                title={t(item.title, lang)}
+                subtitle={item.subtitle ? t(item.subtitle, lang) : undefined}
+                content={t(item.body, lang)}
+                index={i}
+                onHeightChange={handleHeightChange}
+                targetHeight={maxContentHeight}
+              />
             </motion.div>
           ))}
         </div>
@@ -170,6 +203,7 @@ function CardsSection({ section, index = 0, lang }: CardsSectionProps) {
     </motion.section>
   );
 }
+
 
 function TextSection({ section, service, index, lang }: { section: any; service: Service; index: number; lang: any }) {
   const [isHovered, setIsHovered] = useState(false);
