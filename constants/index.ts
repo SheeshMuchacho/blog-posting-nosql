@@ -23,7 +23,7 @@ export const NAV_LINKS: NavLink[] = [
       { key: 'lead-generation', label: 'Lead Generation', href: '/services/lead-generation' },
       { key: 'intent-data', label: 'Intent Data', href: '/services/intent-data' },
       { key: 'display-advertising', label: 'Display Advertising', href: '/services/display-advertising' },
-      { key: 'webinar-&-events', label: 'Webinar & Events', href: '/services/webinar-&-events' },
+      { key: 'webinar-&-events', label: 'Webinar & Events', href: '/services/webinar' },
       { key: 'abm', label: 'ABM', href: '/services/abm' },
       { key: 'demand-generation', label: 'Demand Generation', href: '/services/demand-generation' },
     ],

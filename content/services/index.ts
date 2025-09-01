@@ -2,7 +2,10 @@ export const serviceLoaders = {
   "content-syndication": () => import("./content-syndication"),
   "display-advertising": () => import("./display-advertising"),
   "lead-generation": () => import("./lead-generation"), 
-  // add new services here
+  "webinar": () => import("./webinar"),
+  "intent-data": () => import("./intent-data"),
+  "demand-generation": () => import("./demand-generation"),
+  "abm": () => import("./abm"),
 } as const;
 
 export type ServiceSlug = keyof typeof serviceLoaders;
