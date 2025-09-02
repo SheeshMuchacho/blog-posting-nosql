@@ -7,6 +7,9 @@ import Button from "./ui/Button";
 import { NAV_LINKS } from "@/constants";
 import LangSwitcher from "./ui/LangSwitcher";
 
+import { useLanguage } from "@/app/i18n/LanguageProvider";
+import { t } from "@/lib/i18n";
+
 const SCROLL_THRESHOLD = 24;
 
 const Navbar = () => {
@@ -15,6 +18,7 @@ const Navbar = () => {
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const [mobileExpandedItems, setMobileExpandedItems] = useState<Record<string, boolean>>({});
   const dropdownRefs = useRef<Record<string, HTMLDivElement | null>>({});
+  const { lang } = useLanguage();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > SCROLL_THRESHOLD);
@@ -23,7 +27,6 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // lock body when mobile menu open
   useEffect(() => {
     document.body.style.overflow = mobileMenuOpen ? "hidden" : "auto";
     return () => {
@@ -31,7 +34,6 @@ const Navbar = () => {
     };
   }, [mobileMenuOpen]);
 
-  // click outside to close desktop dropdown
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -67,7 +69,7 @@ const Navbar = () => {
             scrolled ? "w-[92vw] max-w-6xl rounded-full px-8 pb-6 pt-2 mt-3" : "max-w-7xl px-6 sm:px-8 py-4",
           ].join(" ")}
         >
-          <div className={["flex items-center", scrolled ? "justify-between" : "justify-between"].join(" ")}>
+          <div className="flex items-center justify-between">
             <Link href="/" className="flex-shrink-0">
               <Image src="/logo/logoblueT.png" alt="logo" width={120} height={28} className="object-contain" priority />
             </Link>
@@ -91,12 +93,10 @@ const Navbar = () => {
                           className="text-text-dark text-sm font-medium hover:text-secondary transition-colors flex items-center whitespace-nowrap"
                           aria-expanded={activeDropdown === link.key}
                         >
-                          {link.label}
+                          {t(link.label, lang)}
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
-                            className={`ml-1 h-4 w-4 transition-transform duration-200 ${
-                              activeDropdown === link.key ? "rotate-180" : ""
-                            }`}
+                            className={`ml-1 h-4 w-4 transition-transform duration-200 ${activeDropdown === link.key ? "rotate-180" : ""}`}
                             fill="none"
                             viewBox="0 0 24 24"
                             stroke="currentColor"
@@ -121,7 +121,7 @@ const Navbar = () => {
                                   className="block px-4 py-2 text-xs text-gray-700 hover:bg-gray-100 hover:text-secondary transition-colors"
                                   onClick={() => setActiveDropdown(null)}
                                 >
-                                  {item.label}
+                                  {t(item.label, lang)}
                                 </Link>
                               </li>
                             ))}
@@ -133,7 +133,7 @@ const Navbar = () => {
                         href={link.href}
                         className="text-text-dark text-sm font-medium hover:text-secondary transition-colors whitespace-nowrap"
                       >
-                        {link.label}
+                        {t(link.label, lang)}
                       </Link>
                     )}
                   </li>
@@ -146,7 +146,7 @@ const Navbar = () => {
               <LangSwitcher />
               <Button
                 type="button"
-                title="Contact Us"
+                title={t({ en: "Contact Us", ja: "お問い合わせ", ko: "문의하기" }, lang)}
                 className={["btn btn-outline-primary rounded-lg transition-all duration-300", scrolled ? "text-sm px-5 py-2" : "text-xs px-6 py-2"].join(" ")}
               />
             </div>
@@ -159,14 +159,12 @@ const Navbar = () => {
         </div>
       </nav>
 
-      {/* Constant spacer: prevents layout jump & threshold oscillation */}
+      {/* Spacer to avoid layout jump */}
       <div className="h-20 w-full" />
 
       {/* Mobile overlay */}
       <div
-        className={`fixed inset-0 bg-black/50 z-40 transition-opacity duration-300 lg:hidden ${
-          mobileMenuOpen ? "opacity-100" : "opacity-0 pointer-events-none"
-        }`}
+        className={`fixed inset-0 bg-black/50 z-40 transition-opacity duration-300 lg:hidden ${mobileMenuOpen ? "opacity-100" : "opacity-0 pointer-events-none"}`}
         onClick={() => setMobileMenuOpen(false)}
       />
 
@@ -197,15 +195,13 @@ const Navbar = () => {
                 <div>
                   <button
                     className="text-text-dark text-base font-medium hover:text-secondary transition-colors flex items-center justify-between w-full"
-                    onClick={() => toggleMobileDropdown(link.key)}
+                    onClick={() => setMobileExpandedItems((prev) => ({ ...prev, [link.key]: !prev[link.key] }))}
                     aria-expanded={!!mobileExpandedItems[link.key]}
                   >
-                    {link.label}
+                    {t(link.label, lang)}
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
-                      className={`ml-1 h-4 w-4 transition-transform duration-300 ${
-                        mobileExpandedItems[link.key] ? "rotate-180" : ""
-                      }`}
+                      className={`ml-1 h-4 w-4 transition-transform duration-300 ${mobileExpandedItems[link.key] ? "rotate-180" : ""}`}
                       fill="none"
                       viewBox="0 0 24 24"
                       stroke="currentColor"
@@ -213,11 +209,7 @@ const Navbar = () => {
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                     </svg>
                   </button>
-                  <div
-                    className={`overflow-hidden transition-all duration-300 ease-in-out ${
-                      mobileExpandedItems[link.key] ? "max-h-64 mt-3" : "max-h-0"
-                    }`}
-                  >
+                  <div className={`overflow-hidden transition-all duration-300 ease-in-out ${mobileExpandedItems[link.key] ? "max-h-64 mt-3" : "max-h-0"}`}>
                     <ul className="pl-4 border-l-2 border-gray-200 space-y-3">
                       {link.dropdown.map((item, itemIndex) => (
                         <li
@@ -234,7 +226,7 @@ const Navbar = () => {
                             className="text-text-dark text-sm hover:text-secondary transition-colors flex items-center"
                             onClick={() => setMobileMenuOpen(false)}
                           >
-                            {item.label}
+                            {t(item.label, lang)}
                           </Link>
                         </li>
                       ))}
@@ -247,17 +239,21 @@ const Navbar = () => {
                   className="text-text-dark text-base font-medium hover:text-secondary transition-colors flex items-center"
                   onClick={() => setMobileMenuOpen(false)}
                 >
-                  {link.label}
+                  {t(link.label, lang)}
                 </Link>
               )}
             </li>
           ))}
         </ul>
+
         <div className="mb-4">
           <LangSwitcher />
         </div>
-        <Button type="button" title="Contact Us" className="btn btn-outline-secondary text-xs w-full" />
-
+        <Button
+          type="button"
+          title={t({ en: "Contact Us", ja: "お問い合わせ", ko: "문의하기" }, lang)}
+          className="btn btn-outline-secondary text-xs w-full"
+        />
       </aside>
     </>
   );

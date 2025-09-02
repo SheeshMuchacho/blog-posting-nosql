@@ -1,92 +1,142 @@
 
+import type { LStr } from "@/lib/i18n";
+
 export interface DropdownItem {
   key: string;
-  label: string;
+  label: LStr;
   href: string;
 }
 
 export interface NavLink {
   key: string;
-  label: string;
+  label: LStr;
   href: string;
   dropdown?: DropdownItem[];
 }
 
 export const NAV_LINKS: NavLink[] = [
-  { key: 'home', label: 'Home', href: '/' },
+  { key: "home", label: { en: "Home", ja: "ホーム", ko: "홈" }, href: "/" },
+
   {
-    key: 'services',
-    label: 'Services',
-    href: '/services',
+    key: "services",
+    label: { en: "Services", ja: "サービス", ko: "서비스" },
+    href: "/services",
     dropdown: [
-      { key: 'content-syndication', label: 'Content Syndication', href: '/services/content-syndication' },
-      { key: 'lead-generation', label: 'Lead Generation', href: '/services/lead-generation' },
-      { key: 'intent-data', label: 'Intent Data', href: '/services/intent-data' },
-      { key: 'display-advertising', label: 'Display Advertising', href: '/services/display-advertising' },
-      { key: 'webinar-&-events', label: 'Webinar & Events', href: '/services/webinar' },
-      { key: 'abm', label: 'ABM', href: '/services/abm' },
-      { key: 'demand-generation', label: 'Demand Generation', href: '/services/demand-generation' },
+      {
+        key: "content-syndication",
+        label: { en: "Content Syndication", ja: "コンテンツ・シンジケーション", ko: "콘텐츠 신디케이션" },
+        href: "/services/content-syndication",
+      },
+      {
+        key: "lead-generation",
+        label: { en: "Lead Generation", ja: "リード獲得", ko: "리드 생성" },
+        href: "/services/lead-generation",
+      },
+      {
+        key: "intent-data",
+        label: { en: "Intent Data", ja: "インテントデータ", ko: "인텐트 데이터" },
+        href: "/services/intent-data",
+      },
+      {
+        key: "display-advertising",
+        label: { en: "Display Advertising", ja: "ディスプレイ広告", ko: "디스플레이 광고" },
+        href: "/services/display-advertising",
+      },
+      {
+        key: "webinar",
+        label: { en: "Webinar & Events", ja: "ウェビナーとイベント", ko: "웨비나 및 이벤트" },
+        href: "/services/webinar",
+      },
+      {
+        key: "abm",
+        label: { en: "ABM", ja: "ABM", ko: "ABM" },
+        href: "/services/abm",
+      },
+      {
+        key: "demand-generation",
+        label: { en: "Demand Generation", ja: "デマンドジェネレーション", ko: "디맨드 제너레이션" },
+        href: "/services/demand-generation",
+      },
     ],
   },
-  { key: 'about', label: 'About', href: '/about' },
+
+  { key: "about", label: { en: "About", ja: "会社概要", ko: "회사 소개" }, href: "/about" },
+
   {
-    key: 'resources',
-    label: 'Resources',
-    href: '/resources',
+    key: "resources",
+    label: { en: "Resources", ja: "リソース", ko: "리소스" },
+    href: "/resources",
     dropdown: [
-      { key: 'blog', label: 'Blog', href: '/blog' },
-      { key: 'resource-library', label: 'Resource Library', href: '/resource-library' },
+      { key: "blog", label: { en: "Blog", ja: "ブログ", ko: "블로그" }, href: "/blog" },
+      {
+        key: "resource-library",
+        label: { en: "Resource Library", ja: "リソースライブラリ", ko: "리소스 라이브러리" },
+        href: "/resource-library",
+      },
     ],
   },
 ];
 
+
 export interface FooterLink {
-  label: string;
+  label: LStr;
   href: string;
 }
 
 export interface FooterSection {
-  title: string;
+  title: LStr;
   links: FooterLink[];
 }
 
 export const FOOTER_LINKS: FooterSection[] = [
   {
-    title: "Quick Links",
+    title: { en: "Quick Links", ja: "クイックリンク", ko: "바로가기" },
     links: [
-      { label: "Home", href: "/" },
-      { label: "About Us", href: "/about" },
-      { label: "Services", href: "/services" },
-      { label: "Blog", href: "/blog" },
-      { label: "Careers", href: "/careers" },
-    ]
+      { label: { en: "Home", ja: "ホーム", ko: "홈" }, href: "/" },
+      { label: { en: "About Us", ja: "私たちについて", ko: "회사 소개" }, href: "/about" },
+      { label: { en: "Services", ja: "サービス", ko: "서비스" }, href: "/services" },
+      { label: { en: "Blog", ja: "ブログ", ko: "블로그" }, href: "/blog" },
+      { label: { en: "Careers", ja: "採用情報", ko: "채용" }, href: "/careers" },
+    ],
   },
   {
-    title: "Our Services",
+    title: { en: "Our Services", ja: "サービス一覧", ko: "서비스" },
     links: [
-      { label: "Content Syndication", href: "/services/content-syndication" },
-      { label: "Lead Generation", href: "/services/lead-generation" },
-      { label: "Intent Data", href: "/services/intent-data" },
-      { label: "Display Advertising", href: "/services/display-advertising" },
-      { label: "Webinar & Events", href: "/services/webinar-&-events" },
-      { label: "ABM", href: "/services/abm" },
-      { label: "Demand Generation", href: "/services/demand-generation" },
-    ]
-  }
+      {
+        label: { en: "Content Syndication", ja: "コンテンツ・シンジケーション", ko: "콘텐츠 신디케이션" },
+        href: "/services/content-syndication",
+      },
+      { label: { en: "Lead Generation", ja: "リード獲得", ko: "리드 생성" }, href: "/services/lead-generation" },
+      { label: { en: "Intent Data", ja: "インテントデータ", ko: "인텐트 데이터" }, href: "/services/intent-data" },
+      {
+        label: { en: "Display Advertising", ja: "ディスプレイ広告", ko: "디스플레이 광고" },
+        href: "/services/display-advertising",
+      },
+      {
+        label: { en: "Webinar & Events", ja: "ウェビナーとイベント", ko: "웨비나 및 이벤트" },
+        href: "/services/webinar",
+      },
+      { label: { en: "ABM", ja: "ABM", ko: "ABM" }, href: "/services/abm" },
+      {
+        label: { en: "Demand Generation", ja: "デマンドジェネレーション", ko: "디맨드 제너레이션" },
+        href: "/services/demand-generation",
+      },
+    ],
+  },
 ];
 
 export interface SocialLink {
   icon: string;
   href: string;
-  label: string;
-  bg: string; 
+  label: LStr;
+  bg: string;
 }
 
 export const SOCIAL_LINKS: SocialLink[] = [
-  { icon: "/icons/facebook-white.png",  href: "https://facebook.com",  label: "Facebook",  bg: "#1877F2" },
-  { icon: "/icons/x-white.png",         href: "https://x.com",         label: "X",        bg: "#000000" },
-  { icon: "/icons/instagram-white.png", href: "https://instagram.com", label: "Instagram",bg: "#DB5461" },
-  { icon: "/icons/linkedin-white.png",  href: "https://linkedin.com",  label: "LinkedIn", bg: "#0A66C2" },
+  { icon: "/icons/facebook-white.png", href: "https://facebook.com", label: { en: "Facebook", ja: "フェイスブック", ko: "페이스북" }, bg: "#1877F2" },
+  { icon: "/icons/x-white.png", href: "https://x.com", label: { en: "X", ja: "X", ko: "X" }, bg: "#000000" },
+  { icon: "/icons/instagram-white.png", href: "https://instagram.com", label: { en: "Instagram", ja: "インスタグラム", ko: "인스타그램" }, bg: "#DB5461" },
+  { icon: "/icons/linkedin-white.png", href: "https://linkedin.com", label: { en: "LinkedIn", ja: "リンクトイン", ko: "링크드인" }, bg: "#0A66C2" },
 ];
 
 
