@@ -14,17 +14,17 @@ export default async function RootLayout({children,}: Readonly<{children: React.
   const lang = await getRequestLocale(); 
   return (
     <html lang={lang}>
-      <body suppressHydrationWarning> 
-        <LanguageProvider>
-        <Navbar />
+      <LanguageProvider>
+        <body suppressHydrationWarning> 
+          <Navbar />
 
-        <main>
-            {children}
-        </main>
+          <main>
+              {children}
+          </main>
 
-        <Footer />
-        </LanguageProvider>
-      </body>
+          <Footer />
+        </body>
+      </LanguageProvider>
     </html>
   );
 }

@@ -17,13 +17,13 @@ export function ServiceTemplate({ service }: { service: Service }) {
       <motion.header
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
+        transition={{ duration: 0.2 }}
         className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 pb-8 overflow-hidden"
       >
         <motion.h1
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.3 }}
+          transition={{ duration: 0.2, delay: 0.2 }}
           className="text-4xl sm:text-6xl font-bold tracking-tight py-6 bg-gradient-to-r from-[#144272] via-[#2c74b3] to-[#144272] bg-clip-text text-transparent"
         >
           {t(service.title, lang)}
@@ -32,7 +32,7 @@ export function ServiceTemplate({ service }: { service: Service }) {
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.4 }}
+          transition={{ duration: 0.2, delay: 0.3 }}
           className="text-xl text-gray-600 max-w-3xl leading-relaxed"
         >
           {t(service.description, lang)}
@@ -63,7 +63,7 @@ function HeroSection({ section, service, index, lang }: { section: any; service:
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.3 }}
-      transition={{ duration: 0.8, delay: index * 0.1, ease: [0.25, 0.46, 0.45, 0.94] }}
+      transition={{ duration: 0.3, delay: index * 0.1, ease: [0.25, 0.46, 0.45, 0.94] }}
       className="relative bg-gradient-to-br from-gray-50 via-blue-50/30 to-white overflow-hidden"
     >
       <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
@@ -72,7 +72,7 @@ function HeroSection({ section, service, index, lang }: { section: any; service:
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.2, ease: [0.25, 0.46, 0.45, 0.94] }}
+            transition={{ duration: 0.3, delay: 0.1, ease: [0.25, 0.46, 0.45, 0.94] }}
           >
             <h2 className="text-3xl sm:text-4xl font-bold text-[#144272] leading-tight">{t(section.heading, lang)}</h2>
             <div className="mt-6 text-gray-700 text-lg leading-relaxed whitespace-pre-line">{t(section.body, lang)}</div>
@@ -83,7 +83,7 @@ function HeroSection({ section, service, index, lang }: { section: any; service:
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
+              transition={{ duration: 0.3, delay: 0.1, ease: [0.25, 0.46, 0.45, 0.94] }}
               className="relative"
               onMouseEnter={() => setIsHovered(true)}
               onMouseLeave={() => setIsHovered(false)}
@@ -137,8 +137,8 @@ function CardsSection({ section, index = 0, lang }: CardsSectionProps) {
       rotateX: 0,
       scale: 1,
       transition: {
-        delay: 0.3 + i * 0.15,
-        duration: 0.8,
+        delay: 0.1 + i * 0.1,
+        duration: 0.3,
         ease: [0.04, 0.62, 0.23, 0.98],
         type: "spring",
         stiffness: 100,
@@ -152,7 +152,7 @@ function CardsSection({ section, index = 0, lang }: CardsSectionProps) {
       initial={{ opacity: 0 }}
       whileInView={{ opacity: 1 }}
       viewport={{ once: true, amount: 0.2 }}
-      transition={{ duration: 0.6 }}
+      transition={{ duration: 0.2 }}
       className="relative overflow-hidden"
     >
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-14 pt-6">
@@ -161,7 +161,7 @@ function CardsSection({ section, index = 0, lang }: CardsSectionProps) {
             initial={{ opacity: 0, y: -30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.2, ease: [0.25, 0.46, 0.45, 0.94] }}
+            transition={{ duration: 0.3, delay: 0.1, ease: [0.25, 0.46, 0.45, 0.94] }}
             className="text-center mb-12"
           >
             <h2 className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-[#144272] via-[#2c74b3] to-[#144272] bg-clip-text text-transparent mb-4">
@@ -171,7 +171,7 @@ function CardsSection({ section, index = 0, lang }: CardsSectionProps) {
               initial={{ width: 0 }}
               whileInView={{ width: 96 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: 0.4 }}
+              transition={{ duration: 0.3, delay: 0.1 }}
               className="h-1 bg-gradient-to-r from-[#144272] to-[#2c74b3] mx-auto rounded-full"
             />
           </motion.div>
@@ -210,27 +210,27 @@ function TextSection({ section, service, index, lang }: { section: any; service:
   const isRightAlign = section.align === "right";
 
   return (
-    <motion.section initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.2 }} transition={{ duration: 0.8, delay: index * 0.1, ease: [0.25, 0.46, 0.45, 0.94] }} className="relative to-white overflow-hidden">
+    <motion.section initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.2 }} transition={{ duration: 0.3, delay: index * 0.1, ease: [0.25, 0.46, 0.45, 0.94] }} className="relative to-white overflow-hidden">
       <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-20">
         <div className={`grid gap-12 items-center ${section.image ? "md:grid-cols-2" : ""}`}>
           {isRightAlign ? (
             <>
               {section.image && (
-                <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.3 }} transition={{ duration: 0.8, delay: 0.2, ease: [0.25, 0.46, 0.45, 0.94] }} className="order-2 md:order-1 relative" onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
+                <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.3 }} transition={{ duration: 0.3, delay: 0.1, ease: [0.25, 0.46, 0.45, 0.94] }} className="order-2 md:order-1 relative" onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
                   <ImageContainer image={section.image} alt={t(service.title, lang)} isHovered={isHovered} />
                 </motion.div>
               )}
-              <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.3 }} transition={{ duration: 0.8, delay: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }} className="order-1 md:order-2">
+              <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.3 }} transition={{ duration: 0.3, delay: 0.2, ease: [0.25, 0.46, 0.45, 0.94] }} className="order-1 md:order-2">
                 <TextContent section={section} lang={lang} />
               </motion.div>
             </>
           ) : (
             <>
-              <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.3 }} transition={{ duration: 0.8, delay: 0.2, ease: [0.25, 0.46, 0.45, 0.94] }}>
+              <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.3 }} transition={{ duration: 0.3, delay: 0.1, ease: [0.25, 0.46, 0.45, 0.94] }}>
                 <TextContent section={section} lang={lang} />
               </motion.div>
               {section.image && (
-                <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.3 }} transition={{ duration: 0.8, delay: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }} className="relative" onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
+                <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.3 }} transition={{ duration: 0.3, delay: 0.2, ease: [0.25, 0.46, 0.45, 0.94] }} className="relative" onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
                   <ImageContainer image={section.image} alt={t(service.title, lang)} isHovered={isHovered} />
                 </motion.div>
               )}
@@ -258,7 +258,7 @@ function ImageContainer({ image, alt, isHovered }: { image: any; alt: string; is
 function TextContent({ section, lang }: { section: any; lang: any }) {
   return (
     <>
-      <motion.h3 initial={{ opacity: 0, y: 30, rotateX: 15 }} whileInView={{ opacity: 1, y: 0, rotateX: 0 }} viewport={{ once: true }} transition={{ duration: 0.8, delay: 0.2 }} className="text-3xl sm:text-4xl font-bold text-[#144272] leading-tight mb-6">
+      <motion.h3 initial={{ opacity: 0, y: 30, rotateX: 15 }} whileInView={{ opacity: 1, y: 0, rotateX: 0 }} viewport={{ once: true }} transition={{ duration: 0.3, delay: 0.1 }} className="text-3xl sm:text-4xl font-bold text-[#144272] leading-tight mb-6">
         {t(section.heading, lang)}
       </motion.h3>
 
@@ -267,7 +267,7 @@ function TextContent({ section, lang }: { section: any; lang: any }) {
       </motion.p>
 
       {section.cta && (
-        <motion.div initial={{ opacity: 0, y: 30, scale: 0.9 }} whileInView={{ opacity: 1, y: 0, scale: 1 }} viewport={{ once: true }} transition={{ duration: 0.8, delay: 0.6, type: "spring", stiffness: 200, damping: 20 }}>
+        <motion.div initial={{ opacity: 0, y: 30, scale: 0.9 }} whileInView={{ opacity: 1, y: 0, scale: 1 }} viewport={{ once: true }} transition={{ duration: 0.3, delay: 0.1, type: "spring", stiffness: 200, damping: 20 }}>
           {section.cta.href ? (
             <Link href={section.cta.href}>
               <motion.button whileHover={{ scale: 1.05, y: -3, boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)" }} whileTap={{ scale: 0.95 }} className="group inline-flex items-center justify-center rounded-2xl px-8 py-4 text-white bg-gradient-to-r from-[#144272] to-[#2c74b3] hover:from-[#2c74b3] hover:to-[#144272] transition-all duration-300 shadow-lg font-medium">
