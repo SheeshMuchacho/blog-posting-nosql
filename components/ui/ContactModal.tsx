@@ -1,5 +1,4 @@
 import { useState, useRef, useEffect } from "react";
-import Image from "next/image";
 import { useLanguage } from "@/app/i18n/LanguageProvider";
 import { t } from "@/lib/i18n";
 
@@ -57,6 +56,19 @@ const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) => {
     };
   }, [isOpen, onClose]);
 
+  // Phone number validation function
+  const isValidPhoneNumber = (phone: string): boolean => {
+    // Allow empty phone (optional field)
+    if (!phone.trim()) return true;
+    
+    // Check if phone contains only numbers, spaces, hyphens, parentheses, and + symbol
+    // Also ensure it has a reasonable length (7-15 digits)
+    const phoneRegex = /^[+]?[\d\s\-\(\)]{7,20}$/;
+    const digitsOnly = phone.replace(/[^\d]/g, '');
+    
+    return phoneRegex.test(phone) && digitsOnly.length >= 7 && digitsOnly.length <= 15;
+  };
+
   const validateForm = (): boolean => {
     const newErrors: Partial<FormData> = {};
 
@@ -86,13 +98,33 @@ const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) => {
       );
     }
 
+    // Phone validation
+    if (formData.phone.trim() && !isValidPhoneNumber(formData.phone)) {
+      newErrors.phone = t(
+        { 
+          en: 'Please enter a valid phone number', 
+          ja: '有効な電話番号を入力してください', 
+          ko: '유효한 전화번호를 입력해주세요' 
+        },
+        lang
+      );
+    }
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
+    
+    // Special handling for phone field - allow only numbers, +, spaces, hyphens, parentheses
+    if (name === 'phone') {
+      const sanitizedValue = value.replace(/[^+\d\s\-\(\)]/g, '');
+      setFormData(prev => ({ ...prev, [name]: sanitizedValue }));
+    } else {
+      setFormData(prev => ({ ...prev, [name]: value }));
+    }
+    
     if (errors[name as keyof FormData]) {
       setErrors(prev => ({ ...prev, [name]: undefined }));
     }
@@ -311,12 +343,15 @@ const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) => {
                 name="phone"
                 value={formData.phone}
                 onChange={handleInputChange}
-                className="w-full px-4 py-3 border border-gray-200 rounded-lg backdrop-blur-sm transition-all focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 hover:bg-white/70"
+                className={`w-full px-4 py-3 border rounded-lg backdrop-blur-sm transition-all focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 hover:bg-white/70 ${
+                  errors.phone ? 'border-red-300 bg-red-50/50' : 'border-gray-200'
+                }`}
                 placeholder={t(
                   { en: 'Enter your phone number', ja: '電話番号を入力', ko: '전화번호를 입력하세요' },
                   lang
                 )}
               />
+              {errors.phone && <p className="text-red-600 text-sm mt-1">{errors.phone}</p>}
             </div>
           </div>
 
@@ -331,7 +366,7 @@ const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) => {
             <textarea
               id="message"
               name="message"
-              rows={3 }
+              rows={3}
               value={formData.message}
               onChange={handleInputChange}
               className="w-full px-4 py-3 border border-gray-200 rounded-lg backdrop-blur-sm transition-all focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 hover:bg-white/70 resize-none"
