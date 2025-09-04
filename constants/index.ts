@@ -65,13 +65,13 @@ export const NAV_LINKS: NavLink[] = [
   {
     key: "resources",
     label: { en: "Resources", ja: "リソース", ko: "리소스" },
-    href: "/resources",
+    href: "",
     dropdown: [
-      { key: "blog", label: { en: "Blog", ja: "ブログ", ko: "블로그" }, href: "/blog" },
+      { key: "blog", label: { en: "Blog", ja: "ブログ", ko: "블로그" }, href: "" },
       {
         key: "resource-library",
         label: { en: "Resource Library", ja: "リソースライブラリ", ko: "리소스 라이브러리" },
-        href: "/resource-library",
+        href: "",
       },
     ],
   },
@@ -89,16 +89,6 @@ export interface FooterSection {
 }
 
 export const FOOTER_LINKS: FooterSection[] = [
-  {
-    title: { en: "Quick Links", ja: "クイックリンク", ko: "바로가기" },
-    links: [
-      { label: { en: "Home", ja: "ホーム", ko: "홈" }, href: "/" },
-      { label: { en: "About Us", ja: "私たちについて", ko: "회사 소개" }, href: "/about" },
-      { label: { en: "Services", ja: "サービス", ko: "서비스" }, href: "/services" },
-      { label: { en: "Blog", ja: "ブログ", ko: "블로그" }, href: "/blog" },
-      { label: { en: "Careers", ja: "採用情報", ko: "채용" }, href: "/careers" },
-    ],
-  },
   {
     title: { en: "Our Services", ja: "サービス一覧", ko: "서비스" },
     links: [
