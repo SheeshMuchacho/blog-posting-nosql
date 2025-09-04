@@ -6,17 +6,14 @@ import Link from "next/link";
 import Button from "./ui/Button";
 import { NAV_LINKS, SOCIAL_LINKS } from "@/constants";
 
-// i18n
 import { useLanguage } from "@/app/i18n/LanguageProvider";
 import { t, type LStr } from "@/lib/i18n";
 
-// Get Services dropdown from your NAV_LINKS (already i18n in constants)
 const servicesItems = NAV_LINKS.find((link) => link.key === "services")?.dropdown || [];
 
 const Footer = () => {
   const { lang } = useLanguage();
 
-  // ---------- Translations ----------
   const BLURB: LStr = {
     en: "Acumen Intelligence gives a new meaning to the traditional marketing funnel. Our dynamic executions help B2B marketers generate and manage leads and drive sales.",
     ja: "Acumen Intelligence は従来のマーケティングファネルに新たな意味を与えます。ダイナミックな施策で、B2Bマーケターのリード創出・管理と売上拡大を支援します。",
@@ -63,13 +60,11 @@ const Footer = () => {
   const PRIVACY: LStr = { en: "Privacy Policy", ja: "プライバシーポリシー", ko: "개인정보 처리방침" };
   const TERMS: LStr = { en: "Terms of Service", ja: "利用規約", ko: "이용약관" };
 
-  // ---------- State ----------
   const [email, setEmail] = useState("");
   const [subscribed, setSubscribed] = useState(false);
   const [emailError, setEmailError] = useState("");
   const yearRef = useRef(new Date().getFullYear());
 
-  // ---------- Logic ----------
   const validateEmail = (value: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -95,7 +90,6 @@ const Footer = () => {
   return (
     <>
       <footer className="bg-slate-800 text-white relative">
-        {/* Curved Top Section */}
         <div className="absolute top-0 left-0 w-full overflow-hidden leading-none">
           <svg
             className="relative block w-full h-16 md:h-20"
