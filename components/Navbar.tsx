@@ -75,7 +75,12 @@ const Navbar = () => {
 
             {/* Desktop nav + dropdowns */}
             <div className="hidden lg:flex items-center">
-              <ul className={["flex items-center transition-all duration-300", scrolled ? "gap-9 ml-8" : "gap-12 ml-10"].join(" ")}>
+              <ul
+                className={[
+                  "flex items-center transition-all duration-300",
+                  scrolled ? "gap-9 ml-8" : "gap-12 ml-10",
+                ].join(" ")}
+              >
                 {NAV_LINKS.map((link) => (
                   <li key={link.key} className="relative">
                     {link.dropdown ? (
@@ -89,18 +94,25 @@ const Navbar = () => {
                       >
                         <Link
                           href={link.href}
-                          className="text-text-dark text-sm font-medium hover:text-secondary transition-colors flex items-center whitespace-nowrap"
+                          className="text-text-dark text-sm font-medium hover:text-secondary transition-colors flex items-center whitespace-nowrap leading-none"
                           aria-expanded={activeDropdown === link.key}
                         >
-                          {t(link.label, lang)}
+                          <span className="leading-none">{t(link.label, lang)}</span>
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
-                            className={`ml-1 h-4 w-4 transition-transform duration-200 ${activeDropdown === link.key ? "rotate-180" : ""}`}
+                            className={`ml-1 h-4 w-4 shrink-0 align-middle relative top-[1px] transition-transform duration-200 ${
+                              activeDropdown === link.key ? "rotate-180" : ""
+                            }`}
                             fill="none"
                             viewBox="0 0 24 24"
                             stroke="currentColor"
                           >
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={2}
+                              d="M19 9l-7 7-7-7"
+                            />
                           </svg>
                         </Link>
 
@@ -109,7 +121,9 @@ const Navbar = () => {
                           className={[
                             "absolute top-full left-1/2 -translate-x-1/2 mt-2 w-56 bg-white rounded-md shadow-lg overflow-hidden",
                             "transition-all duration-200 origin-top z-40",
-                            activeDropdown === link.key ? "opacity-100 scale-100 visible" : "opacity-0 scale-95 invisible",
+                            activeDropdown === link.key
+                              ? "opacity-100 scale-100 visible"
+                              : "opacity-0 scale-95 invisible",
                           ].join(" ")}
                         >
                           <ul className="py-1">
@@ -130,29 +144,40 @@ const Navbar = () => {
                     ) : (
                       <Link
                         href={link.href}
-                        className="text-text-dark text-sm font-medium hover:text-secondary transition-colors whitespace-nowrap"
+                        className="text-text-dark text-sm font-medium hover:text-secondary transition-colors whitespace-nowrap leading-none"
                       >
-                        {t(link.label, lang)}
+                        <span className="leading-none">{t(link.label, lang)}</span>
                       </Link>
                     )}
                   </li>
                 ))}
+
+                {/* Language switcher inline with nav links */}
+                <li>
+                  <LangSwitcher scrolled={scrolled} />
+                </li>
               </ul>
             </div>
 
             {/* Desktop CTA */}
             <div className="hidden lg:flex items-center gap-4">
-              <LangSwitcher />
               <Button
                 type="button"
                 title={t({ en: "Contact Us", ja: "お問い合わせ", ko: "문의하기" }, lang)}
-                className={["btn btn-outline-primary rounded-lg transition-all duration-300", scrolled ? "text-sm px-5 py-2" : "text-xs px-6 py-2"].join(" ")}
+                className={[
+                  "btn btn-outline-primary rounded-lg transition-all duration-300",
+                  scrolled ? "text-sm px-5 py-2" : "text-xs px-6 py-2",
+                ].join(" ")}
                 onClick={() => setContactModalOpen(true)}
               />
             </div>
 
             {/* Mobile trigger */}
-            <button className="lg:hidden cursor-pointer z-50" onClick={() => setMobileMenuOpen(true)} aria-label="Open menu">
+            <button
+              className="lg:hidden cursor-pointer z-50"
+              onClick={() => setMobileMenuOpen(true)}
+              aria-label="Open menu"
+            >
               <Image src="/icons/menu.svg" alt="menu" width={24} height={24} />
             </button>
           </div>
@@ -247,8 +272,9 @@ const Navbar = () => {
         </ul>
 
         <div className="mb-4">
-          <LangSwitcher />
+          <LangSwitcher isMobile={true} />
         </div>
+
         <Button
           type="button"
           title={t({ en: "Contact Us", ja: "お問い合わせ", ko: "문의하기" }, lang)}
