@@ -33,7 +33,7 @@ export async function POST(req: NextRequest) {
 
     await transporter.sendMail({
       from: process.env.MAIL_FROM || process.env.SMTP_USER,
-      to: process.env.MAIL_TO || 'juzer@acumenintelligence.com',
+      to: process.env.MAIL_TO || 'sheedh@acumenintelligence.com',
       replyTo: email,
       subject: `Contact — ${fullName} (${company})`,
       html,

@@ -5,6 +5,8 @@ import Footer from "@/components/Footer";
 import { LanguageProvider } from "./i18n/LanguageProvider";
 import { getRequestLocale, tServer } from "@/lib/i18n-server";
 import { type LStr } from "@/lib/i18n";
+import Chatbot from "@/components/chatbot/Chatbot";
+import "./chatbot.css";
 
 const ROOT_TITLE: LStr = {
   en: "Acumen Intelligence",
@@ -32,6 +34,7 @@ export default async function RootLayout({children,}: Readonly<{children: React.
     <html lang={lang}>
         <body suppressHydrationWarning> 
           <LanguageProvider>
+
             <Navbar />
 
             <main>
@@ -39,7 +42,11 @@ export default async function RootLayout({children,}: Readonly<{children: React.
             </main>
 
             <Footer />
+
+            <Chatbot endpoint="" />
+
           </LanguageProvider>
+
         </body>
     </html>
   );
