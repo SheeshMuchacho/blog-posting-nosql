@@ -57,10 +57,7 @@ export default function PhilosophyAndDelivery() {
   };
 
   return (
-    <section className="py-14 bg-white relative overflow-hidden">
-      {/* Background pattern */}
-      <div className="absolute inset-0 bg-[radial-gradient(#f3f4f6_1px,transparent_1px)] [background-size:20px_20px] opacity-60" />
-      
+    <section className="py-16 bg-white relative overflow-hidden">
       <motion.div
         className="padding-container max-w-screen-xl mx-auto relative z-10"
         initial="hidden"
@@ -73,7 +70,7 @@ export default function PhilosophyAndDelivery() {
           variants={itemVariants as any}
           className="mb-20"
         >
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-28 items-center">
             {/* Left Visual */}
             <motion.div
               variants={itemVariants as any}
@@ -81,10 +78,10 @@ export default function PhilosophyAndDelivery() {
             >
               <div className="relative w-full max-w-md">
                 <motion.div className="relative">
-                  <div className="relative w-80 h-80 mx-auto">
+                  <div className="relative w-[24rem] h-[24rem] mx-auto">
                     {/* Brain illustration */}
                     <motion.div className="absolute inset-0 flex items-center justify-center">
-                      <div className="w-80 h-80 rounded-full relative overflow-hidden bg-transparent">
+                      <div className="w-100 h-100 rounded-full relative overflow-hidden bg-[#F0F9FF]">
                         <Image 
                         src="/digitalbrain.png" 
                         alt="digitalbrain"
@@ -169,7 +166,7 @@ export default function PhilosophyAndDelivery() {
 
         {/* Delivery Section */}
         <motion.div variants={itemVariants as any}>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-28 items-center">
             {/* Left Content */}
             <motion.div variants={itemVariants as any}>
               <motion.h2
@@ -193,132 +190,21 @@ export default function PhilosophyAndDelivery() {
               className="relative flex justify-center items-center"
             >
               <div className="relative w-full max-w-lg">
-                {/* 3D Isometric illustration container */}
                 <motion.div className="relative w-full h-96 flex items-center justify-center">
-                  {/* Central platform */}
                   <div className="relative">
-                    {/* Main platform */}
                     <motion.div
-                      animate={{ 
-                        rotateY: [0, 5, 0, -5, 0],
-                        rotateX: [0, 2, 0, -2, 0]
-                      }}
-                      transition={{ 
-                        duration: 10, 
-                        repeat: Infinity, 
-                        ease: "easeInOut" 
-                      }}
-                      className="w-64 h-32 bg-gradient-to-br from-cyan-400 to-blue-500 rounded-lg shadow-2xl transform perspective-1000 rotateX-12 rotateY-12"
-                      style={{ 
-                        transform: 'perspective(1000px) rotateX(15deg) rotateY(15deg)',
-                        transformStyle: 'preserve-3d'
-                      }}
+                      className="w-90 h-90"
                     >
-                      {/* Laptop on platform */}
-                      <motion.div
-                        animate={{ 
-                          y: [-5, 5, -5],
-                          rotateZ: [0, 1, 0, -1, 0]
-                        }}
-                        transition={{ 
-                          duration: 6, 
-                          repeat: Infinity, 
-                          ease: "easeInOut" 
-                        }}
-                        className="absolute -top-8 left-1/2 transform -translate-x-1/2 w-24 h-16 bg-gray-800 rounded-t-lg shadow-lg"
-                      >
-                        <div className="w-20 h-12 bg-blue-400 rounded-sm m-2 flex items-center justify-center">
-                          <TrendingUp className="w-6 h-6 text-white" />
-                        </div>
-                      </motion.div>
+                      <Image 
+                        src="/deliver.png" 
+                        alt="deliver"
+                        width={500}
+                        height={500}
+                        className="object-cover rounded-full" 
+                      />
                     </motion.div>
-
-                    {/* Floating DNA structures around platform */}
-                    <motion.div
-                      animate={{ 
-                        y: [-10, 10, -10],
-                        rotateZ: [0, 180, 360]
-                      }}
-                      transition={{ 
-                        duration: 8, 
-                        repeat: Infinity, 
-                        ease: "easeInOut" 
-                      }}
-                      className="absolute -top-12 -left-16 w-12 h-24 flex flex-col items-center justify-between"
-                    >
-                      {[...Array(3)].map((_, i) => (
-                        <div key={i} className="w-8 h-2 bg-cyan-400 rounded-full rotate-45 shadow-lg" />
-                      ))}
-                    </motion.div>
-
-                    <motion.div
-                      animate={{ 
-                        y: [10, -10, 10],
-                        rotateZ: [360, 180, 0]
-                      }}
-                      transition={{ 
-                        duration: 7, 
-                        repeat: Infinity, 
-                        ease: "easeInOut",
-                        delay: 1
-                      }}
-                      className="absolute -top-12 -right-16 w-12 h-24 flex flex-col items-center justify-between"
-                    >
-                      {[...Array(3)].map((_, i) => (
-                        <div key={i} className="w-8 h-2 bg-cyan-300 rounded-full -rotate-45 shadow-lg" />
-                      ))}
-                    </motion.div>
-
-                    {/* Small cubes around the platform */}
-                    <motion.div
-                      animate={{ 
-                        y: [-8, 8, -8],
-                        rotateY: [0, 90, 180, 270, 360]
-                      }}
-                      transition={{ 
-                        duration: 12, 
-                        repeat: Infinity, 
-                        ease: "easeInOut" 
-                      }}
-                      className="absolute -bottom-8 -left-12 w-8 h-8 bg-blue-600 rounded shadow-lg"
-                    />
-
-                    <motion.div
-                      animate={{ 
-                        y: [8, -8, 8],
-                        rotateX: [0, 90, 180, 270, 360]
-                      }}
-                      transition={{ 
-                        duration: 9, 
-                        repeat: Infinity, 
-                        ease: "easeInOut",
-                        delay: 2
-                      }}
-                      className="absolute -bottom-8 -right-12 w-6 h-6 bg-cyan-500 rounded shadow-lg"
-                    />
-
-                    <motion.div
-                      animate={{ 
-                        y: [-6, 6, -6],
-                        rotateZ: [0, 45, 90, 135, 180]
-                      }}
-                      transition={{ 
-                        duration: 11, 
-                        repeat: Infinity, 
-                        ease: "easeInOut",
-                        delay: 1
-                      }}
-                      className="absolute bottom-2 left-20 w-4 h-4 bg-blue-400 rounded shadow-lg"
-                    />
                   </div>
                 </motion.div>
-
-                {/* Background decorative elements */}
-                <motion.div
-                  animate={{ rotate: -360 }}
-                  transition={{ duration: 35, repeat: Infinity, ease: "linear" }}
-                  className="absolute -bottom-8 -right-8 w-20 h-20 border-2 border-dashed border-blue-300/50 rounded-full"
-                />
               </div>
             </motion.div>
           </div>

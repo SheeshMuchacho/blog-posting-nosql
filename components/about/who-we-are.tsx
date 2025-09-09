@@ -107,7 +107,7 @@ const features: Feature[] = [
             <div className="relative w-full max-w-lg">
               {/* Main illustration container */}
               <motion.div className="relative w-full h-96 rounded-3xl p-8 shadow-2xl bg-[url('/about.png')] bg-cover bg-center">
-                <div className="absolute inset-0 bg-black/40 rounded-3xl" />
+                <div className="absolute inset-0 bg-black/10 rounded-3xl" />
 
                 {/* Floating elements */}
                 <motion.div

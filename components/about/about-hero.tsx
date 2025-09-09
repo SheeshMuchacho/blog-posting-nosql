@@ -21,9 +21,9 @@ export default function AboutHero() {
   };
 
   const DESCRIPTION: LStr = {
-    en: "Acumen Intelligence is a global leader in Demand Generation and Database Marketing. It possesses the Winning Formula to be your One-Stop Growth Partner with:",
-    ja: "Acumen Intelligenceは、需要創出とデータベースマーケティングにおけるグローバルリーダーです。ワンストップ成長パートナーとなるための勝利の公式を持っています：",
-    ko: "Acumen Intelligence는 수요 창출 및 데이터베이스 마케팅 분야의 글로벌 리더입니다. 다음과 같은 성공 공식으로 원스톱 성장 파트너가 되겠습니다:",
+    en: "Acumen Intelligence is a global leader in Demand Generation and Database Marketing - the driving force behind your lead generation triumph. Join us in exploring the boundless potential of B2B lead generation, and let us lead you to unparalleled success with our direct access to key decision makers.",
+    ja: "Acumen Intelligenceは、需要創出とデータベースマーケティングにおけるグローバルリーダーであり、お客様のリードジェネレーション成功の原動力となります。B2Bリードジェネレーションの無限の可能性を探求する私たちのパートナーとして、主要な意思決定者への直接アクセスを通して、比類のない成功へと導きます。",
+    ko: "Acumen Intelligence는 수요 창출 및 데이터베이스 마케팅 분야의 글로벌 리더로서, 귀사의 리드 생성 성공을 위한 원동력입니다. B2B 리드 생성의 무한한 잠재력을 함께 탐색해 보세요. 주요 의사 결정권자와 직접 소통하여 귀사의 성공을 위한 최고의 길로 안내해 드리겠습니다.",
   };
 
   return (
@@ -101,11 +101,11 @@ export default function AboutHero() {
             className="relative flex justify-center items-center"
           >
             {/* Central illustration with rotating outline only */}
-            <div className="relative w-[400px] h-[400px] flex items-center justify-center">
+            <div className="relative w-[470px] h-[470px] flex items-center justify-center">
               <motion.div
                 animate={{ rotate: 360 }}
                 transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
-                className="absolute -inset-16 border-2 border-dashed border-blue-300/50 rounded-full"
+                className="absolute -inset-4 border-2 border-dashed border-blue-300/50 rounded-full"
               />
               
               {/* Floating elements */}
@@ -125,7 +125,7 @@ export default function AboutHero() {
                     },
                   },
                 }}
-                className="absolute -top-12 -right-12 w-32 h-32 bg-blue-500/40 rounded-full backdrop-blur-sm border border-blue-300/30 flex items-center justify-center z-20"
+                className="absolute -top-10 -right-10 w-32 h-32 bg-blue-500/40 rounded-full backdrop-blur-sm border border-blue-300/30 flex items-center justify-center z-20"
               >
                 <Image
                   src="/icons/barchart.png"
@@ -152,7 +152,7 @@ export default function AboutHero() {
                     },
                   },
                 }}
-                className="absolute -bottom-12 -left-12 w-32 h-32 bg-blue-400/40 rounded-full backdrop-blur-sm border border-blue-300/30 flex items-center justify-center z-20"
+                className="absolute -bottom-10 -left-10 w-32 h-32 bg-blue-400/40 rounded-full backdrop-blur-sm border border-blue-300/30 flex items-center justify-center z-20"
               >
                 <Image
                   src="/icons/ai.png"
@@ -165,7 +165,7 @@ export default function AboutHero() {
               
               <div className="absolute inset-8 rounded-full overflow-hidden bg-white/10 backdrop-blur-sm border border-blue-300/30 z-10">
                 <Image
-                  src="/growth.png"
+                  src="/team.jpg"
                   alt="Acumen Intelligence Logo"
                   fill
                   className="object-cover"
