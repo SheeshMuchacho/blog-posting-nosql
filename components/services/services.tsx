@@ -228,30 +228,31 @@ export const ServicesSection = () => {
             const isAboveTheFold = i < cols;
 
             return (
-              <motion.div
-                key={solution.id}
-                className="h-full"
-                variants={cardV}
-                initial="hidden"
-                {...(isAboveTheFold
-                  ? { animate: "show" }
-                  : {
-                      whileInView: "show",
-                      viewport: { once: true, amount: 0.2, margin: "-5% 0px -5% 0px" },
-                    })}
-                custom={i}
-                style={{ willChange: "transform, opacity" }}
-              >
-                <Link href={`/services/${solution.slug}`} className="block h-full">
-                  <ServiceCard
-                    image={solution.image.src}
-                    icon={solution.icon}
-                    title={t(solution.title, lang)}
-                    description={t(solution.description, lang)}
-                    buttonText={t(solution.buttonText, lang)}
-                  />
-                </Link>
-              </motion.div>
+            <motion.div
+              key={solution.id}
+              className="flex h-full"
+              variants={cardV}
+              initial="hidden"
+              {...(isAboveTheFold
+                ? { animate: "show" }
+                : {
+                    whileInView: "show",
+                    viewport: { once: true, amount: 0.2, margin: "-5% 0px -5% 0px" },
+                  })}
+              custom={i}
+              style={{ willChange: "transform, opacity" }}
+            >
+              <Link href={`/services/${solution.slug}`} className="block flex-1">
+                <ServiceCard
+                  image={solution.image.src}
+                  icon={solution.icon}
+                  title={t(solution.title, lang)}
+                  description={t(solution.description, lang)}
+                  buttonText={t(solution.buttonText, lang)}
+                  className="h-full flex flex-col"   // <-- force card to fill height
+                />
+              </Link>
+            </motion.div>
             );
           })}
         </div>

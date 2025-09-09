@@ -1,9 +1,13 @@
-import { MissionVisionSection } from "@/components/about/mission-vision";
+import AboutHero from "@/components/about/about-hero";
+// import Philosophy from "@/components/about/philosophy";
+import WhoWeAre from "@/components/about/who-we-are";
 
 export default function About () {
     return (
         <>
-        <MissionVisionSection/>
+        <AboutHero/>
+        <WhoWeAre/>
+        {/* <Philosophy/> */}
         </>
     );
 }

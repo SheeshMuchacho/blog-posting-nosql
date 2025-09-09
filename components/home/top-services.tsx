@@ -37,7 +37,6 @@ export default function TopServices() {
     },
   };
 
-  // --- Translations ---
   const HEADING: LStr = {
     en: "Excellent Solutions That Drive Growth",
     ja: "成長を促進する優れたソリューション",
