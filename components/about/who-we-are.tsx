@@ -4,26 +4,15 @@ import { motion } from "framer-motion";
 import { Database, TrendingUp, Zap, Globe } from "lucide-react";
 import { useLanguage } from "@/app/i18n/LanguageProvider";
 import { t, type LStr } from "@/lib/i18n";
+import Image from "next/image"; // ← add this
 
 export default function WhoWeAre() {
   const { lang } = useLanguage();
 
   const HEADING: LStr = {
-    en: "Who We Are?",
-    ja: "私たちは誰ですか？",
-    ko: "우리는 누구인가?",
-  };
-
-  const INTRO: LStr = {
-    en: "Acumen Intelligence is a global leader in Demand Generation and Database Marketing. It possesses the Winning Formula to be your One-Stop Growth Partner with:",
-    ja: "Acumen Intelligenceは、需要創出とデータベースマーケティングにおけるグローバルリーダーです。ワンストップ成長パートナーとなるための勝利の公式を持っています：",
-    ko: "Acumen Intelligence는 수요 창출 및 데이터베이스 마케팅 분야의 글로벌 리더입니다. 다음과 같은 성공 공식으로 원스톱 성장 파트너가 되겠습니다:",
-  };
-
-  const WELCOME_TEXT: LStr = {
-    en: "Welcome to Acumen Intelligence – the driving force behind your lead generation future. Unlock the boundless potential of B2B lead generation, and let us lead you to unparalleled success with our direct access to key decision makers.",
-    ja: "Acumen Intelligenceへようこそ - あなたのリード生成の未来を牽引する原動力です。B2Bリード生成の無限の可能性を解き放ち、主要な意思決定者への直接アクセスにより、比類のない成功へと導きます。",
-    ko: "Acumen Intelligence에 오신 것을 환영합니다 - 리드 생성 미래를 이끄는 원동력입니다. B2B 리드 생성의 무한한 잠재력을 해제하고, 핵심 의사결정자에 대한 직접적인 액세스로 비교할 수 없는 성공으로 이끌어드립니다.",
+    en: "Winning Formula to be your One-Stop Growth Partner, with:",
+    ja: "ワンストップ成長パートナーとなるための Winning Formula の特長:",
+    ko: "Winning Formula는 다음과 같은 원스톱 성장 파트너가 되어 드립니다.",
   };
 
   const features = [
@@ -121,17 +110,10 @@ export default function WhoWeAre() {
           <motion.div variants={itemVariants as any} className="space-y-8">
             <motion.h2
               variants={itemVariants as any}
-              className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-[#010D3E] to-blue-800 bg-clip-text text-transparent"
+              className="text-4xl md:text-4xl font-bold bg-gradient-to-r from-[#010D3E] to-blue-800 bg-clip-text text-transparent"
             >
               {t(HEADING, lang)}
             </motion.h2>
-            
-            <motion.p
-              variants={itemVariants as any}
-              className="text-lg text-gray-700 leading-relaxed"
-            >
-              {t(INTRO, lang)}
-            </motion.p>
 
             {/* Features List */}
             <motion.div
@@ -142,7 +124,7 @@ export default function WhoWeAre() {
                 <motion.div
                   key={index}
                   variants={itemVariants as any}
-                  className="flex items-start gap-4 p-4 rounded-xl bg-white/60 backdrop-blur-sm border border-gray-200/50 hover:shadow-lg transition-all duration-300"
+                  className="flex items-start gap-4 p-4 rounded-xl bg-white/60 backdrop-blur-sm border border-gray-200/90 hover:shadow-lg transition-all duration-300"
                   whileHover={{ scale: 1.02, y: -2 }}
                 >
                   <div className="flex-shrink-0 p-2 bg-blue-50 rounded-lg">
@@ -159,13 +141,6 @@ export default function WhoWeAre() {
                 </motion.div>
               ))}
             </motion.div>
-
-            <motion.p
-              variants={itemVariants as any}
-              className="text-lg text-gray-700 leading-relaxed bg-gradient-to-r from-blue-50 to-indigo-50 p-6 rounded-xl border-l-4 border-blue-500"
-            >
-              {t(WELCOME_TEXT, lang)}
-            </motion.p>
           </motion.div>
 
           {/* Right Visual */}
@@ -175,11 +150,9 @@ export default function WhoWeAre() {
           >
             <div className="relative w-full max-w-lg">
               {/* Main illustration container */}
-              <motion.div
-                className="relative w-full h-96 bg-gradient-to-br from-blue-100 to-indigo-200 rounded-3xl p-8 shadow-2xl"
-                whileHover={{ scale: 1.05 }}
-                transition={{ duration: 0.3 }}
-              >
+              <motion.div className="relative w-full h-96 rounded-3xl p-8 shadow-2xl bg-[url('/about.jpg')] bg-cover bg-center">
+                <div className="absolute inset-0 bg-black/40 rounded-3xl" />
+
                 {/* Floating elements */}
                 <motion.div
                   animate={{ 

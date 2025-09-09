@@ -279,6 +279,7 @@ const Navbar = () => {
           type="button"
           title={t({ en: "Contact Us", ja: "お問い合わせ", ko: "문의하기" }, lang)}
           className="btn btn-outline-secondary text-xs w-full"
+          onClick={() => setContactModalOpen(true)}
         />
       </aside>
 

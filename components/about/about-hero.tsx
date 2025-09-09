@@ -21,13 +21,13 @@ export default function AboutHero() {
   };
 
   const DESCRIPTION: LStr = {
-    en: "We are a global leader in demand generation and database marketing, empowering businesses with data-driven strategies and cutting-edge automation solutions.",
-    ja: "私たちは需要創出とデータベースマーケティングにおけるグローバルリーダーであり、データドリブンな戦略と最先端の自動化ソリューションでビジネスを支援しています。",
-    ko: "우리는 수요 창출 및 데이터베이스 마케팅 분야의 글로벌 리더로서, 데이터 기반 전략과 최첨단 자동화 솔루션으로 비즈니스를 지원합니다.",
+    en: "Acumen Intelligence is a global leader in Demand Generation and Database Marketing. It possesses the Winning Formula to be your One-Stop Growth Partner with:",
+    ja: "Acumen Intelligenceは、需要創出とデータベースマーケティングにおけるグローバルリーダーです。ワンストップ成長パートナーとなるための勝利の公式を持っています：",
+    ko: "Acumen Intelligence는 수요 창출 및 데이터베이스 마케팅 분야의 글로벌 리더입니다. 다음과 같은 성공 공식으로 원스톱 성장 파트너가 되겠습니다:",
   };
 
   return (
-    <section className="relative pt-24 pb-16 md:pt-32 md:pb-20 bg-gradient-to-br from-[#010D3E] via-blue-900 to-blue-800 overflow-hidden">
+    <section className="relative pt-24 pb-16 md:pt-20 md:pb-20 bg-gradient-to-r from-blue-800 to-indigo-900 overflow-hidden">
       {/* Animated background elements */}
       <div className="absolute inset-0 overflow-hidden">
         <motion.div
@@ -100,8 +100,8 @@ export default function AboutHero() {
             transition={{ duration: 1, delay: 0.3 }}
             className="relative flex justify-center items-center"
           >
-            {/* Central illustration placeholder - you can replace with actual image */}
-            <div className="relative w-96 h-96 bg-gradient-to-br from-blue-400/20 to-blue-600/40 rounded-full backdrop-blur-sm border border-blue-300/30 flex items-center justify-center">
+            {/* Central illustration with rotating outline only */}
+            <div className="relative w-[400px] h-[400px] flex items-center justify-center">
               <motion.div
                 animate={{ rotate: 360 }}
                 transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
@@ -110,24 +110,66 @@ export default function AboutHero() {
               
               {/* Floating elements */}
               <motion.div
-                animate={{ y: [-10, 10, -10] }}
-                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                className="absolute top-8 right-8 w-16 h-16 bg-blue-500/40 rounded-lg backdrop-blur-sm border border-blue-300/30 flex items-center justify-center"
+                initial="hidden"
+                animate="visible"
+                variants={{
+                  hidden: { opacity: 0, scale: 0.8, y: 0 },
+                  visible: {
+                    opacity: 1,
+                    scale: 1,
+                    y: [-10, 10, -10], 
+                    transition: {
+                      opacity: { duration: 0.6, delay: 0.6, ease: "easeOut" },
+                      scale: { duration: 0.6, delay: 0.6, ease: "easeInOut" },
+                      y: { duration: 6, ease: "easeOut", repeat: Infinity },
+                    },
+                  },
+                }}
+                className="absolute -top-12 -right-12 w-32 h-32 bg-blue-500/40 rounded-full backdrop-blur-sm border border-blue-300/30 flex items-center justify-center z-20"
               >
-                <div className="w-8 h-8 bg-blue-400 rounded opacity-80" />
+                <Image
+                  src="/icons/barchart.png"
+                  alt="chart"
+                  width={90}
+                  height={90}
+                  className="object-contain"
+                />
               </motion.div>
               
               <motion.div
-                animate={{ y: [10, -10, 10] }}
-                transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-                className="absolute bottom-8 left-8 w-20 h-20 bg-blue-400/40 rounded-full backdrop-blur-sm border border-blue-300/30 flex items-center justify-center"
+                initial="hidden"
+                animate="visible"
+                variants={{
+                  hidden: { opacity: 0, scale: 0.8, y: 0 },
+                  visible: {
+                    opacity: 1,
+                    scale: 1,
+                    y: [-10, 10, -10], 
+                    transition: {
+                      opacity: { duration: 0.6, delay: 0.1, ease: "easeOut" },
+                      scale: { duration: 0.6, delay: 0.1, ease: "easeInOut" },
+                      y: { duration: 6, ease: "easeOut", repeat: Infinity },
+                    },
+                  },
+                }}
+                className="absolute -bottom-12 -left-12 w-32 h-32 bg-blue-400/40 rounded-full backdrop-blur-sm border border-blue-300/30 flex items-center justify-center z-20"
               >
-                <div className="w-10 h-10 bg-blue-300 rounded-full opacity-80" />
+                <Image
+                  src="/icons/ai.png"
+                  alt="growth"
+                  width={100}
+                  height={100}
+                  className="object-contain"
+                />
               </motion.div>
               
-              {/* Center icon */}
-              <div className="w-24 h-24 bg-white/10 rounded-full backdrop-blur-sm border border-blue-300/30 flex items-center justify-center">
-                <div className="w-12 h-12 bg-gradient-to-br from-blue-400 to-blue-600 rounded-full" />
+              <div className="absolute inset-8 rounded-full overflow-hidden bg-white/10 backdrop-blur-sm border border-blue-300/30 z-10">
+                <Image
+                  src="/growth.png"
+                  alt="Acumen Intelligence Logo"
+                  fill
+                  className="object-cover"
+                />
               </div>
             </div>
           </motion.div>

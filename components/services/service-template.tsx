@@ -2,37 +2,47 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
-import Link from "next/link";
 import { Service } from "@/lib/service-data";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ExpandableCard } from "../ui/ExpandableCard";
 import { useLanguage } from "@/app/i18n/LanguageProvider";
 import { t } from "@/lib/i18n";
+import ContactModal from "../ui/ContactModal";
 
 export function ServiceTemplate({ service }: { service: Service }) {
   const { lang } = useLanguage();
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [isContactOpen, setIsContactOpen] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoaded(true);
+    }, 100);
+    
+    return () => clearTimeout(timer);
+  }, []);
 
   return (
     <article className="bg-white">
       <motion.header
         initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.2 }}
+        animate={{ opacity: isLoaded ? 1 : 0, y: isLoaded ? 0 : 20 }}
+        transition={{ duration: 0.2, ease: "easeOut" }}
         className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 pb-8 overflow-hidden"
       >
         <motion.h1
           initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.2, delay: 0.2 }}
-          className="text-4xl sm:text-6xl font-bold tracking-tight py-6 bg-gradient-to-r from-[#144272] via-[#2c74b3] to-[#144272] bg-clip-text text-transparent"
+          animate={{ opacity: isLoaded ? 1 : 0, y: isLoaded ? 0 : 20 }}
+          transition={{ duration: 0.2, delay: 0.2, ease: "easeOut" }}
+          className="text-4xl sm:text-6xl font-bold tracking-tight py-6 bg-gradient-to-r from-primary via-secondary to-primary bg-clip-text text-transparent"
         >
           {t(service.title, lang)}
         </motion.h1>
 
         <motion.p
           initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.2, delay: 0.3 }}
+          animate={{ opacity: isLoaded ? 1 : 0, y: isLoaded ? 0 : 20 }}
+          transition={{ duration: 0.2, delay: 0.4, ease: "easeOut" }}
           className="text-xl text-gray-600 max-w-3xl leading-relaxed"
         >
           {t(service.description, lang)}
@@ -43,53 +53,78 @@ export function ServiceTemplate({ service }: { service: Service }) {
         {service.sections.map((section, idx) => {
           switch (section.type) {
             case "hero":
-              return <HeroSection key={idx} section={section} service={service} index={idx} lang={lang} />;
+              return <HeroSection key={idx} section={section} service={service} index={idx} lang={lang} isPageLoaded={isLoaded} />;
             case "cards":
               return <CardsSection key={idx} section={section} index={idx} lang={lang} />;
             case "text":
-              return <TextSection key={idx} section={section} service={service} index={idx} lang={lang} />;
+              return <TextSection key={idx} section={section} service={service} index={idx} lang={lang} onOpenContact={() => setIsContactOpen(true)} />;
           }
         })}
       </div>
+      <ContactModal isOpen={isContactOpen} onClose={() => setIsContactOpen(false)} />
     </article>
   );
 }
 
-function HeroSection({ section, service, index, lang }: { section: any; service: Service; index: number; lang: any }) {
+function HeroSection({ section, service, index, lang, isPageLoaded }: { 
+  section: any; 
+  service: Service; 
+  index: number; 
+  lang: any;
+  isPageLoaded: boolean;
+}) {
   const [isHovered, setIsHovered] = useState(false);
 
   return (
     <motion.section
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.3 }}
-      transition={{ duration: 0.3, delay: index * 0.1, ease: [0.25, 0.46, 0.45, 0.94] }}
-      className="relative bg-gradient-to-br from-gray-50 via-blue-50/30 to-white overflow-hidden"
+      initial={{ opacity: 0, y: 50 }}
+      animate={{ 
+        opacity: isPageLoaded ? 1 : 0, 
+        y: isPageLoaded ? 0 : 50 
+      }}
+      transition={{ 
+        duration: 0.3,
+        ease: [0.25, 0.46, 0.45, 0.94] 
+      }}
+    className="relative bg-gradient-to-br from-gray-50 via-blue-50/30 to-white overflow-hidden"
     >
-      <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
+      <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.3, delay: 0.1, ease: [0.25, 0.46, 0.45, 0.94] }}
+            initial={{ opacity: 0, x: -30 }}
+            animate={{ 
+              opacity: isPageLoaded ? 1 : 0, 
+              x: isPageLoaded ? 0 : -30 
+            }}
+            transition={{ 
+              duration: 0.3,
+              ease: [0.25, 0.46, 0.45, 0.94] 
+            }}
           >
-            <h2 className="text-3xl sm:text-4xl font-bold text-[#144272] leading-tight">{t(section.heading, lang)}</h2>
-            <div className="mt-6 text-gray-700 text-lg leading-relaxed whitespace-pre-line">{t(section.body, lang)}</div>
+            <h2 className="text-3xl sm:text-4xl font-bold text-primary leading-tigh">
+              {t(section.heading, lang)}
+            </h2>
+            <div className="mt-6 text-gray-700 text-lg leading-relaxed whitespace-pre-line">
+              {t(section.body, lang)}
+            </div>
           </motion.div>
 
           {section.image && (
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.3, delay: 0.1, ease: [0.25, 0.46, 0.45, 0.94] }}
+              initial={{ opacity: 0, x: 30 }}
+              animate={{ 
+                opacity: isPageLoaded ? 1 : 0, 
+                x: isPageLoaded ? 0 : 30 
+              }}
+              transition={{ 
+                duration: 0.3,
+                ease: [0.25, 0.46, 0.45, 0.94] 
+              }}
               className="relative"
               onMouseEnter={() => setIsHovered(true)}
               onMouseLeave={() => setIsHovered(false)}
             >
               <div className="relative aspect-[4/3] w-full rounded-3xl overflow-hidden shadow-2xl group">
-                <div className="absolute inset-0 z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                 <Image
                   src={typeof section.image === "string" ? section.image : section.image}
                   alt={t(service.title, lang)}
@@ -101,12 +136,12 @@ function HeroSection({ section, service, index, lang }: { section: any; service:
               <motion.div
                 animate={{ y: [-5, 5, -5] }}
                 transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                className="absolute -top-4 -right-4 w-8 h-8 bg-gradient-to-r from-[#2c74b3] to-[#144272] rounded-full shadow-lg"
+                className="absolute -top-4 -right-4 w-8 h-8 bg-gradient-to-r from-secondary to-primary rounded-full shadow-lg"
               />
               <motion.div
                 animate={{ y: [5, -5, 5] }}
                 transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-                className="absolute -bottom-6 -left-6 w-6 h-6 bg-gradient-to-r from-[#144272] to-[#2c74b3] rounded-full shadow-lg"
+                className="absolute -bottom-6 -left-6 w-6 h-6 bg-gradient-to-r from-primary to-secondary rounded-full shadow-lg"
               />
             </motion.div>
           )}
@@ -138,7 +173,7 @@ function CardsSection({ section, index = 0, lang }: CardsSectionProps) {
       scale: 1,
       transition: {
         delay: 0.1 + i * 0.1,
-        duration: 0.3,
+        duration: 0.2,
         ease: [0.04, 0.62, 0.23, 0.98],
         type: "spring",
         stiffness: 100,
@@ -151,28 +186,28 @@ function CardsSection({ section, index = 0, lang }: CardsSectionProps) {
     <motion.section
       initial={{ opacity: 0 }}
       whileInView={{ opacity: 1 }}
-      viewport={{ once: true, amount: 0.2 }}
-      transition={{ duration: 0.2 }}
-      className="relative overflow-hidden"
+      viewport={{ once: true, amount: 0.1, margin: "-100px" }}
+      transition={{ duration: 0.6 }}
+      className="relative overflow-hidden bg-gradient-to-br from-blue-50 via-white to-blue-50"
     >
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-14 pt-6">
         {section.heading && (
           <motion.div
             initial={{ opacity: 0, y: -30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.3, delay: 0.1, ease: [0.25, 0.46, 0.45, 0.94] }}
+            viewport={{ once: true, amount: 0.3, margin: "-50px" }}
+            transition={{ duration: 0.2, delay: 0.1, ease: [0.25, 0.46, 0.45, 0.94] }}
             className="text-center mb-12"
           >
-            <h2 className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-[#144272] via-[#2c74b3] to-[#144272] bg-clip-text text-transparent mb-4">
+            <h2 className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-primary via-secondary to-primary bg-clip-text text-transparent mb-4">
               {t(section.heading, lang)}
             </h2>
             <motion.div
               initial={{ width: 0 }}
               whileInView={{ width: 96 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.3, delay: 0.1 }}
-              className="h-1 bg-gradient-to-r from-[#144272] to-[#2c74b3] mx-auto rounded-full"
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ duration: 0.2, delay: 0.3 }}
+              className="h-1 bg-gradient-to-r from-primary to-secondary mx-auto rounded-full"
             />
           </motion.div>
         )}
@@ -184,7 +219,7 @@ function CardsSection({ section, index = 0, lang }: CardsSectionProps) {
               variants={cardVariants as any}
               initial="hidden"
               whileInView="visible"
-              viewport={{ once: true, amount: 0.3 }}
+              viewport={{ once: true, amount: 0.2, margin: "-50px" }}
               custom={i}
               className="group perspective-1000"
             >
@@ -204,33 +239,65 @@ function CardsSection({ section, index = 0, lang }: CardsSectionProps) {
   );
 }
 
-
-function TextSection({ section, service, index, lang }: { section: any; service: Service; index: number; lang: any }) {
+function TextSection({ section, service, index, lang, onOpenContact }: { section: any; service: Service; index: number; lang: any; onOpenContact: () => void }) {
   const [isHovered, setIsHovered] = useState(false);
   const isRightAlign = section.align === "right";
 
   return (
-    <motion.section initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.2 }} transition={{ duration: 0.3, delay: index * 0.1, ease: [0.25, 0.46, 0.45, 0.94] }} className="relative to-white overflow-hidden">
+    <motion.section 
+      initial={{ opacity: 0, y: 50 }} 
+      whileInView={{ opacity: 1, y: 0 }} 
+      viewport={{ once: true, amount: 0.1, margin: "-100px" }} 
+      transition={{ duration: 0.3,delay: index * 0.1, ease: [0.25, 0.46, 0.45, 0.94] }} 
+      className="relative to-white overflow-hidden"
+    >
       <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-20">
         <div className={`grid gap-12 items-center ${section.image ? "md:grid-cols-2" : ""}`}>
           {isRightAlign ? (
             <>
               {section.image && (
-                <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.3 }} transition={{ duration: 0.3, delay: 0.1, ease: [0.25, 0.46, 0.45, 0.94] }} className="order-2 md:order-1 relative" onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
+                <motion.div 
+                  initial={{ opacity: 0, x: -30 }} 
+                  whileInView={{ opacity: 1, x: 0 }} 
+                  viewport={{ once: true, amount: 0.2, margin: "-50px" }} 
+                  transition={{ duration: 0.3,delay: 0.2, ease: [0.25, 0.46, 0.45, 0.94] }} 
+                  className="order-2 md:order-1 relative" 
+                  onMouseEnter={() => setIsHovered(true)} 
+                  onMouseLeave={() => setIsHovered(false)}
+                >
                   <ImageContainer image={section.image} alt={t(service.title, lang)} isHovered={isHovered} />
                 </motion.div>
               )}
-              <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.3 }} transition={{ duration: 0.3, delay: 0.2, ease: [0.25, 0.46, 0.45, 0.94] }} className="order-1 md:order-2">
-                <TextContent section={section} lang={lang} />
+              <motion.div 
+                initial={{ opacity: 0, x: 30 }} 
+                whileInView={{ opacity: 1, x: 0 }} 
+                viewport={{ once: true, amount: 0.2, margin: "-50px" }} 
+                transition={{ duration: 0.3,delay: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }} 
+                className="order-1 md:order-2"
+              >
+                <TextContent section={section} lang={lang} onOpenContact={onOpenContact} />
               </motion.div>
             </>
           ) : (
             <>
-              <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.3 }} transition={{ duration: 0.3, delay: 0.1, ease: [0.25, 0.46, 0.45, 0.94] }}>
-                <TextContent section={section} lang={lang} />
+              <motion.div 
+                initial={{ opacity: 0, x: -30 }} 
+                whileInView={{ opacity: 1, x: 0 }} 
+                viewport={{ once: true, amount: 0.2, margin: "-50px" }} 
+                transition={{ duration: 0.3,delay: 0.2, ease: [0.25, 0.46, 0.45, 0.94] }}
+              >
+                <TextContent section={section} lang={lang} onOpenContact={onOpenContact} />
               </motion.div>
               {section.image && (
-                <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.3 }} transition={{ duration: 0.3, delay: 0.2, ease: [0.25, 0.46, 0.45, 0.94] }} className="relative" onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
+                <motion.div 
+                  initial={{ opacity: 0, x: 30 }} 
+                  whileInView={{ opacity: 1, x: 0 }} 
+                  viewport={{ once: true, amount: 0.2, margin: "-50px" }} 
+                  transition={{ duration: 0.3,delay: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }} 
+                  className="relative" 
+                  onMouseEnter={() => setIsHovered(true)} 
+                  onMouseLeave={() => setIsHovered(false)}
+                >
                   <ImageContainer image={section.image} alt={t(service.title, lang)} isHovered={isHovered} />
                 </motion.div>
               )}
@@ -246,45 +313,85 @@ function ImageContainer({ image, alt, isHovered }: { image: any; alt: string; is
   return (
     <div className="relative">
       <div className="relative aspect-[4/3] w-full rounded-3xl overflow-hidden shadow-2xl group">
-        <div className="absolute inset-0 bg-gradient-to-tr from-[#144272]/20 via-transparent to-[#2c74b3]/20 z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-        <Image src={typeof image === "string" ? image : image} alt={alt} fill className={`object-cover transition-all duration-700 ${isHovered ? "scale-105" : "scale-100"}`} />
+        <Image 
+          src={typeof image === "string" ? image : image} 
+          alt={alt} 
+          fill 
+          className={`object-cover transition-all duration-700 ${isHovered ? "scale-105" : "scale-100"}`} 
+        />
       </div>
-      <motion.div animate={{ rotate: [0, 360] }} transition={{ duration: 20, repeat: Infinity, ease: "linear" }} className="absolute -top-3 -right-3 w-6 h-6 border-2 border-[#2c74b3] rounded-full" />
-      <motion.div animate={{ y: [-3, 3, -3] }} transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }} className="absolute -bottom-4 -left-4 w-8 h-8 bg-gradient-to-r from-[#144272] to-[#2c74b3] rounded-full shadow-lg" />
+      <motion.div 
+        animate={{ rotate: [0, 360] }} 
+        transition={{ duration: 20, repeat: Infinity, ease: "linear" }} 
+        className="absolute -top-3 -right-3 w-6 h-6 border-2 border-secondary rounded-full" 
+      />
+      <motion.div 
+        animate={{ y: [-3, 3, -3] }} 
+        transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }} 
+        className="absolute -bottom-4 -left-4 w-8 h-8 bg-gradient-to-r from-primary to-secondary rounded-full shadow-lg" 
+      />
     </div>
   );
 }
 
-function TextContent({ section, lang }: { section: any; lang: any }) {
+function TextContent({ section, lang, onOpenContact }: { section: any; lang: any; onOpenContact: () => void }) {
   return (
     <>
-      <motion.h3 initial={{ opacity: 0, y: 30, rotateX: 15 }} whileInView={{ opacity: 1, y: 0, rotateX: 0 }} viewport={{ once: true }} transition={{ duration: 0.3, delay: 0.1 }} className="text-3xl sm:text-4xl font-bold text-[#144272] leading-tight mb-6">
+      <motion.h3 
+        initial={{ opacity: 0, y: 20 }} 
+        whileInView={{ opacity: 1, y: 0 }} 
+        viewport={{ once: true, amount: 0.3, margin: "-50px" }} 
+        transition={{ duration: 0.2, delay: 0.1 }} 
+        className="text-3xl sm:text-4xl font-bold text-primary leading-tight mb-6"
+      >
         {t(section.heading, lang)}
       </motion.h3>
 
-      <motion.p initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.8, delay: 0.4 }} className="text-gray-700 text-lg leading-relaxed mb-8">
+      <motion.p 
+        initial={{ opacity: 0, y: 20 }} 
+        whileInView={{ opacity: 1, y: 0 }} 
+        viewport={{ once: true, amount: 0.3, margin: "-50px" }} 
+        transition={{ duration: 0.2, delay: 0.3 }} 
+        className="text-gray-700 text-lg leading-relaxed mb-8"
+      >
         {t(section.body, lang)}
       </motion.p>
-
       {section.cta && (
-        <motion.div initial={{ opacity: 0, y: 30, scale: 0.9 }} whileInView={{ opacity: 1, y: 0, scale: 1 }} viewport={{ once: true }} transition={{ duration: 0.3, delay: 0.1, type: "spring", stiffness: 200, damping: 20 }}>
-          {section.cta.href ? (
-            <Link href={section.cta.href}>
-              <motion.button whileHover={{ scale: 1.05, y: -3, boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)" }} whileTap={{ scale: 0.95 }} className="group inline-flex items-center justify-center rounded-2xl px-8 py-4 text-white bg-gradient-to-r from-[#144272] to-[#2c74b3] hover:from-[#2c74b3] hover:to-[#144272] transition-all duration-300 shadow-lg font-medium">
-                {t(section.cta.label, lang)}
-                <motion.svg className="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" whileHover={{ x: 3 }} transition={{ duration: 0.2 }}>
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                </motion.svg>
-              </motion.button>
-            </Link>
-          ) : (
-            <motion.button whileHover={{ scale: 1.05, y: -3, boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)" }} whileTap={{ scale: 0.95 }} className="group inline-flex items-center justify-center rounded-2xl px-8 py-4 text-white bg-gradient-to-r from-[#144272] to-[#2c74b3] hover:from-[#2c74b3] hover:to-[#144272] transition-all duration-300 shadow-lg font-medium">
-              {t(section.cta.label, lang)}
-              <motion.svg className="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" whileHover={{ x: 3 }} transition={{ duration: 0.2 }}>
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-              </motion.svg>
-            </motion.button>
-          )}
+        <motion.div
+          initial={{ opacity: 0, y: 20, scale: 0.9 }}
+          whileInView={{ opacity: 1, y: 0, scale: 1 }}
+          viewport={{ once: true, amount: 0.3, margin: "-50px" }}
+          transition={{
+            duration: 0.2,
+            delay: 0.5,
+            type: "spring",
+            stiffness: 200,
+            damping: 20,
+          }}
+        >
+          <motion.button
+            onClick={onOpenContact} // ⬅️ open modal here
+            whileHover={{
+              scale: 1.05,
+              y: -3,
+              boxShadow:
+                "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)",
+            }}
+            whileTap={{ scale: 0.95 }}
+            className="group inline-flex items-center justify-center rounded-2xl px-8 py-4 text-white bg-gradient-to-r from-primary to-secondary hover:from-secondary hover:to-primary transition-all duration-300 shadow-lg font-medium"
+          >
+            {t(section.cta.label, lang)}
+            <motion.svg
+              className="ml-2 w-5 h-5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              whileHover={{ x: 3 }}
+              transition={{ duration: 0.2 }}
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+            </motion.svg>
+          </motion.button>
         </motion.div>
       )}
     </>
