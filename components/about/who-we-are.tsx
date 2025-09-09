@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { Database, TrendingUp, Zap, Globe } from "lucide-react";
 import { useLanguage } from "@/app/i18n/LanguageProvider";
 import { t, type LStr } from "@/lib/i18n";
-import Image from "next/image"; // ← add this
+import FeatureList, { Feature } from "../ui/FeatureList";
 
 export default function WhoWeAre() {
   const { lang } = useLanguage();
@@ -15,60 +15,44 @@ export default function WhoWeAre() {
     ko: "Winning Formula는 다음과 같은 원스톱 성장 파트너가 되어 드립니다.",
   };
 
-  const features = [
-    {
-      icon: <TrendingUp className="w-8 h-8 text-blue-600" />,
-      title: {
-        en: "Decades of Experience",
-        ja: "数十年の経験",
-        ko: "수십 년의 경험",
-      } as LStr,
-      description: {
-        en: "Its decades of experience in B2B Lead Generation",
-        ja: "B2Bリード生成における数十年の経験",
-        ko: "B2B 리드 생성 분야의 수십 년 경험",
-      } as LStr,
+const features: Feature[] = [
+  {
+    icon: <TrendingUp className="w-8 h-8 text-blue-600" />,
+    title: { en: "Decades of Experience", ja: "数十年の経験", ko: "수십 년의 경험" },
+    description: {
+      en: "Its decades of experience in B2B Lead Generation",
+      ja: "B2Bリード生成における数十年の経験",
+      ko: "B2B 리드 생성 분야의 수십 년 경험",
     },
-    {
-      icon: <Database className="w-8 h-8 text-blue-600" />,
-      title: {
-        en: "Data-Driven Strategies",
-        ja: "データ駆動戦略",
-        ko: "데이터 기반 전략",
-      } as LStr,
-      description: {
-        en: "Data-Driven Strategy methodologies",
-        ja: "データ駆動戦略の方法論",
-        ko: "데이터 기반 전략 방법론",
-      } as LStr,
+  },
+  {
+    icon: <Database className="w-8 h-8 text-blue-600" />,
+    title: { en: "Data-Driven Strategies", ja: "データ駆動戦略", ko: "데이터 기반 전략" },
+    description: {
+      en: "Data-Driven Strategy methodologies",
+      ja: "データ駆動戦略の方法論",
+      ko: "데이터 기반 전략 방법론",
     },
-    {
-      icon: <Zap className="w-8 h-8 text-blue-600" />,
-      title: {
-        en: "Marketing Automation",
-        ja: "マーケティング自動化",
-        ko: "마케팅 자동화",
-      } as LStr,
-      description: {
-        en: "Innovative Marketing Automation capabilities",
-        ja: "革新的なマーケティング自動化機能",
-        ko: "혁신적인 마케팅 자동화 기능",
-      } as LStr,
+  },
+  {
+    icon: <Zap className="w-8 h-8 text-blue-600" />,
+    title: { en: "Marketing Automation", ja: "マーケティング自動化", ko: "마케팅 자동화" },
+    description: {
+      en: "Innovative Marketing Automation capabilities",
+      ja: "革新的なマーケティング自動化機能",
+      ko: "혁신적인 마케팅 자동화 기능",
     },
-    {
-      icon: <Globe className="w-8 h-8 text-blue-600" />,
-      title: {
-        en: "Global Reach",
-        ja: "グローバルリーチ",
-        ko: "글로벌 도달",
-      } as LStr,
-      description: {
-        en: "Access to over 25 million decision makers worldwide",
-        ja: "世界中の2500万人以上の意思決定者へのアクセス",
-        ko: "전 세계 2천5백만 명 이상의 의사결정자에 대한 액세스",
-      } as LStr,
+  },
+  {
+    icon: <Globe className="w-8 h-8 text-blue-600" />,
+    title: { en: "Global Reach", ja: "グローバルリーチ", ko: "글로벌 도달" },
+    description: {
+      en: "Access to over 25 million decision makers worldwide",
+      ja: "世界中の2500万人以上の意思決定者へのアクセス",
+      ko: "전 세계 2천5백만 명 이상의 의사결정자에 대한 액세스",
     },
-  ];
+  },
+];
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -108,38 +92,10 @@ export default function WhoWeAre() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           {/* Left Content */}
           <motion.div variants={itemVariants as any} className="space-y-8">
-            <motion.h2
-              variants={itemVariants as any}
-              className="text-4xl md:text-4xl font-bold bg-gradient-to-r from-[#010D3E] to-blue-800 bg-clip-text text-transparent"
-            >
-              {t(HEADING, lang)}
-            </motion.h2>
 
             {/* Features List */}
-            <motion.div
-              variants={containerVariants}
-              className="space-y-4"
-            >
-              {features.map((feature, index) => (
-                <motion.div
-                  key={index}
-                  variants={itemVariants as any}
-                  className="flex items-start gap-4 p-4 rounded-xl bg-white/60 backdrop-blur-sm border border-gray-200/90 hover:shadow-lg transition-all duration-300"
-                  whileHover={{ scale: 1.02, y: -2 }}
-                >
-                  <div className="flex-shrink-0 p-2 bg-blue-50 rounded-lg">
-                    {feature.icon}
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-gray-900 mb-1">
-                      {t(feature.title, lang)}
-                    </h4>
-                    <p className="text-gray-600 text-sm">
-                      {t(feature.description, lang)}
-                    </p>
-                  </div>
-                </motion.div>
-              ))}
+            <motion.div variants={itemVariants as any} className="space-y-8">
+              <FeatureList heading={HEADING} features={features} />
             </motion.div>
           </motion.div>
 
@@ -150,7 +106,7 @@ export default function WhoWeAre() {
           >
             <div className="relative w-full max-w-lg">
               {/* Main illustration container */}
-              <motion.div className="relative w-full h-96 rounded-3xl p-8 shadow-2xl bg-[url('/about.jpg')] bg-cover bg-center">
+              <motion.div className="relative w-full h-96 rounded-3xl p-8 shadow-2xl bg-[url('/about.png')] bg-cover bg-center">
                 <div className="absolute inset-0 bg-black/40 rounded-3xl" />
 
                 {/* Floating elements */}
@@ -180,25 +136,9 @@ export default function WhoWeAre() {
                     ease: "easeInOut",
                     delay: 1
                   }}
-                  className="absolute bottom-4 left-4 w-20 h-20 bg-indigo-500 rounded-full shadow-lg flex items-center justify-center"
+                  className="absolute bottom-4 left-4 w-20 h-20 bg-primary rounded-full shadow-lg flex items-center justify-center"
                 >
                   <TrendingUp className="w-10 h-10 text-white" />
-                </motion.div>
-
-                <motion.div
-                  animate={{ 
-                    scale: [1, 1.1, 1],
-                    rotate: [0, 10, 0]
-                  }}
-                  transition={{ 
-                    duration: 5, 
-                    repeat: Infinity, 
-                    ease: "easeInOut",
-                    delay: 2
-                  }}
-                  className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-24 h-24 bg-white rounded-2xl shadow-xl flex items-center justify-center"
-                >
-                  <Globe className="w-12 h-12 text-blue-600" />
                 </motion.div>
 
                 {/* Background pattern */}
@@ -210,12 +150,12 @@ export default function WhoWeAre() {
               <motion.div
                 animate={{ rotate: 360 }}
                 transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-                className="absolute -top-6 -left-6 w-12 h-12 border-4 border-dashed border-blue-300 rounded-full"
+                className="absolute -top-6 -left-6 w-12 h-12 border-4 border-dashed border-secondary rounded-full"
               />
               <motion.div
                 animate={{ rotate: -360 }}
                 transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
-                className="absolute -bottom-6 -right-6 w-16 h-16 border-4 border-dashed border-indigo-300 rounded-full"
+                className="absolute -bottom-6 -right-6 w-16 h-16 border-4 border-dashed border-secondary rounded-full"
               />
             </div>
           </motion.div>
