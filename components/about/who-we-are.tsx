@@ -112,8 +112,7 @@ const features: Feature[] = [
                 {/* Floating elements */}
                 <motion.div
                   animate={{ 
-                    y: [-10, 10, -10],
-                    rotate: [0, 5, 0]
+                    y: [-3, 3, -3],
                   }}
                   transition={{ 
                     duration: 6, 
@@ -127,8 +126,8 @@ const features: Feature[] = [
 
                 <motion.div
                   animate={{ 
-                    y: [10, -10, 10],
-                    rotate: [0, -5, 0]
+                    y: [4, -4, 4],
+                    rotate: [0, -2, 0]
                   }}
                   transition={{ 
                     duration: 4, 

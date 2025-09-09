@@ -194,7 +194,7 @@ const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) => {
           <div className="sticky top-0 border-b border-white/20 p-6 pb-4">
             <div className="flex items-center justify-between">
               <div>
-                <h2 className="text-2xl font-bold bg-gradient-to-r from-[#144272] via-[#2c74b3] to-[#144272] bg-clip-text text-transparent">
+                <h2 className="text-2xl font-bold text-black">
                   {t({ en: "Contact Us", ja: "お問い合わせ", ko: "문의하기" }, lang)}
                 </h2>
                 <p className="text-sm text-primary mt-1">
@@ -358,7 +358,7 @@ const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) => {
               <button
                 type="submit"
                 disabled={isSubmitting || submitStatus === "success"}
-                className={`flex-1 px-6 py-3 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-lg font-medium transition-all transform hover:scale-[1.02] hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none ${
+                className={`flex-1 px-6 py-3 bg-gradient-to-r from-primary to-primary/80 text-white rounded-lg font-medium transition-all transform hover:scale-[1.02] hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none ${
                   isSubmitting ? "animate-pulse" : ""
                 }`}
               >

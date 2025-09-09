@@ -27,7 +27,7 @@ export default function AboutHero() {
   };
 
   return (
-    <section className="relative pt-24 pb-16 md:pt-20 md:pb-20 bg-gradient-to-r from-blue-800 to-indigo-900 overflow-hidden">
+    <section className="relative pt-24 pb-16 md:pt-20 md:pb-20 bg-primary overflow-hidden">
       {/* Animated background elements */}
       <div className="absolute inset-0 overflow-hidden">
         <motion.div
@@ -43,7 +43,7 @@ export default function AboutHero() {
           }}
         />
         <motion.div
-          className="absolute -bottom-40 -left-40 w-96 h-96 bg-blue-400/10 rounded-full blur-3xl"
+          className="absolute -bottom-40 -left-40 w-96 h-96 bg-blue-400/10 rounded-full blur-3xl"   
           animate={{
             scale: [1.2, 1, 1.2],
             rotate: [360, 180, 0],
@@ -105,7 +105,7 @@ export default function AboutHero() {
               <motion.div
                 animate={{ rotate: 360 }}
                 transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
-                className="absolute inset-4 border-2 border-dashed border-blue-300/50 rounded-full"
+                className="absolute -inset-16 border-2 border-dashed border-blue-300/50 rounded-full"
               />
               
               {/* Floating elements */}
@@ -117,7 +117,7 @@ export default function AboutHero() {
                   visible: {
                     opacity: 1,
                     scale: 1,
-                    y: [-10, 10, -10], 
+                    y: [-5, 5, -5], 
                     transition: {
                       opacity: { duration: 0.6, delay: 0.6, ease: "easeOut" },
                       scale: { duration: 0.6, delay: 0.6, ease: "easeInOut" },
