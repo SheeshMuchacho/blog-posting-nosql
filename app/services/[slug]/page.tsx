@@ -4,12 +4,21 @@ import { ServiceTemplate } from "@/components/services/service-template";
 import { getAllServiceSlugs, loadService } from "@/lib/service-data";
 import { getRequestLocale, tServer } from "@/lib/i18n-server";
 
+/**
+ * Pre-generate static params for dynamic routes.
+ */
 export function generateStaticParams() {
   return getAllServiceSlugs().map((slug) => ({ slug }));
 }
 
-export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
-  const svc = await loadService(params.slug);
+/**
+ * Generate metadata dynamically for each service page.
+ */
+export async function generateMetadata(
+  { params }: { params: Promise<{ slug: string }> }
+): Promise<Metadata> {
+  const { slug } = await params;   // 👈 await params
+  const svc = await loadService(slug);
   if (!svc) return { title: "Service" };
 
   const lang = await getRequestLocale();
@@ -23,14 +32,27 @@ export async function generateMetadata({ params }: { params: { slug: string } })
       title,
       description,
       images: svc.ogImage
-        ? [{ url: typeof svc.ogImage === "string" ? svc.ogImage : (svc.ogImage as any).src }]
+        ? [
+            {
+              url:
+                typeof svc.ogImage === "string"
+                  ? svc.ogImage
+                  : (svc.ogImage as any).src,
+            },
+          ]
         : [],
     },
   };
 }
 
-export default async function ServicePage({ params }: { params: { slug: string } }) {
-  const svc = await loadService(params.slug);
+/**
+ * Main service page component.
+ */
+export default async function ServicePage(
+  { params }: { params: Promise<{ slug: string }> }
+) {
+  const { slug } = await params;   // 👈 await params
+  const svc = await loadService(slug);
   if (!svc) notFound();
   return <ServiceTemplate service={svc} />;
 }
