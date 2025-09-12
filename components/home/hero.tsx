@@ -9,7 +9,6 @@ import Button from "@/components/ui/Button";
 import { AuroraText } from "@/components/ui/AuroraText";
 import Link from "next/link";
 
-// i18n helpers
 import { useLanguage } from "@/app/i18n/LanguageProvider";
 import { t, type LStr } from "@/lib/i18n";
 
@@ -17,7 +16,6 @@ export default function HeroSection() {
   const [isHovered, setIsHovered] = useState(false);
   const { lang } = useLanguage();
 
-  // --- Translations (LStr objects) ---
   const BADGE: LStr = {
     en: "Empower your business",
     ja: "ビジネスを強化する",
@@ -52,9 +50,9 @@ export default function HeroSection() {
   const CTA_SECONDARY: LStr = { en: "Learn more", ja: "さらに詳しく", ko: "자세히 알아보기" };
 
   return (
-    <section className="pt-8 pb-20 md:pt-6 md:pb-10 bg-white bg-[radial-gradient(125%_125%_at_50%_10%,#fff_40%,#0022EE_100%)] bg-fixed overflow-x-clip">
-      <div className="padding-container max-w-screen-xl mx-auto">
-        <div className="md:flex items-center justify-between">
+  <section className="flex items-center pt-6 bg-white bg-[radial-gradient(125%_125%_at_50%_10%,#fff_40%,#0022EE_100%)] bg-fixed overflow-x-clip">
+    <div className="padding-container max-w-screen-xl mx-auto w-full">
+      <div className="md:flex items-center justify-between">
           <div className="md:w-[478px] md:mr-8">
             <div className="text-sm inline-flex border border-black/20 px-3 py-1 rounded-lg tracking-tight">
               {t(BADGE, lang)}
