@@ -4,8 +4,8 @@ import { motion } from "framer-motion";
 import { MapPin, Phone, Mail, Users } from "lucide-react";
 import { useLanguage } from "@/app/i18n/LanguageProvider";
 import { t, type LStr } from "@/lib/i18n";
+import Image from "next/image";
 
-// Country outline SVGs (simplified)
 const CountryOutlines = {
   UK: (
     <svg viewBox="0 0 100 100" className="w-16 h-16 fill-current text-blue-600/70">
@@ -56,57 +56,52 @@ export default function ExploreOurLocations() {
   const locations = [
     {
       country: "United Kingdom",
-      countryCode: "UK",
-      flag: "🇬🇧",
+      countryCode: "/country/uk-c.png",
+      flagImage: "/country/uk.png",
       city: "London",
       address: "123 Business District, London EC1A 1AA",
-      phone: "+44 20 7123 4567",
-      email: "london@acumenintel.com",
-      team: "25+ Professionals",
+      email: "info@acumenintelligence.com",
+      team: "10+ Professionals",
       gradient: "from-red-500 to-blue-600"
     },
     {
       country: "Sri Lanka",
-      countryCode: "SriLanka",
-      flag: "🇱🇰",
+      countryCode: "/country/sl-c.png",
+      flagImage: "/country/sl.png",
       city: "Colombo",
       address: "456 Business Center, Colombo 00100",
-      phone: "+94 11 234 5678",
-      email: "colombo@acumenintel.com",
-      team: "30+ Professionals",
+      email: "info@acumenintelligence.com",
+      team: "40+ Professionals",
       gradient: "from-green-500 to-orange-600"
     },
     {
       country: "Singapore",
-      countryCode: "Singapore",
-      flag: "🇸🇬",
+      countryCode: "/country/sg-c.png",
+      flagImage: "/country/sg.png",
       city: "Singapore",
       address: "789 Marina Bay, Singapore 018956",
-      phone: "+65 6123 4567",
-      email: "singapore@acumenintel.com",
+      email: "info@acumenintelligence.com",
       team: "20+ Professionals",
       gradient: "from-red-600 to-white"
     },
     {
       country: "Indonesia",
-      countryCode: "Indonesia",
-      flag: "🇮🇩",
+      countryCode: "/country/id-c.png",
+      flagImage: "/country/id.png",
       city: "Jakarta",
       address: "321 SCBD District, Jakarta 12190",
-      phone: "+62 21 1234 5678",
-      email: "jakarta@acumenintel.com",
+      email: "info@acumenintelligence.com",
       team: "15+ Professionals",
       gradient: "from-red-600 to-white"
     },
     {
       country: "Japan",
-      countryCode: "Japan",
-      flag: "🇯🇵",
+      countryCode: "/country/jp-c.png",
+      flagImage: "/country/jp.png",
       city: "Tokyo",
       address: "654 Shibuya District, Tokyo 150-0002",
-      phone: "+81 3 1234 5678",
-      email: "tokyo@acumenintel.com",
-      team: "18+ Professionals",
+      email: "info@acumenintelligence.com",
+      team: "10+ Professionals",
       gradient: "from-red-600 to-white"
     },
   ];
@@ -136,7 +131,8 @@ export default function ExploreOurLocations() {
   };
 
   return (
-    <section className="py-20 bg-gradient-to-br from-slate-50 via-white to-blue-50 relative overflow-hidden">
+    <section className="py-20 bg-gradient-to-br from-gray-50 to-white relative overflow-hidden">
+      <div className="absolute inset-0 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px] opacity-50" />
       {/* Background elements */}
       <div className="absolute inset-0">
         <motion.div
@@ -214,7 +210,15 @@ export default function ExploreOurLocations() {
                 <div className="relative z-10 mb-6">
                   <div className="flex items-center justify-between mb-4">
                     <div className="flex items-center space-x-3">
-                      <span className="text-3xl">{location.flag}</span>
+                      <div className="relative w-11 h-11 flex-shrink-0">
+                        <Image
+                          src={location.flagImage}
+                          alt={`${location.country} flag`}
+                          width={50}
+                          height={50}
+                          className="w-full h-full object-cover rounded-full border-2 border-gray-200 shadow-sm"
+                        />
+                      </div>
                       <div>
                         <h3 className="text-xl font-bold text-gray-900 group-hover:text-primary transition-colors">
                           {location.country}
@@ -223,7 +227,13 @@ export default function ExploreOurLocations() {
                       </div>
                     </div>
                     <div className="group-hover:scale-110 transition-transform duration-300">
-                      {CountryOutlines[location.countryCode as keyof typeof CountryOutlines]}
+                        <Image
+                          src={location.countryCode}
+                          alt={`${location.country} flag`}
+                          width={35}
+                          height={35}
+                          className="w-full h-full opacity-75"
+                        />
                     </div>
                   </div>
                 </div>
@@ -236,11 +246,6 @@ export default function ExploreOurLocations() {
                   </div>
                   
                   <div className="flex items-center space-x-3">
-                    <Phone className="w-4 h-4 text-primary flex-shrink-0" />
-                    <p className="text-sm text-gray-600">{location.phone}</p>
-                  </div>
-                  
-                  <div className="flex items-center space-x-3">
                     <Mail className="w-4 h-4 text-primary flex-shrink-0" />
                     <p className="text-sm text-gray-600">{location.email}</p>
                   </div>
@@ -250,52 +255,9 @@ export default function ExploreOurLocations() {
                     <p className="text-sm font-medium text-gray-700">{location.team}</p>
                   </div>
                 </div>
-
-                {/* Floating decoration */}
-                <motion.div
-                  animate={{ 
-                    rotate: [0, 360],
-                    scale: [1, 1.1, 1]
-                  }}
-                  transition={{ 
-                    duration: 20, 
-                    repeat: Infinity, 
-                    ease: "linear",
-                    delay: index * 2
-                  }}
-                  className="absolute -top-2 -right-2 w-6 h-6 border-2 border-dashed border-blue-300/50 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                />
-                <motion.div
-                  animate={{ 
-                    rotate: [360, 0],
-                    y: [0, -5, 0]
-                  }}
-                  transition={{ 
-                    duration: 15, 
-                    repeat: Infinity, 
-                    ease: "easeInOut",
-                    delay: index * 1.5
-                  }}
-                  className="absolute -bottom-2 -left-2 w-4 h-4 bg-primary/20 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                />
               </div>
             </motion.div>
           ))}
-        </motion.div>
-
-        {/* Bottom CTA */}
-        <motion.div
-          variants={cardVariants as any}
-          className="text-center mt-16"
-        >
-          <motion.div
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="inline-flex items-center space-x-2 bg-primary text-white px-8 py-3 rounded-full font-semibold shadow-lg hover:shadow-xl transition-all duration-300 cursor-pointer"
-          >
-            <MapPin className="w-5 h-5" />
-            <span>Contact Our Nearest Office</span>
-          </motion.div>
         </motion.div>
       </motion.div>
     </section>
