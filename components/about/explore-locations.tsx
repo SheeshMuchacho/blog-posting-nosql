@@ -210,7 +210,7 @@ export default function ExploreOurLocations() {
                 <div className="relative z-10 mb-6">
                   <div className="flex items-center justify-between mb-4">
                     <div className="flex items-center space-x-3">
-                      {/* <div className="relative w-11 h-11 flex-shrink-0">
+                      <div className="relative w-11 h-11 flex-shrink-0">
                         <Image
                           src={location.flagImage}
                           alt={`${location.country} flag`}
@@ -218,7 +218,7 @@ export default function ExploreOurLocations() {
                           height={50}
                           className="w-full h-full object-cover rounded-full border-2 border-gray-200 shadow-sm"
                         />
-                      </div> */}
+                      </div>
                       <div>
                         <h3 className="text-xl font-bold text-gray-900 group-hover:text-primary transition-colors">
                           {location.country}
@@ -230,9 +230,9 @@ export default function ExploreOurLocations() {
                         <Image
                           src={location.countryCode}
                           alt={`${location.country} flag`}
-                          width={35}
-                          height={35}
-                          className="w-full h-full opacity-75"
+                          width={40}
+                          height={40}
+                          className="w-35 h-35 opacity-75"
                         />
                     </div>
                   </div>
