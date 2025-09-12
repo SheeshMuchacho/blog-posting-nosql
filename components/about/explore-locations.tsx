@@ -210,7 +210,7 @@ export default function ExploreOurLocations() {
                 <div className="relative z-10 mb-6">
                   <div className="flex items-center justify-between mb-4">
                     <div className="flex items-center space-x-3">
-                      <div className="relative w-11 h-11 flex-shrink-0">
+                      {/* <div className="relative w-11 h-11 flex-shrink-0">
                         <Image
                           src={location.flagImage}
                           alt={`${location.country} flag`}
@@ -218,7 +218,7 @@ export default function ExploreOurLocations() {
                           height={50}
                           className="w-full h-full object-cover rounded-full border-2 border-gray-200 shadow-sm"
                         />
-                      </div>
+                      </div> */}
                       <div>
                         <h3 className="text-xl font-bold text-gray-900 group-hover:text-primary transition-colors">
                           {location.country}
@@ -250,10 +250,10 @@ export default function ExploreOurLocations() {
                     <p className="text-sm text-gray-600">{location.email}</p>
                   </div>
                   
-                  <div className="flex items-center space-x-3 pt-2 border-t border-gray-100">
+                  {/* <div className="flex items-center space-x-3 pt-2 border-t border-gray-100">
                     <Users className="w-4 h-4 text-primary flex-shrink-0" />
                     <p className="text-sm font-medium text-gray-700">{location.team}</p>
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </motion.div>
