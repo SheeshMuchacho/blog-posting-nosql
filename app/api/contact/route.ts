@@ -1,7 +1,13 @@
+// app/api/contact/route.ts
 import type { NextRequest } from 'next/server';
 import nodemailer from 'nodemailer';
 
-export const runtime = 'nodejs'; 
+export const runtime = 'nodejs';
+
+// Type guard for Node.js network errors (e.g., ECONNREFUSED)
+function isErrno(e: unknown): e is NodeJS.ErrnoException & { address?: string; port?: number } {
+  return !!e && typeof e === 'object' && 'code' in e;
+}
 
 export async function POST(req: NextRequest) {
   try {
@@ -10,14 +16,19 @@ export async function POST(req: NextRequest) {
       return new Response(JSON.stringify({ error: 'Missing required fields' }), { status: 400 });
     }
 
+    if (!process.env.SMTP_HOST) {
+      console.error('Contact API error: SMTP_HOST environment variable is not set.');
+      return new Response(JSON.stringify({ error: 'Server configuration error' }), { status: 500 });
+    }
+
     const transporter = nodemailer.createTransport({
-      host: process.env.SMTP_HOST!,
-      port: Number(process.env.SMTP_PORT || 587),
-      secure: String(process.env.SMTP_SECURE).toLowerCase() === 'true',
-      auth: {
-        user: process.env.SMTP_USER!,
-        pass: process.env.SMTP_PASS!,
-      },
+      host: process.env.SMTP_HOST,
+      port: Number(process.env.SMTP_PORT) || 587,
+      secure: process.env.SMTP_SECURE === 'true', // true for 465, false for 587
+      auth: process.env.SMTP_USER && process.env.SMTP_PASS
+        ? { user: process.env.SMTP_USER, pass: process.env.SMTP_PASS }
+        : undefined,
+      tls: { rejectUnauthorized: false }, // consider removing in production
     });
 
     const html = `
@@ -40,8 +51,15 @@ export async function POST(req: NextRequest) {
     });
 
     return new Response(JSON.stringify({ ok: true }), { status: 200 });
-  } catch (err) {
+  } catch (err: unknown) {
     console.error('Contact API error:', err);
+
+    if (isErrno(err) && err.code === 'ECONNREFUSED') {
+      const addr = err.address ?? 'unknown-host';
+      const prt  = err.port ?? 0;
+      console.error(`Connection refused. Is the SMTP server running at ${addr}:${prt}?`);
+    }
+
     return new Response(JSON.stringify({ error: 'Failed to send' }), { status: 500 });
   }
 }

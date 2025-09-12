@@ -5,9 +5,12 @@ services:
       dockerfile: Dockerfile
     ports:
       - "3000:3000"
+    env_file:
+      - .env.local
     environment:
       NODE_ENV: "production"
-      NEXT_TELEMETRY_DISABLED: "1"
-      HOSTNAME: "0.0.0.0"
-      PORT: "3000"
+      NEXT_CACHE_DIR: "/tmp/next-cache"  # prod: writable cache
+    tmpfs:
+      - /tmp
     restart: unless-stopped
+    command: node server.js
