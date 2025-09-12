@@ -43,7 +43,8 @@ export default async function RootLayout({children,}: Readonly<{children: React.
 
             <Footer />
 
-            <Chatbot endpoint="" />
+            {/* Point the chatbot to our local proxy route to avoid CORS and translate payloads */}
+            <Chatbot endpoint="/api/chat" />
 
           </LanguageProvider>
 
