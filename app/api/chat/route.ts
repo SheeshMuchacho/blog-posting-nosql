@@ -3,7 +3,7 @@ import type { NextRequest } from 'next/server';
 
 export const runtime = 'nodejs';
 
-const BACKEND_URL = process.env.CHAT_BACKEND_URL;
+const BACKEND_URL = process.env.CHAT_BACKEND_URL as string;
 
 function pickReply(obj: any): string | null {
   if (!obj || typeof obj !== 'object') return null;
