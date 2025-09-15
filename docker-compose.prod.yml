@@ -3,6 +3,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    container_name: next-web
     ports:
       - "3000:3000"
     env_file:
@@ -14,3 +15,9 @@ services:
       - /tmp
     restart: unless-stopped
     command: node server.js
+    networks:
+      - acumen_net
+
+networks:
+  acumen_net:
+    external: true

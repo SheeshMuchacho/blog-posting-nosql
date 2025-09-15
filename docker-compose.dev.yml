@@ -3,7 +3,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-      target: deps
+      target: deps   # keep your existing build target if you had one
+    container_name: next-web
     ports:
       - "3000:3000"
     env_file:
@@ -16,10 +17,16 @@ services:
       HOSTNAME: "0.0.0.0"
       PORT: "3000"
     volumes:
-      - .:/app               # live code
-      - /app/node_modules    # keep container's node_modules
-      - next_cache:/app/.next  # dev cache stored in a named volume
+      - .:/app
+      - /app/node_modules
+      - next_cache:/app/.next
     command: npm run dev
+    networks:
+      - acumen_net
+
+networks:
+  acumen_net:
+    external: true
 
 volumes:
   next_cache:

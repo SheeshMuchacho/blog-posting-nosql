@@ -44,7 +44,7 @@ function linkify(text = '') {
 }
 
 export default function Chatbot({
-  endpoint = 'https://staging.acumenintelligence.com/api/chat',
+  endpoint = '/api/chat',
   defaultOpen = false,
   storageKey = DEFAULT_STORAGE_KEY,
   greeting = 'Hi, I’m Acumen chatbot, here to help you quickly find and summarize key info from Acumen Intelligence.',
