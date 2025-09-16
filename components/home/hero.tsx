@@ -2,9 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import cogImage from "@/public/gen.png";
-import cylinder from "@/public/cylinder.png";
-import noodle from "@/public/noodle.png";
+import cogImage from "@/public/gen.gif";
 import Button from "@/components/ui/Button";
 import { AuroraText } from "@/components/ui/AuroraText";
 import Link from "next/link";
@@ -13,7 +11,6 @@ import { useLanguage } from "@/app/i18n/LanguageProvider";
 import { t, type LStr } from "@/lib/i18n";
 
 export default function HeroSection() {
-  const [isHovered, setIsHovered] = useState(false);
   const { lang } = useLanguage();
 
   const BADGE: LStr = {
@@ -50,7 +47,7 @@ export default function HeroSection() {
   const CTA_SECONDARY: LStr = { en: "Learn more", ja: "さらに詳しく", ko: "자세히 알아보기" };
 
   return (
-  <section className="flex items-center pt-6 bg-white bg-[radial-gradient(125%_125%_at_50%_10%,#fff_40%,#0022EE_100%)] bg-fixed overflow-x-clip">
+  <section className="flex items-center bg-white bg-[radial-gradient(125%_125%_at_50%_70%,#fff_40%,#0022EE_100%)] bg-fixed overflow-x-clip">
     <div className="padding-container max-w-screen-xl mx-auto w-full">
       <div className="md:flex items-center justify-between">
           <div className="md:w-[478px] md:mr-8">
@@ -81,29 +78,12 @@ export default function HeroSection() {
             </div>
           </div>
 
-          <div
-            className="md:h-[648px] md:flex-1 relative z-20 mt-8 md:mt-0"
-            onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)}
-          >
+          <div className="md:h-[648px] md:flex-1 relative z-20 mt-8 md:mt-0">
             <Image
               src={cogImage}
               alt="Image"
               className="md:absolute md:h-full md:w-auto md:max-w-none md:-left-6 lg:left-0"
               priority
-            />
-            <Image
-              src={cylinder}
-              alt="cylinder"
-              width={220}
-              height={220}
-              className={`hidden md:block -top-8 -left-32 md:absolute animate-float transition-all duration-500 ${isHovered ? "scale-105" : ""}`}
-            />
-            <Image
-              src={noodle}
-              alt="noodle"
-              width={220}
-              className={`hidden lg:block absolute top-[524px] left-[448px] rotate-[30deg] animate-slow-rotate transition-all duration-500 ${isHovered ? "scale-105" : ""}`}
             />
           </div>
         </div>

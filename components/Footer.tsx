@@ -131,8 +131,8 @@ const Footer = () => {
                     <Image
                       src={social.icon}
                       alt={t(social.label, lang)}
-                      width={35}
-                      height={35}
+                      width={30}
+                      height={30}
                       className="transition-colors duration-300"
                     />
                   </Link>
