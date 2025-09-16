@@ -42,21 +42,6 @@ export default function LangSwitcher({
     return () => document.removeEventListener("mousedown", onDocClick);
   }, [isMobile]);
 
-  // Keyboard handling
-  useEffect(() => {
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setOpen(false);
-      if ((e.key === "Enter" || e.key === " ") && !open) {
-        setOpen(true);
-      }
-      if (e.key === "ArrowDown" && open && !isMobile) {
-        firstItemRef.current?.focus();
-      }
-    };
-    document.addEventListener("keydown", onKey);
-    return () => document.removeEventListener("keydown", onKey);
-  }, [open, isMobile]);
-
   useEffect(() => {
     if (open && !isMobile) {
       setTimeout(() => firstItemRef.current?.focus(), 0);

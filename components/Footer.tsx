@@ -124,7 +124,6 @@ const Footer = () => {
                     key={index}
                     href={social.href}
                     aria-label={t(social.label, lang)}
-                    style={{ backgroundColor: social.bg }}
                     className="w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 group"
                     target="_blank"
                     rel="noopener noreferrer"
@@ -132,8 +131,8 @@ const Footer = () => {
                     <Image
                       src={social.icon}
                       alt={t(social.label, lang)}
-                      width={20}
-                      height={20}
+                      width={35}
+                      height={35}
                       className="transition-colors duration-300"
                     />
                   </Link>

@@ -119,14 +119,13 @@ export interface SocialLink {
   icon: string;
   href: string;
   label: LStr;
-  bg: string;
 }
 
 export const SOCIAL_LINKS: SocialLink[] = [
-  { icon: "/icons/facebook-white.png", href: "https://facebook.com", label: { en: "Facebook", ja: "フェイスブック", ko: "페이스북" }, bg: "#1877F2" },
-  { icon: "/icons/x-white.png", href: "https://x.com", label: { en: "X", ja: "X", ko: "X" }, bg: "#000000" },
-  { icon: "/icons/instagram-white.png", href: "https://instagram.com", label: { en: "Instagram", ja: "インスタグラム", ko: "인스타그램" }, bg: "#DB5461" },
-  { icon: "/icons/linkedin-white.png", href: "https://linkedin.com", label: { en: "LinkedIn", ja: "リンクトイン", ko: "링크드인" }, bg: "#0A66C2" },
+  { icon: "/icons/facebook.png", href: "https://facebook.com", label: { en: "Facebook", ja: "フェイスブック", ko: "페이스북" },},
+  { icon: "/icons/x.png", href: "https://x.com", label: { en: "X", ja: "X", ko: "X" },},
+  { icon: "/icons/instagram.png", href: "https://instagram.com", label: { en: "Instagram", ja: "インスタグラム", ko: "인스타그램" },},
+  { icon: "/icons/linkedin.png", href: "https://linkedin.com", label: { en: "LinkedIn", ja: "リンクトイン", ko: "링크드인" }, },
 ];
 
 
