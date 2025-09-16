@@ -1,8 +1,8 @@
-// app/api/contact/route.ts
+import { getTransporter } from '@/lib/mailer';
 import type { NextRequest } from 'next/server';
-import nodemailer from 'nodemailer';
 
 export const runtime = 'nodejs';
+const transporter = getTransporter();
 
 // Type guard for Node.js network errors (e.g., ECONNREFUSED)
 function isErrno(e: unknown): e is NodeJS.ErrnoException & { address?: string; port?: number } {
@@ -20,16 +20,6 @@ export async function POST(req: NextRequest) {
       console.error('Contact API error: SMTP_HOST environment variable is not set.');
       return new Response(JSON.stringify({ error: 'Server configuration error' }), { status: 500 });
     }
-
-    const transporter = nodemailer.createTransport({
-      host: process.env.SMTP_HOST,
-      port: Number(process.env.SMTP_PORT) || 587,
-      secure: process.env.SMTP_SECURE === 'true', // true for 465, false for 587
-      auth: process.env.SMTP_USER && process.env.SMTP_PASS
-        ? { user: process.env.SMTP_USER, pass: process.env.SMTP_PASS }
-        : undefined,
-      tls: { rejectUnauthorized: false }, // consider removing in production
-    });
 
     const html = `
       <div style="font-family:system-ui,Segoe UI,Arial,sans-serif">
