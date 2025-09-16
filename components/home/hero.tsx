@@ -47,7 +47,7 @@ export default function HeroSection() {
   const CTA_SECONDARY: LStr = { en: "Learn more", ja: "さらに詳しく", ko: "자세히 알아보기" };
 
   return (
-  <section className="flex items-center bg-white bg-[radial-gradient(125%_125%_at_50%_70%,#fff_40%,#0022EE_100%)] bg-fixed overflow-x-clip">
+  <section className="flex items-center bg-white bg-[radial-gradient(125%_125%_at_50%_70%,#fff_40%,#0022EE_100%)] bg-fixed overflow-x-clip lg:pt-20">
     <div className="padding-container max-w-screen-xl mx-auto w-full">
       <div className="md:flex items-center justify-between">
           <div className="md:w-[478px] md:mr-8">

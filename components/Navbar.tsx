@@ -59,7 +59,7 @@ const Navbar = () => {
           "fixed top-0 left-0 right-0 z-40 transition-all duration-300",
           scrolled
             ? "bg-white/80 backdrop-blur-lg shadow-lg border border-white/20"
-            : "bg-white/60 backdrop-blur-md shadow-none border-transparent",
+            : "bg-white/80 backdrop-blur-lg shadow-none border-transparent",
         ].join(" ")}
       >
         <div
@@ -183,9 +183,6 @@ const Navbar = () => {
           </div>
         </div>
       </nav>
-
-      {/* Spacer to avoid layout jump */}
-      <div className="h-20 w-full" />
 
       {/* Mobile overlay */}
       <div

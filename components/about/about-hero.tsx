@@ -27,7 +27,7 @@ export default function AboutHero() {
   };
 
   return (
-    <section className="relative pt-24 pb-16 md:pt-20 md:pb-20 bg-primary overflow-hidden">
+    <section className="relative lg:pt-36 pb-16 md:pt-20 md:pb-20 bg-primary overflow-hidden">
       {/* Animated background elements */}
       <div className="absolute inset-0 overflow-hidden">
         <motion.div

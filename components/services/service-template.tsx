@@ -23,7 +23,7 @@ export function ServiceTemplate({ service }: { service: Service }) {
   }, []);
 
   return (
-    <article className="bg-white">
+    <article className="bg-white pt-16">
       <motion.header
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: isLoaded ? 1 : 0, y: isLoaded ? 0 : 20 }}
