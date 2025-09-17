@@ -4,16 +4,10 @@ import { ServiceTemplate } from "@/components/services/service-template";
 import { getAllServiceSlugs, loadService } from "@/lib/service-data";
 import { getRequestLocale, tServer } from "@/lib/i18n-server";
 
-/**
- * Pre-generate static params for dynamic routes.
- */
 export function generateStaticParams() {
   return getAllServiceSlugs().map((slug) => ({ slug }));
 }
 
-/**
- * Generate metadata dynamically for each service page.
- */
 export async function generateMetadata(
   { params }: { params: Promise<{ slug: string }> }
 ): Promise<Metadata> {
@@ -45,9 +39,7 @@ export async function generateMetadata(
   };
 }
 
-/**
- * Main service page component.
- */
+// Main service page component.
 export default async function ServicePage(
   { params }: { params: Promise<{ slug: string }> }
 ) {

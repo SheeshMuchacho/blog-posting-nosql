@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { motion } from "framer-motion";
 import Image from "next/image";
 import cogImage from "@/public/gen.gif";
 import Button from "@/components/ui/Button";
@@ -47,25 +47,75 @@ export default function HeroSection() {
   const CTA_SECONDARY: LStr = { en: "Learn more", ja: "さらに詳しく", ko: "자세히 알아보기" };
 
   return (
-  <section className="flex items-center bg-white bg-[radial-gradient(125%_125%_at_50%_70%,#fff_40%,#0022EE_100%)] bg-fixed overflow-x-clip lg:pt-20">
-    <div className="padding-container max-w-screen-xl mx-auto w-full">
-      <div className="md:flex items-center justify-between">
-          <div className="md:w-[478px] md:mr-8">
-            <div className="text-sm inline-flex border border-black/20 px-3 py-1 rounded-lg tracking-tight">
+  <section className="relative flex items-center bg-white bg-[radial-gradient(125%_125%_at_50%_90%,#fff_40%,#1E90FF_100%)] bg-fixed overflow-x-clip pt-20 pb-16 md:pb-20">
+      <div className="absolute inset-0 overflow-hidden">
+        <motion.div
+          className="absolute -top-40 -right-40 w-80 h-80 bg-blue-500/20 rounded-full blur-3xl"
+          animate={{
+            scale: [1, 1.2, 1],
+            rotate: [0, 180, 360],
+          }}
+          transition={{
+            duration: 20,
+            repeat: Infinity,
+            ease: "linear",
+          }}
+        />
+        <motion.div
+          className="absolute -bottom-40 -left-40 w-96 h-96 bg-blue-400/10 rounded-full blur-3xl"
+          animate={{
+            scale: [1.2, 1, 1.2],
+            rotate: [360, 180, 0],
+          }}
+          transition={{
+            duration: 25,
+            repeat: Infinity,
+            ease: "linear",
+          }}
+        />
+      </div>
+    <div className="relative z-10 padding-container max-w-screen-xl mx-auto w-full">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <motion.div
+            initial={{ opacity: 0, x: -50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+          >
+            <motion.div
+              className="text-sm inline-flex border border-black/20 px-3 py-1 rounded-lg tracking-tight"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.1 }}
+            >
               {t(BADGE, lang)}
-            </div>
+            </motion.div>
 
-            <h1 className="text-5xl md:text-7xl font-bold tracking-tighter bg-clip-text mt-6 whitespace-pre-line">
+            <motion.h1
+              className="text-5xl md:text-7xl font-bold tracking-tighter bg-clip-text mt-6 whitespace-pre-line"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+            >
               {t(HEADING_PART1, lang)}{" "}
               <AuroraText className="inline-block pr-[2px]">{t(HEADING_PART2, lang)}</AuroraText>{" "}
               {t(HEADING_TAIL, lang)}
-            </h1>
+            </motion.h1>
 
-            <p className="text-xl text-[#010D3E] tracking-tight mt-6">
+            <motion.p
+              className="text-xl text-[#010D3E] tracking-tight mt-6"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+            >
               {t(DESCRIPTION, lang)}
-            </p>
+            </motion.p>
 
-            <div className="flex gap-2 items-center mt-[30px]">
+            <motion.div
+              className="flex gap-2 items-center mt-[30px]"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.6 }}
+            >
               <Button type="button" title={t(CTA_PRIMARY, lang)} className="btn btn-primary" />
               <Link href="/about">
                 <Button
@@ -75,17 +125,22 @@ export default function HeroSection() {
                   icon="/icons/arrow-right.svg"
                 />
               </Link>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
 
-          <div className="md:h-[648px] md:flex-1 relative z-20 mt-8 md:mt-0">
+          <motion.div
+            className="md:h-[648px] md:flex-1 relative z-20 mt-8 md:mt-0"
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 1, delay: 0.3 }}
+          >
             <Image
               src={cogImage}
               alt="Image"
               className="md:absolute md:h-full md:w-auto md:max-w-none md:-left-6 lg:left-0"
               priority
             />
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>

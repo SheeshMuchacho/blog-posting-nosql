@@ -59,7 +59,7 @@ const Navbar = () => {
           "fixed top-0 left-0 right-0 z-40 transition-all duration-300",
           scrolled
             ? "bg-white/80 backdrop-blur-lg shadow-lg border border-white/20"
-            : "bg-white/80 backdrop-blur-lg shadow-none border-transparent",
+            : "bg-white/50 backdrop-blur-lg shadow-none border-transparent",
         ].join(" ")}
       >
         <div
@@ -165,7 +165,7 @@ const Navbar = () => {
                 type="button"
                 title={t({ en: "Contact Us", ja: "お問い合わせ", ko: "문의하기" }, lang)}
                 className={[
-                  "btn btn-outline-primary rounded-lg transition-all duration-300",
+                  "btn btn-primary rounded-lg transition-all duration-300",
                   scrolled ? "text-sm px-5 py-2" : "text-xs px-6 py-2",
                 ].join(" ")}
                 onClick={() => setContactModalOpen(true)}

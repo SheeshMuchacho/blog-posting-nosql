@@ -60,14 +60,14 @@ export const NAV_LINKS: NavLink[] = [
     ],
   },
 
-  { key: "about", label: { en: "About", ja: "会社概要", ko: "회사 소개" }, href: "/about" },
+  { key: "about", label: { en: "About Us", ja: "会社概要", ko: "회사 소개" }, href: "/about" },
 
   {
     key: "resources",
     label: { en: "Resources", ja: "リソース", ko: "리소스" },
-    href: "",
+    href: "/blog",
     dropdown: [
-      { key: "blog", label: { en: "Blog", ja: "ブログ", ko: "블로그" }, href: "" },
+      { key: "blog", label: { en: "Blog", ja: "ブログ", ko: "블로그" }, href: "/blog" },
       {
         key: "resource-library",
         label: { en: "Resource Library", ja: "リソースライブラリ", ko: "리소스 라이브러리" },
