@@ -13,7 +13,7 @@ const svc: Service = {
         ko: "가치 있는 잠재 고객을 식별하고 참여시켜 전환을 극대화하며 탁월한 ROI를 제공하는 종합 ABM 솔루션."
     },
         
-    ogImage: "/services/contentsynd.png", 
+    ogImage: "/services/abm/abm1.jpg", 
     sections: [
         {
             type: "hero",
@@ -27,7 +27,7 @@ const svc: Service = {
                 ja: "当社の包括的なABMソリューションは、最も価値の高い見込み客を特定してエンゲージできるよう綿密に設計されており、最大のコンバージョン率と顕著な投資対効果を保証します。\n\nターゲットアカウントリストの優先順位付け、データアペンド、類似拡張、キャンペーンアクティベーションなどの高度な機能により、マーケティングおよび営業チームが高い効果を発揮するABM施策を実行できるよう支援します。",
                 ko: "당사의 종합 ABM 솔루션은 가장 가치 있는 잠재 고객을 식별하고 참여할 수 있도록 정교하게 설계되어, 최대 전환율과 탁월한 투자 수익을 보장합니다.\n\n타깃 계정 리스트 우선순위화, 데이터 어펜드, 룩어라이크 확장, 캠페인 활성화 등 고급 기능을 통해 마케팅과 영업 팀이 고효율 ABM 캠페인을 실행할 수 있도록 지원합니다."
             },
-            image: "/services/contentsynd.png",
+            image: "/services/abm/abm1.jpg",
         },
         {
             type: "text",
@@ -42,7 +42,7 @@ const svc: Service = {
                 ko: "데이터 중심 접근과 최고 수준의 데이터 활용을 통해 구매 집단 전체에 공명하도록 메시지를 정밀 타겟팅하고 개인화할 수 있습니다. 타깃 계정 우선순위화, 데이터 어펜드, 룩어라이크 확장, 종합 분석 등 고급 기능은 데이터 기반 의사결정을 가능하게 하여 ABM 캠페인을 최대 성과로 최적화합니다."
             },
             align: "right",
-            image: "/services/contentsynd.png",
+            image: "/services/abm/abm2.png",
         },
         {
             type: "cards",
@@ -102,7 +102,7 @@ const svc: Service = {
                 ja: "Acumenは、権限と管理体制を担保する安全志向のB2B階層を備えています。ブランドメッセージを、関連するあらゆるデジタル接点で安全に届けます。",
                 ko: "Acumen은 소유권과 권한을 보장하는 안전 중심의 B2B 계층 구조를 갖추고 있습니다. 귀사의 브랜드 메시지는 모든 관련 디지털 경계 전반에 안전하게 전달됩니다."
             },
-            image: "/services/contentsynd2.png",
+            image: "/services/abm/abm3.jpg",
             align: "right",
             cta: { 
                 label: {

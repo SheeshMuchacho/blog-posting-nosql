@@ -27,7 +27,7 @@ export default function AboutHero() {
   };
 
   return (
-    <section className="relative lg:pt-36 pb-16 md:pt-20 md:pb-20 bg-primary overflow-hidden">
+    <section className="relative lg:pt-36 pb-16 md:pt-20 md:pb-20 bg-white bg-[radial-gradient(125%_125%_at_50%_70%,#fff_40%,#0022EE_100%)] bg-fixed overflow-x-clip">
       {/* Animated background elements */}
       <div className="absolute inset-0 overflow-hidden">
         <motion.div
@@ -69,7 +69,7 @@ export default function AboutHero() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent"
+              className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent"
             >
               {t(HEADING, lang)}
             </motion.h1>
@@ -78,7 +78,7 @@ export default function AboutHero() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.4 }}
-              className="text-2xl md:text-3xl font-semibold mb-8 text-blue-100"
+              className="text-2xl md:text-3xl font-semibold mb-8 text-secondary"
             >
               {t(SUBHEADING, lang)}
             </motion.h2>
@@ -87,7 +87,7 @@ export default function AboutHero() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.6 }}
-              className="text-xl text-blue-100 leading-relaxed"
+              className="text-xl text-primary leading-relaxed"
             >
               {t(DESCRIPTION, lang)}
             </motion.p>
@@ -105,7 +105,7 @@ export default function AboutHero() {
               <motion.div
                 animate={{ rotate: 360 }}
                 transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
-                className="absolute -inset-4 border-2 border-dashed border-blue-300/50 rounded-full"
+                className="absolute -inset-4 border-2 border-dashed border-primary rounded-full"
               />
               
               {/* Floating elements */}

@@ -12,7 +12,7 @@ const svc: Service = {
         ja: "最適なコンテンツを適切なチャネルで実際の購入者の前に届けます。",
         ko: "적절한 채널을 통해 실제 구매자에게 최고의 콘텐츠를 보여 주세요."
     },
-    ogImage: "/services/leadgen.png", 
+    ogImage: "/services/lead-generation/leadgen1.png", 
     sections: [
         {
             type: "hero",
@@ -26,7 +26,7 @@ const svc: Service = {
                 ja: "最先端のリード獲得戦略により、高度なデータ分析、ターゲットを絞ったマーケティングキャンペーン、リードスコアリング手法を駆使して理想的な見込み客を特定し、関与させます。当社の専門チームと包括的なアプローチにより、生成するすべてのリードは高度に精査され、営業チームが忠実な顧客へと転換できるよう支援します。当社のリード獲得サービスの力を体験し、ビジネスを新たな高みへと引き上げてください。",
                 ko: "최첨단 리드 제너레이션 전략은 고급 데이터 분석, 타겟 마케팅 캠페인, 리드 스코어링 기법을 활용해 이상적인 잠재 고객을 식별하고 참여시킵니다. 전문 팀과 종합적인 접근 방식을 통해 생성되는 모든 리드가 고도로 검증되도록 하여 영업팀이 충성 고객으로 전환할 수 있도록 돕습니다. 당사의 리드 제너레이션 서비스를 경험하고 비즈니스를 한 단계 더 성장시키세요."
             },
-            image: "/services/leadgen.png",
+            image: "/services/lead-generation/leadgen1.png",
         },
         {
             type: "text",
@@ -41,7 +41,7 @@ const svc: Service = {
                 ko: "우리의 주요 목표는 이미 판매 퍼널의 후반부에 있는 잠재 고객을 식별하여 판매에 적합한 리드를 생성하는 것입니다. 이러한 우선 리드는 엄청난 잠재력을 지니고 있으며 효과적으로 육성되면 뛰어난 전환율을 가져올 수 있습니다. HQL 서비스를 활용하면 의미 있는 영업 대화에 참여할 준비가 된 사전 검증된 잠재 고객에 접근할 수 있어 영업 프로세스를 간소화하고 수익 잠재력을 극대화할 수 있습니다."
             },
             align: "right",
-            image: "/services/leadgen.png",
+            image: "/services/lead-generation/leadgen2.jpg",
         },
         {
             type: "cards",
@@ -101,7 +101,7 @@ const svc: Service = {
                 ja: "深刻なパンデミックの中で、当社のテレマーケティング戦略はリードが商品を購入しやすいように設計されています。Acumen Intelligenceは事前の行動喚起型リードを提供し、単なる連絡先リストよりも便利で明確、かつ容易にアクセス可能です。",
                 ko: "심각한 팬데믹 속에서 당사의 텔레마케팅 전략은 리드가 귀사의 제품을 더 쉽게 구매할 수 있도록 합니다. Acumen Intelligence는 사전 행동 유도 리드를 제공하여 단순한 연락처 목록보다 더 편리하고 명확하며 쉽게 접근할 수 있습니다."
             },
-            image: "/services/leadgen.png",
+            image: "/services/lead-generation/leadgen3.jpg",
             align: "right",
             cta: { 
                 label: {

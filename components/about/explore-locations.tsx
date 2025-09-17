@@ -230,8 +230,8 @@ export default function ExploreOurLocations() {
                         <Image
                           src={location.countryCode}
                           alt={`${location.country} flag`}
-                          width={40}
-                          height={40}
+                          width={35}
+                          height={35}
                           className="w-35 h-35 opacity-75"
                         />
                     </div>

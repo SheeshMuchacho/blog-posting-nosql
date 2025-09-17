@@ -13,7 +13,7 @@ const svc: Service = {
         ko: "적절한 채널을 통해 실제 구매자에게 최고의 콘텐츠를 전달하세요."
     },
         
-    ogImage: "/services/contentsynd.png", 
+    ogImage: "/services/display-advertising/displayad1.png", 
     sections: [
         {
             type: "hero",
@@ -27,7 +27,7 @@ const svc: Service = {
                 ja: "当社の革新的なアプローチにより、デジタル広告戦略を通じて幅広いオーディエンスに効果的にリーチできます。特定の購買グループをターゲットにすることで、プログラマティックディスプレイ広告が潜在顧客への直接アクセスを実現します。Google、LinkedIn、Facebookなど主要プラットフォームで広告を配信できるよう、トップクラスの出版社と提携しています。さらに、さまざまな外部販売サイトにシームレスに統合され、分析に基づいてブランドを最適な場所で展開できます。",
                 ko: "혁신적인 접근 방식을 통해 디지털 광고 전략으로 폭넓은 청중에게 효과적으로 도달할 수 있습니다. 특정 구매 집단을 타겟팅하여 프로그래매틱 디스플레이 광고가 잠재 고객에게 직접적으로 다가가도록 합니다. Google, LinkedIn, Facebook 등 주요 플랫폼에 광고를 제공하기 위해 최고 수준의 퍼블리셔와 협력합니다. 또한 다양한 제3자 판매자 웹사이트에도 광고를 매끄럽게 통합하여, 귀사의 분석이 잘 작동하는 공간에서 브랜드를 보여줄 수 있습니다."
             },
-            image: "/services/contentsynd.png",
+            image: "/services/display-advertising/displayad1.png",
         },
         {
             type: "text",
@@ -42,7 +42,7 @@ const svc: Service = {
                 ko: "당사의 종합 서비스는 엔드투엔드 턴키 솔루션을 제공하여 여러 플랫폼에서 원활한 광고 제공을 보장합니다. 우리의 전문 지식을 활용하면 대상 고객과 손쉽게 연결하고, 브랜드 가시성을 높이며, 전환을 촉진할 수 있습니다. 오늘날의 역동적인 디지털 환경에서 Acumen Intelligence를 믿고 광고 효과를 극대화하며 탁월한 성과를 달성하세요."
             },
             align: "right",
-            image: "/services/contentsynd.png",
+            image: "/services/display-advertising/displayad2.png",
         },
         {
             type: "cards",
@@ -102,7 +102,7 @@ const svc: Service = {
                 ja: "すでにコンテンツシンジケーションを活用していても、同等またはより優れたCPLで追加リードを提供できます。そして、すべてを私たちが管理します。",
                 ko: "이미 콘텐츠 신디케이션을 활용하고 있더라도, 유사하거나 더 나은 CPL로 추가 리드를 제공할 수 있습니다. 모든 것은 우리가 처리합니다."
             },
-            image: "/services/contentsynd2.png",
+            image: "/services/display-advertising/displayad3.jpg",
             align: "right",
             cta: { 
                 label: {

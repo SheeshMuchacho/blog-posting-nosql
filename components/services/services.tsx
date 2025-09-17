@@ -3,13 +3,13 @@
 import { Target, BarChart3, Mail, Users, Zap, Shield } from "lucide-react";
 import { motion } from "framer-motion";
 import ServiceCard from "@/components/ui/ServiceCard";
-import contentsynd from "@/public/services/contentsynd.png";
-import displayad from "@/public/services/displayad.png";
-import leadgen from "@/public/services/leadgen.png";
-import webinar from "@/public/services/webinar.png";
-import intentdata from "@/public/services/intentdata.png";
-import demandgen from "@/public/services/demandgen.png";
-import abm from "@/public/services/abm.png";
+import contentsynd from "@/public/services/content-syndication/contentsynd1.jpg";
+import displayad from "@/public/services/display-advertising/displayad1.png";
+import leadgen from "@/public/services/lead-generation/leadgen1.png";
+import webinar from "@/public/services/webinar/webinar1.png";
+import intentdata from "@/public/services/intent-data/intentdata1.png";
+import demandgen from "@/public/services/lead-generation/leadgen1.png";
+import abm from "@/public/services/abm/abm1.jpg";
 import type { Variants, TargetAndTransition } from "framer-motion";
 import Link from "next/link";
 
@@ -249,7 +249,7 @@ export const ServicesSection = () => {
                   title={t(solution.title, lang)}
                   description={t(solution.description, lang)}
                   buttonText={t(solution.buttonText, lang)}
-                  className="h-full flex flex-col"   // <-- force card to fill height
+                  className="w-full h-full object-cover rounded-lg"
                 />
               </Link>
             </motion.div>
