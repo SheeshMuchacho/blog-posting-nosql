@@ -102,21 +102,20 @@ export default function WhoWeAre() {
               <FeatureList heading={HEADING} features={features} />
             </m.div>
 
-            {/* Right: visual (GPU-promoted) */}
+            {/* Right: visual */}
             <m.div variants={itemVariants} className="relative flex justify-center items-center">
               <div className="relative w-full max-w-lg will-change-transform transform-gpu">
                 <div className="relative w-full h-96 rounded-3xl p-6 shadow-xl bg-white/40 backdrop-blur">
-                  {/* Optimized image inside, avoids CSS repaint of bg-image */}
                   <div className="absolute inset-0 rounded-3xl overflow-hidden">
                     <Image
-                      src="/about.png"
+                      src="/about.jpg"
                       alt="About illustration"
                       fill
                       className="object-cover"
                       sizes="(max-width: 1024px) 90vw, 40vw"
                       priority={false}
                     />
-                    <div className="absolute inset-0 bg-black/10" />
+                    <div className="absolute inset-0 bg-black/20" />
                   </div>
 
                   {/* Minimal floating accents; paused offscreen or when prefers-reduced-motion */}

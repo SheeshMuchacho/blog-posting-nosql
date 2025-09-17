@@ -2,22 +2,36 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
+import aboutus from "@/public/aboutus.gif";
+import { AuroraText } from "@/components/ui/AuroraText";
 import { useLanguage } from "@/app/i18n/LanguageProvider";
 import { t, type LStr } from "@/lib/i18n";
 
 export default function AboutHero() {
   const { lang } = useLanguage();
 
-  const HEADING: LStr = {
+    const BADGE: LStr = {
     en: "About Us",
     ja: "私たちについて",
     ko: "회사 소개",
   };
 
-  const SUBHEADING: LStr = {
-    en: "Driving Innovation in B2B Marketing",
-    ja: "B2Bマーケティングにおけるイノベーションの推進",
-    ko: "B2B 마케팅의 혁신을 주도하다",
+  const HEADING_PART1: LStr = {
+    en: "Driving",
+    ja: "B2Bマーケティングに",
+    ko: "B2B 마케팅의",
+  };
+
+  const HEADING_PART2: LStr = {
+    en: "Innovation",
+    ja: "革新",
+    ko: "혁신",
+  };
+
+  const HEADING_TAIL: LStr = {
+    en: "in B2B Marketing",
+    ja: "をもたらす",
+    ko: "을 이끌다",
   };
 
   const DESCRIPTION: LStr = {
@@ -27,8 +41,7 @@ export default function AboutHero() {
   };
 
   return (
-    <section className="relative lg:pt-36 pb-16 md:pt-20 md:pb-20 bg-white bg-[radial-gradient(125%_125%_at_50%_70%,#fff_40%,#0022EE_100%)] bg-fixed overflow-x-clip">
-      {/* Animated background elements */}
+    <section className="relative pt-20 pb-16 md:pb-20 bg-white bg-[radial-gradient(125%_125%_at_50%_90%,#fff_40%,#1E90FF_100%)] bg-fixed overflow-x-clip">
       <div className="absolute inset-0 overflow-hidden">
         <motion.div
           className="absolute -top-40 -right-40 w-80 h-80 bg-blue-500/20 rounded-full blur-3xl"
@@ -63,35 +76,37 @@ export default function AboutHero() {
             initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
-            className="text-white"
           >
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.1 }}
+              className="text-sm inline-flex border border-black/20 px-3 py-1 rounded-lg tracking-tight"
+            >
+              {t(BADGE, lang)}
+            </motion.div>
+
             <motion.h1
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent"
+              className="text-5xl md:text-7xl font-bold tracking-tighter bg-clip-text mt-6 whitespace-pre-line"
             >
-              {t(HEADING, lang)}
+              {t(HEADING_PART1, lang)}{" "}
+              <AuroraText className="inline-block pr-[2px]">{t(HEADING_PART2, lang)}</AuroraText>{" "}
+              {t(HEADING_TAIL, lang)}
             </motion.h1>
-            
-            <motion.h2
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.4 }}
-              className="text-2xl md:text-3xl font-semibold mb-8 text-secondary"
-            >
-              {t(SUBHEADING, lang)}
-            </motion.h2>
-            
+
             <motion.p
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.6 }}
-              className="text-xl text-primary leading-relaxed"
+              transition={{ duration: 0.8, delay: 0.4 }}
+              className="text-xl text-[#010D3E] tracking-tight mt-6"
             >
               {t(DESCRIPTION, lang)}
             </motion.p>
           </motion.div>
+
 
           {/* Right Visual */}
           <motion.div
@@ -100,7 +115,15 @@ export default function AboutHero() {
             transition={{ duration: 1, delay: 0.3 }}
             className="relative flex justify-center items-center"
           >
-            {/* Central illustration with rotating outline only */}
+            <div className="md:h-[648px] md:flex-1 relative z-20 mt-8 md:mt-0">
+              <Image
+                src={aboutus}
+                alt="Image"
+                className="md:absolute md:h-full md:w-auto md:max-w-none md:-left-6 lg:left-0"
+                priority
+              />
+            </div>
+            {/* Central illustration with rotating outline only
             <div className="relative w-[470px] h-[470px] flex items-center justify-center">
               <motion.div
                 animate={{ rotate: 360 }}
@@ -108,7 +131,7 @@ export default function AboutHero() {
                 className="absolute -inset-4 border-2 border-dashed border-primary rounded-full"
               />
               
-              {/* Floating elements */}
+              Floating elements
               <motion.div
                 initial="hidden"
                 animate="visible"
@@ -171,7 +194,7 @@ export default function AboutHero() {
                   className="object-cover"
                 />
               </div>
-            </div>
+            </div> */}
           </motion.div>
         </div>
       </div>
