@@ -1,8 +1,12 @@
 import { getPostBySlug } from "@/lib/wp";
 import SingleBlogPage from "@/components/blog/single-blog-page";
 
-export default async function Post({ params }: { params: Promise<{ slug: string }> }) {
-  const { slug } = await params;
+export default async function Post({
+  params,
+}: {
+  params: { slug: string };
+}) {
+  const { slug } = params; // no await
   const post = await getPostBySlug(slug);
 
   if (!post) return <div>Not found</div>;
