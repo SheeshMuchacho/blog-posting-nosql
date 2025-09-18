@@ -6,6 +6,5 @@ export default async function Blog({
   searchParams?: Promise<{ page?: string }>;
 }) {
   const { page } = (await searchParams) ?? {};
-  const pageNum = Number(page ?? "1");
-  return <BlogIndex page={pageNum} />;
+  return <BlogIndex page={Number(page ?? "1")} />;
 }

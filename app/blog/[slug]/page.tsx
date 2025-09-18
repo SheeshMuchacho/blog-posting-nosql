@@ -4,13 +4,11 @@ import SingleBlogPage from "@/components/blog/single-blog-page";
 export default async function Post({
   params,
 }: {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }) {
-  const { slug } = params; // no await
+  const { slug } = await params;
   const post = await getPostBySlug(slug);
-
   if (!post) return <div>Not found</div>;
-
   return (
     <SingleBlogPage
       title={post.title.rendered}
@@ -20,4 +18,4 @@ export default async function Post({
   );
 }
 
-export const revalidate = 300;
+export const revalidate = 300;
