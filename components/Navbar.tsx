@@ -7,6 +7,7 @@ import Button from "./ui/Button";
 import { NAV_LINKS } from "@/constants";
 import LangSwitcher from "./LangSwitcher";
 import ContactModal from "./ui/ContactModal";
+import { useSearchParams } from "next/navigation";
 
 import { useLanguage } from "@/app/i18n/LanguageProvider";
 import { t } from "@/lib/i18n";
@@ -20,6 +21,7 @@ const Navbar = () => {
   const [mobileExpandedItems, setMobileExpandedItems] = useState<Record<string, boolean>>({});
   const dropdownRefs = useRef<Record<string, HTMLDivElement | null>>({});
   const { lang } = useLanguage();
+  const searchParams = useSearchParams();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > SCROLL_THRESHOLD);
@@ -59,7 +61,7 @@ const Navbar = () => {
           "fixed top-0 left-0 right-0 z-40 transition-all duration-300",
           scrolled
             ? "bg-white/80 backdrop-blur-lg shadow-lg border border-white/20"
-            : "bg-white/50 backdrop-blur-lg shadow-none border-transparent",
+            : "bg-white/60 backdrop-blur-lg shadow-none border-transparent",
         ].join(" ")}
       >
         <div

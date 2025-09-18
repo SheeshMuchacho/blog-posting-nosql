@@ -20,10 +20,11 @@ export async function getPostsPage(page=1, perPage=20) {
   const data: WpPost[] = await r.json();
   return {
     data,
-    total: Number(r.headers.get("X-WP-Total")||0),
+    total: Number(r.headers.get("X-WP-Total")||1),
     totalPages: Number(r.headers.get("X-WP-TotalPages")||0),
   };
 }
+
 
 export async function getPostBySlug(slug: string) {
   const r = await wp(`/wp-json/wp/v2/posts?slug=${encodeURIComponent(slug)}&_embed`);

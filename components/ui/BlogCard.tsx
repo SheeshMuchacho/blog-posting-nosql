@@ -1,4 +1,3 @@
-// components/ui/blog-card.tsx
 import Link from "next/link";
 
 interface BlogCardProps {
@@ -23,11 +22,14 @@ export function BlogCard({ id, title, slug, excerpt, featuredImage, date }: Blog
 
   return (
     <div className="bg-white rounded-lg shadow-sm border border-primary overflow-hidden hover:shadow-md transition-shadow duration-200">
-      {featuredImage?.source_url && (
+      {(
+        featuredImage?.source_url ||
+        "/default.jpg"
+      ) && (
         <div className="aspect-[16/10] overflow-hidden">
           <img
-            src={featuredImage.source_url}
-            alt={featuredImage.alt_text || ""}
+            src={featuredImage?.source_url || "/default.jpg"}
+            alt={featuredImage?.alt_text || "Blog post image"}
             className="w-full h-full object-cover"
             loading="lazy"
           />

@@ -6,38 +6,6 @@ import { useLanguage } from "@/app/i18n/LanguageProvider";
 import { t, type LStr } from "@/lib/i18n";
 import Image from "next/image";
 
-const CountryOutlines = {
-  UK: (
-    <svg viewBox="0 0 100 100" className="w-16 h-16 fill-current text-blue-600/70">
-      <path d="M30 20 L35 15 L45 18 L50 15 L55 20 L60 25 L65 30 L70 40 L65 50 L60 60 L55 65 L50 70 L45 75 L40 80 L35 75 L30 70 L25 65 L20 55 L25 45 L30 35 Z" />
-    </svg>
-  ),
-  SriLanka: (
-    <svg viewBox="0 0 100 100" className="w-16 h-16 fill-current text-blue-600/70">
-      <path d="M45 10 L50 15 L55 25 L60 35 L58 45 L55 55 L50 65 L45 75 L40 80 L35 75 L40 65 L42 55 L45 45 L48 35 L45 25 Z" />
-    </svg>
-  ),
-  Singapore: (
-    <svg viewBox="0 0 100 100" className="w-16 h-16 fill-current text-blue-600/70">
-      <circle cx="50" cy="50" r="8" />
-    </svg>
-  ),
-  Indonesia: (
-    <svg viewBox="0 0 100 100" className="w-16 h-16 fill-current text-blue-600/70">
-      <path d="M10 40 L20 35 L30 40 L40 38 L50 42 L60 40 L70 45 L80 50 L85 55 L80 60 L70 58 L60 60 L50 58 L40 60 L30 58 L20 55 L10 50 Z" />
-      <path d="M15 60 L25 58 L35 62 L25 65 L15 63 Z" />
-      <path d="M45 65 L55 63 L65 67 L55 70 L45 68 Z" />
-    </svg>
-  ),
-  Japan: (
-    <svg viewBox="0 0 100 100" className="w-16 h-16 fill-current text-blue-600/70">
-      <path d="M65 15 L70 20 L75 30 L80 40 L75 50 L70 55 L65 60 L60 65 L55 60 L60 50 L65 40 L60 30 L65 20 Z" />
-      <path d="M45 25 L50 30 L55 40 L50 50 L45 45 L40 35 L45 30 Z" />
-      <path d="M25 35 L30 40 L35 50 L30 55 L25 50 L20 40 L25 35 Z" />
-    </svg>
-  ),
-};
-
 export default function ExploreOurLocations() {
   const { lang } = useLanguage();
 
@@ -250,10 +218,10 @@ export default function ExploreOurLocations() {
                     <p className="text-sm text-gray-600">{location.email}</p>
                   </div>
                   
-                  {/* <div className="flex items-center space-x-3 pt-2 border-t border-gray-100">
+                  <div className="flex items-center space-x-3 pt-2 border-t border-gray-100">
                     <Users className="w-4 h-4 text-primary flex-shrink-0" />
                     <p className="text-sm font-medium text-gray-700">{location.team}</p>
-                  </div> */}
+                  </div>
                 </div>
               </div>
             </motion.div>
