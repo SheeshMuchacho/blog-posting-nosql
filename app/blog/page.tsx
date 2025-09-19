@@ -5,7 +5,6 @@ import BlogIndex from "@/components/blog/blog-section";
 export default async function Blog({
   searchParams,
 }: {
-  // if you’re on Next 15’s async dynamic APIs:
   searchParams?: Promise<{ page?: string }>;
 }) {
   const { page } = (await searchParams) ?? {};
