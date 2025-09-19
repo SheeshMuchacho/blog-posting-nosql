@@ -14,6 +14,7 @@ export default async function Post({
       title={post.title.rendered}
       content={post.content.rendered}
       date={post.date}
+      featuredImage={post._embedded?.["wp:featuredmedia"]?.[0]}
     />
   );
 }

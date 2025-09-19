@@ -1,17 +1,21 @@
+import Image from "next/image";
+
 interface SingleBlogPageProps {
   title: string;
   content: string;
   date: string;
   author?: string;
   authorImage?: string;
+  featuredImage?: { source_url?: string; alt_text?: string };
 }
 
 export default function SingleBlogPage({ 
   title, 
   content, 
   date, 
-  author = "Alex Bennett",
-  authorImage = "/api/placeholder/64/64" 
+  author = "Acumen Intelligence",
+  authorImage = "/logo/ailogo.jpg",
+  featuredImage,
 }: SingleBlogPageProps) {
   const formattedDate = new Date(date).toLocaleDateString("en-US", {
     year: "numeric",
@@ -19,12 +23,14 @@ export default function SingleBlogPage({
     day: "numeric",
   });
 
+  const plainTitle = title.replace(/<[^>]+>/g, "");
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100">
       {/* Hero Section */}
       <div className="relative bg-primary text-white">
         <div className="absolute inset-0 bg-black/10"></div>
-        <div className="relative max-w-4xl mx-auto px-6 md:py-24">
+        <div className="relative max-w-4xl mx-auto px-6 py-24">
           <div className="text-center">
             <h1 
               className="text-3xl md:text-5xl lg:text-6xl font-bold mb-8 leading-tight"
@@ -47,32 +53,37 @@ export default function SingleBlogPage({
             </div>
           </div>
         </div>
-        
-        {/* Decorative wave */}
-        <div className="absolute bottom-0 left-0 right-0">
-          <svg viewBox="0 0 1440 120" className="w-full h-8 md:h-12">
-            <path
-              fill="rgb(248 250 252)"
-              d="M0,64L48,69.3C96,75,192,85,288,80C384,75,480,53,576,48C672,43,768,53,864,58.7C960,64,1056,64,1152,58.7C1248,53,1344,43,1392,37.3L1440,32L1440,120L1392,120C1344,120,1248,120,1152,120C1056,120,960,120,864,120C768,120,672,120,576,120C480,120,384,120,288,120C192,120,96,120,48,120L0,120Z"
-            />
-          </svg>
-        </div>
       </div>
 
       {/* Main Content */}
-      <div className="relative -mt-8 md:-mt-12">
-        <div className="max-w-4xl mx-auto px-6 pb-16">
+      <div className="relative -mt-16">
+        <div className="mx-auto px-10 md:px-32 sm:px-3 pb-16">
           <div className="bg-white rounded-2xl shadow-xl p-8 md:p-12">
-            {/* Featured Image Placeholder */}
-            <div className="mb-8 rounded-xl overflow-hidden bg-gradient-to-r from-slate-200 to-slate-300 aspect-video">
-              <div className="w-full h-full flex items-center justify-center text-slate-500">
-                <div className="text-center">
-                  <svg className="w-16 h-16 mx-auto mb-2" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clipRule="evenodd" />
-                  </svg>
-                  <p className="text-sm">Featured Image</p>
+
+            {/* Featured Image */}
+            <div className="mb-8 rounded-xl overflow-hidden aspect-video">
+              {featuredImage?.source_url ? (
+                <Image
+                  src={featuredImage.source_url}
+                  alt={featuredImage.alt_text || plainTitle}
+                  width={1100}
+                  height={575}
+                  className="w-full h-auto object-cover"
+                />
+              ) : (
+                <div className="w-full h-full flex items-center justify-center bg-gradient-to-r from-slate-200 to-slate-300 text-slate-500">
+                  <div className="text-center">
+                    <svg className="w-16 h-16 mx-auto mb-2" fill="currentColor" viewBox="0 0 20 20">
+                      <path
+                        fillRule="evenodd"
+                        d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
+                    <p className="text-sm">Featured Image</p>
+                  </div>
                 </div>
-              </div>
+              )}
             </div>
 
             {/* Article Content */}

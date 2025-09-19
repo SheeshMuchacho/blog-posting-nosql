@@ -1,29 +1,15 @@
-import Link from "next/link";
 import { getPostsPage } from "@/lib/wp";
 import { BlogCard } from "@/components/ui/BlogCard";
+import Pagination from "@/components/ui/Pagination";
 
 type BlogIndexProps = { page: number };
 
-function pageWindow(curr: number, last: number, span = 2) {
-  const pages = new Set<number>([1, last, curr]);
-  for (let i = 1; i <= span; i++) {
-    if (curr - i > 1) pages.add(curr - i);
-    if (curr + i < last) pages.add(curr + i);
-  }
-  return [...pages].sort((a, b) => a - b);
-}
-
 export default async function BlogIndex({ page }: BlogIndexProps) {
-  const perPage = 20;
+  const perPage = 12;
   const { data: posts, totalPages } = await getPostsPage(page, perPage);
-
-  const isFirst = page <= 1;
-  const isLast = page >= totalPages;
-  const pages = pageWindow(page, totalPages);
 
   return (
     <div className="min-h-screen bg-gray-50">
-
       <div className="bg-primary text-white pb-16 pt-28">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
@@ -50,47 +36,13 @@ export default async function BlogIndex({ page }: BlogIndexProps) {
           ))}
         </div>
 
-        <nav className="flex justify-center items-center gap-1 mt-10" aria-label="Pagination">
-          <Link
-            href={`?page=${Math.max(1, page - 1)}`}
-            prefetch={false}
-            aria-disabled={isFirst}
-            className={`px-3 py-1 bg-primary text-white rounded border ${isFirst ? "pointer-events-none bg-gray-200" : "hover:bg-secondary"}`}
-          >
-            Prev
-          </Link>
-
-          <div className="flex items-center gap-1">
-            {pages.map((p, idx) => {
-              const prev = pages[idx - 1];
-              const showDots = idx > 0 && p - (prev ?? p) > 1;
-              return (
-                <span key={p} className="flex">
-                  {showDots && <span className="px-2">…</span>}
-                  <Link
-                    href={`?page=${p}`}
-                    prefetch={false}
-                    aria-current={p === page ? "page" : undefined}
-                    className={`px-3 py-1 rounded border ${
-                      p === page ? "bg-secondary text-white border-primary" : "hover:bg-gray-200"
-                    }`}
-                  >
-                    {p}
-                  </Link>
-                </span>
-              );
-            })}
-          </div>
-
-          <Link
-            href={`?page=${Math.min(totalPages, page + 1)}`}
-            prefetch={false}
-            aria-disabled={isLast}
-            className={`px-3 py-1 bg-primary text-white rounded border ${isLast ? "pointer-events-none bg-gray-200" : "hover:bg-secondary"}`}
-          >
-            Next
-          </Link>
-        </nav>
+        {/* Use the new Pagination component */}
+        <div className="mt-10">
+          <Pagination 
+            currentPage={page}
+            totalPages={totalPages}
+          />
+        </div>
       </div>
     </div>
   );
