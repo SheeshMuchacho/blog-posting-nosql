@@ -1,76 +1,53 @@
-import { config } from "dotenv";
-config({ path: ".env.local" }); 
-import fs from "fs/promises";
-import path from "path";
+import fs from "node:fs/promises";
+import path from "node:path";
+import { wpToClean, type CleanPost } from "@/helpers/wp-clean";
 
-const base = process.env.WP_BASE_URL;
-if (!base) {
-  console.error("WP_BASE_URL is missing. Add it to .env.local or .env");
-  process.exit(1);
+const WP_API = "https://acumenintelligence.com/wp-json/wp/v2";
+
+async function fetchPosts(page = 1, perPage = 20) {
+  const url = new URL(`${WP_API}/posts`);
+  url.searchParams.set("_embed", "1"); // embed featured image, terms, etc.
+  url.searchParams.set("per_page", String(perPage));
+  url.searchParams.set("page", String(page));
+  url.searchParams.set(
+    "_fields",
+    "id,slug,date,link,title.rendered,content.rendered,excerpt.rendered,_embedded.wp:featuredmedia,_embedded.wp:term"
+  );
+
+  const res = await fetch(url);
+  if (!res.ok) {
+    throw new Error(`Failed to fetch posts (HTTP ${res.status})`);
+  }
+
+  const posts = await res.json();
+  const totalPages = Number(res.headers.get("x-wp-totalpages") || "1");
+  return { posts, totalPages };
 }
 
-const outDir = path.join(process.cwd(), "content", "wp");
+async function run() {
+  const outDir = path.join(process.cwd(), "content", "wp");
+  await fs.mkdir(outDir, { recursive: true });
 
-async function fetchAllPosts() {
   let page = 1;
-  const all: any[] = [];
   while (true) {
-    const url = `${base}/wp-json/wp/v2/posts?per_page=100&page=${page}&_embed`;
-    const r = await fetch(url);
-    if (!r.ok) break;
-    const batch = await r.json();
-    all.push(...batch);
-    if (batch.length < 100) break;
+    const { posts, totalPages } = await fetchPosts(page);
+    console.log(`Fetched page ${page}/${totalPages}`);
+
+    for (const raw of posts) {
+      const clean: CleanPost = wpToClean(raw);
+      const file = path.join(outDir, `${clean.slug}.json`);
+      await fs.writeFile(file, JSON.stringify(clean, null, 2), "utf8");
+      console.log(`  → wrote ${file}`);
+    }
+
+    if (page >= totalPages) break;
     page++;
   }
-  return all;
+
+  console.log("✅ Import finished.");
 }
 
-async function ensureDir(p: string) {
-  await fs.mkdir(p, { recursive: true });
-}
-
-async function writeManifest(posts: any[]) {
-  const manifest = posts.map((p) => ({
-    id: p.id,
-    slug: p.slug,
-    date: p.date,
-    modified: p.modified,
-  }));
-  await fs.writeFile(path.join(outDir, "_manifest.json"), JSON.stringify(manifest, null, 2), "utf8");
-}
-
-async function sync() {
-  await ensureDir(outDir);
-
-  const posts = await fetchAllPosts();
-  const liveSlugs = new Set(posts.map((p) => `${p.slug}.json`));
-
-  // 1) Write/update current posts
-  for (const p of posts) {
-    const file = path.join(outDir, `${p.slug}.json`);
-    await fs.writeFile(file, JSON.stringify(p, null, 2), "utf8");
-  }
-
-  // 2) Delete orphans (files for posts that no longer exist in WP)
-  const entries = await fs.readdir(outDir);
-  for (const name of entries) {
-    if (!name.endsWith(".json")) continue;
-    if (name === "_manifest.json") continue;
-    if (!liveSlugs.has(name)) {
-      await fs.rm(path.join(outDir, name));
-      // optional: write a tombstone instead of deleting
-      // await fs.writeFile(path.join(outDir, name), JSON.stringify({ deleted: true }), "utf8");
-    }
-  }
-
-  // 3) Update manifest
-  await writeManifest(posts);
-
-  console.log(`Imported ${posts.length} posts. Cleaned ${entries.length - liveSlugs.size - 1 || 0} orphans.`);
-}
-
-sync().catch((e) => {
-  console.error(e);
+run().catch((err) => {
+  console.error("Import failed:", err);
   process.exit(1);
 });

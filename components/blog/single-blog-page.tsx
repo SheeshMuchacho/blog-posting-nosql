@@ -88,7 +88,7 @@ export default function SingleBlogPage({
 
             {/* Article Content */}
             <article 
-              className="prose prose-lg max-w-none prose-headings:text-[#144272] prose-headings:font-bold prose-p:text-slate-700 prose-p:leading-relaxed prose-a:text-[#2c74b3] prose-a:no-underline hover:prose-a:underline prose-strong:text-[#144272] prose-blockquote:border-l-[#2c74b3] prose-blockquote:bg-slate-50 prose-blockquote:rounded-r-lg prose-img:rounded-lg prose-img:shadow-md"
+              className="px-8 prose prose-lg max-w-none prose-headings:text-[#144272] prose-headings:font-bold prose-p:text-slate-700 prose-p:leading-relaxed prose-a:text-[#2c74b3] prose-a:no-underline hover:prose-a:underline prose-strong:text-[#144272] prose-blockquote:border-l-[#2c74b3] prose-blockquote:bg-slate-50 prose-blockquote:rounded-r-lg prose-img:rounded-lg prose-img:shadow-md"
               dangerouslySetInnerHTML={{ __html: content }}
             />
 
