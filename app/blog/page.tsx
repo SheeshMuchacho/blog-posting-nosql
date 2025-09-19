@@ -1,18 +1,28 @@
+// app/blog/page.tsx
 import { Suspense } from "react";
 import Loading from "./loading";
-import BlogIndex from "@/components/blog/blog-section";
+import BlogHero from "@/components/blog/blog-hero";
+import BlogSearch from "@/components/blog/blog-search";
+import BlogList from "@/components/blog/blog-list";
 
 export default async function Blog({
   searchParams,
 }: {
-  searchParams?: Promise<{ page?: string }>;
+  searchParams?: Promise<{ page?: string; q?: string; perPage?: string }>;
 }) {
-  const { page } = (await searchParams) ?? {};
+  const { page, q, perPage } = (await searchParams) ?? {};
   const pageNum = Number(page ?? "1");
+  // keep default perPage = 12 here; if you’re doing responsive perPage, compute and pass it in
+  const per = Number(perPage ?? "12");
 
   return (
-    <Suspense key={pageNum} fallback={<Loading />}>
-      <BlogIndex page={pageNum} />
-    </Suspense>
+    <>
+      <BlogHero />
+      <BlogSearch />
+      <Suspense key={`${pageNum}-${q ?? ""}-${per}`} fallback={<Loading />}>
+        {/* Server fetch + grid + pagination */}
+        <BlogList page={pageNum} perPage={per} searchTerm={q ?? null} />
+      </Suspense>
+    </>
   );
 }

@@ -15,8 +15,9 @@ async function wp(path: string) {
   return res;
 }
 
-export async function getPostsPage(page=1, perPage=20) {
-  const r = await wp(`/wp-json/wp/v2/posts?per_page=${perPage}&page=${page}&_embed`);
+export async function getPostsPage(page=1, perPage=20, searchTerm?: string) {
+  const searchQuery = searchTerm ? `&search=${encodeURIComponent(searchTerm)}` : '';
+  const r = await wp(`/wp-json/wp/v2/posts?per_page=${perPage}&page=${page}&_embed${searchQuery}`);
   const data: WpPost[] = await r.json();
   return {
     data,
@@ -24,7 +25,6 @@ export async function getPostsPage(page=1, perPage=20) {
     totalPages: Number(r.headers.get("X-WP-TotalPages")||0),
   };
 }
-
 
 export async function getPostBySlug(slug: string) {
   const r = await wp(`/wp-json/wp/v2/posts?slug=${encodeURIComponent(slug)}&_embed`);
