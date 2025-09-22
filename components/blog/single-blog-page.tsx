@@ -1,4 +1,18 @@
+"use client";
+
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
+import {
+  FaFacebook,
+  FaTwitter,
+  FaReddit,
+  FaLinkedin,
+  FaWhatsapp,
+  FaTumblr,
+  FaPinterest,
+  FaVk,
+  FaEnvelope,
+} from "react-icons/fa";
 
 interface SingleBlogPageProps {
   title: string;
@@ -23,14 +37,46 @@ export default function SingleBlogPage({
     day: "numeric",
   });
 
+  const [currentUrl, setCurrentUrl] = useState("");
+
+  useEffect(() => {
+    setCurrentUrl(window.location.href);
+  }, []);
+
   const plainTitle = title.replace(/<[^>]+>/g, "");
+
+  // Remove duplicate featured images from content
+  let processedContent = content;
+  if (featuredImage?.source_url) {
+    const featuredImageRegex = new RegExp(
+      `<img[^>]*src=["']${featuredImage.source_url.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}["'][^>]*>`,
+      'gi'
+    );
+    processedContent = processedContent.replace(featuredImageRegex, '');
+  }
+
+  const encodedTitle = encodeURIComponent(plainTitle);
+  const encodedUrl = encodeURIComponent(currentUrl);
+  const encodedImage = encodeURIComponent(featuredImage?.source_url || "");
+
+  const sharePlatforms = [
+    { name: 'Facebook', icon: <FaFacebook />, color: '#1877F2', url: `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}` },
+    { name: 'Twitter', icon: <FaTwitter />, color: '#1DA1F2', url: `https://twitter.com/intent/tweet?url=${encodedUrl}&text=${encodedTitle}` },
+    { name: 'Reddit', icon: <FaReddit />, color: '#FF4500', url: `https://www.reddit.com/submit?url=${encodedUrl}&title=${encodedTitle}` },
+    { name: 'LinkedIn', icon: <FaLinkedin />, color: '#0A66C2', url: `https://www.linkedin.com/shareArticle?mini=true&url=${encodedUrl}&title=${encodedTitle}` },
+    { name: 'WhatsApp', icon: <FaWhatsapp />, color: '#25D366', url: `https://api.whatsapp.com/send?text=${encodedTitle}%20${encodedUrl}` },
+    { name: 'Tumblr', icon: <FaTumblr />, color: '#36465D', url: `https://www.tumblr.com/share/link?url=${encodedUrl}&name=${encodedTitle}` },
+    { name: 'Pinterest', icon: <FaPinterest />, color: '#E60023', url: `https://pinterest.com/pin/create/button/?url=${encodedUrl}&media=${encodedImage}&description=${encodedTitle}` },
+    { name: 'VK', icon: <FaVk />, color: '#4680C2', url: `http://vk.com/share.php?url=${encodedUrl}` },
+    { name: 'Email', icon: <FaEnvelope />, color: '#777777', url: `mailto:?subject=${encodedTitle}&body=Check%20out%20this%20article:%20${encodedUrl}` },
+  ];
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100">
       {/* Hero Section */}
       <div className="relative bg-primary text-white">
         <div className="absolute inset-0 bg-black/10"></div>
-        <div className="relative max-w-4xl mx-auto px-6 py-24">
+        <div className="relative max-w-4xl lg:max-w-5xl xl:max-w-7xl mx-auto px-6 py-24">
           <div className="text-center">
             <h1 
               className="text-3xl md:text-5xl lg:text-6xl font-bold mb-8 leading-tight"
@@ -43,7 +89,7 @@ export default function SingleBlogPage({
                 <img
                   src={authorImage}
                   alt={author}
-                  className="w-16 h-16 rounded-full border-3 border-white/30 shadow-lg"
+                  className="w-16 h-16 rounded-full border-3 border-white/30 shadow-lg object-cover"
                 />
               </div>
               <div className="text-center">
@@ -57,56 +103,134 @@ export default function SingleBlogPage({
 
       {/* Main Content */}
       <div className="relative -mt-16">
-        <div className="mx-auto px-10 md:px-32 sm:px-3 pb-16">
+        <div className="max-w-4xl lg:max-w-5xl xl:max-w-7xl mx-auto px-6 sm:px-8 pb-16">
           <div className="bg-white rounded-2xl shadow-xl p-8 md:p-12">
 
             {/* Featured Image */}
-            <div className="mb-8 rounded-xl overflow-hidden aspect-video">
-              {featuredImage?.source_url ? (
+            {featuredImage?.source_url && (
+              <div className="mb-12 rounded-xl overflow-hidden aspect-video shadow-lg">
                 <Image
                   src={featuredImage.source_url}
                   alt={featuredImage.alt_text || plainTitle}
                   width={1100}
                   height={575}
-                  className="w-full h-auto object-cover"
+                  className="w-full h-full object-cover"
+                  priority
                 />
-              ) : (
-                <div className="w-full h-full flex items-center justify-center bg-gradient-to-r from-slate-200 to-slate-300 text-slate-500">
-                  <div className="text-center">
-                    <svg className="w-16 h-16 mx-auto mb-2" fill="currentColor" viewBox="0 0 20 20">
-                      <path
-                        fillRule="evenodd"
-                        d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z"
-                        clipRule="evenodd"
-                      />
-                    </svg>
-                    <p className="text-sm">Featured Image</p>
-                  </div>
-                </div>
-              )}
-            </div>
+              </div>
+            )}
 
             {/* Article Content */}
             <article 
-              className="px-8 prose prose-lg max-w-none prose-headings:text-[#144272] prose-headings:font-bold prose-p:text-slate-700 prose-p:leading-relaxed prose-a:text-[#2c74b3] prose-a:no-underline hover:prose-a:underline prose-strong:text-[#144272] prose-blockquote:border-l-[#2c74b3] prose-blockquote:bg-slate-50 prose-blockquote:rounded-r-lg prose-img:rounded-lg prose-img:shadow-md"
-              dangerouslySetInnerHTML={{ __html: content }}
+              className="prose prose-lg max-w-none"
+              style={{
+                '--tw-prose-headings': '#144272',
+                '--tw-prose-body': '#475569',
+                '--tw-prose-links': '#2c74b3',
+                '--tw-prose-bold': '#144272',
+              } as React.CSSProperties}
+              dangerouslySetInnerHTML={{ __html: processedContent }}
             />
+            
+            <style jsx>{`
+              article :global(h1),
+              article :global(h2), 
+              article :global(h3),
+              article :global(h4),
+              article :global(h5),
+              article :global(h6) {
+                color: #144272 !important;
+                font-weight: bold !important;
+                line-height: 1.4 !important;
+                margin-top: 2rem !important;
+                margin-bottom: 1rem !important;
+              }
+              
+              article :global(h1) {
+                font-size: 1.875rem !important;
+              }
+              
+              article :global(h2) {
+                font-size: 1.5rem !important;
+              }
+              
+              article :global(h3) {
+                font-size: 1.25rem !important;
+              }
+              
+              article :global(p) {
+                color: #475569 !important;
+                line-height: 1.7 !important;
+                margin-bottom: 1.5rem !important;
+                margin-top: 0 !important;
+              }
+              
+              article :global(a) {
+                color: #2c74b3 !important;
+                text-decoration: none !important;
+              }
+              
+              article :global(a:hover) {
+                text-decoration: underline !important;
+              }
+              
+              article :global(strong) {
+                color: #144272 !important;
+                font-weight: bold !important;
+              }
+              
+              article :global(blockquote) {
+                border-left: 4px solid #2c74b3 !important;
+                background-color: #f8fafc !important;
+                border-radius: 0 0.5rem 0.5rem 0 !important;
+                padding: 1rem !important;
+                margin: 1.5rem 0 !important;
+              }
+              
+              article :global(ul),
+              article :global(ol) {
+                margin: 1.5rem 0 !important;
+              }
+              
+              article :global(li) {
+                margin: 0.5rem 0 !important;
+              }
+              
+              article :global(figure) {
+                margin-left: auto !important;
+                margin-right: auto !important;
+              }
+
+              article :global(img) {
+                border-radius: 0.75rem !important;
+                box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04) !important;
+                margin: 0.5rem auto 2rem !important;
+                display: block !important;
+                max-width: 100% !important;
+                height: auto !important;
+                max-height: 500px !important;
+                object-fit: cover !important;
+              }
+            `}</style>
 
             {/* Share Section */}
-            <div className="mt-8 pt-6 border-t border-slate-200">
-              <div className="flex items-center justify-between">
-                <span className="text-slate-600 font-medium">Share this article:</span>
-                <div className="flex space-x-3">
-                  <button className="p-2 bg-[#144272] text-white rounded-full hover:bg-[#2c74b3] transition-colors">
-                    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                      <path d="M6.29 18.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0020 3.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.073 4.073 0 01.8 7.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 010 16.407a11.616 11.616 0 006.29 1.84" />
-                    </svg>
-                  </button>
-                  <button className="p-2 bg-[#2c74b3] text-white rounded-full hover:bg-[#144272] transition-colors">
-                    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M16.338 16.338H13.67V12.16c0-.995-.017-2.277-1.387-2.277-1.39 0-1.601 1.086-1.601 2.207v4.248H8.014v-8.59h2.559v1.174h.037c.356-.675 1.227-1.387 2.526-1.387 2.703 0 3.203 1.778 3.203 4.092v4.711zM5.005 6.575a1.548 1.548 0 11-.003-3.096 1.548 1.548 0 01.003 3.096zm-1.337 9.763H6.34v-8.59H3.667v8.59zM17.668 1H2.328C1.595 1 1 1.581 1 2.298v15.403C1 18.418 1.595 19 2.328 19h15.34c.734 0 1.332-.582 1.332-1.299V2.298C19 1.581 18.402 1 17.668 1z" clipRule="evenodd" />
-                    </svg>
-                  </button>
+            <div className="mt-12 pt-8 border-t border-slate-200">
+              <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+                <span className="text-slate-600 font-medium text-lg">Share this article:</span>
+                <div className="flex flex-wrap gap-3 justify-center">
+                  {sharePlatforms.map((platform) => (
+                    <a
+                      key={platform.name}
+                      href={platform.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={`Share on ${platform.name}`}
+                      className="p-3 text-white rounded-full transition-transform hover:scale-110"
+                      style={{ backgroundColor: platform.color }}
+                    >
+                      {React.cloneElement(platform.icon, { className: "w-5 h-5" })}
+                    </a>
+                  ))}
                 </div>
               </div>
             </div>
