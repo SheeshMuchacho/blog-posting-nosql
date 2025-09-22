@@ -16,7 +16,7 @@ export default function NotFound() {
   const BTN_HOME: LStr = { en: "Return Home", ja: "ホームに戻る", ko: "홈으로 돌아가기" };
 
   return (
-    <div className="flex flex-col items-center justify-center text-sm max-md:px-4 pt-10 py-20">
+    <div className="flex flex-col items-center justify-center text-sm max-md:px-4 py-20">
       <h1 className="text-8xl md:text-9xl font-bold text-secondary">404</h1>
       <div className="h-1 w-16 rounded bg-secondary my-5 md:my-7"></div>
 
