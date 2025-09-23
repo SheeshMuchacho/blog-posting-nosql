@@ -18,32 +18,34 @@ pipeline {
     }
 
     stage('Prep paths & repo vars') {
-      steps {
-        script {
-          def repoUrl = sh(script: 'git config --get remote.origin.url', returnStdout: true).trim()
-          env.REPO_URL = repoUrl
+        steps {
+            script {
+            def repoUrl = sh(script: 'git config --get remote.origin.url', returnStdout: true).trim()
+            env.REPO_URL = repoUrl
 
-          def norm = repoUrl.replace(':','/')
-          def parts = norm.tokenize('/')
-          def repoPart  = parts[-1]
-          def ownerPart = parts[-2]
-          def repoName  = repoPart.endsWith('.git') ? repoPart[0..-5] : repoPart
+            def norm = repoUrl.replace(':','/')
+            def parts = norm.tokenize('/')
+            def repoPart  = parts[-1]
+            def ownerPart = parts[-2]
+            def repoName  = repoPart.endsWith('.git') ? repoPart[0..-5] : repoPart
 
-          env.IMAGE_OWNER      = ownerPart
-          env.IMAGE_NAME       = repoName
-          env.BASE_PROJECT_DIR = "${env.BASE_DIR}/${env.IMAGE_NAME}"
-          env.TEMP_DIR         = "${env.BASE_PROJECT_DIR}/.tmp_${env.BUILD_NUMBER}"
+            // Force lowercase to satisfy Docker tag rules
+            env.IMAGE_OWNER      = ownerPart.toLowerCase()
+            env.IMAGE_NAME       = repoName.toLowerCase()
+            env.BASE_PROJECT_DIR = "${env.BASE_DIR}/${env.IMAGE_NAME}"
+            env.TEMP_DIR         = "${env.BASE_PROJECT_DIR}/.tmp_${env.BUILD_NUMBER}"
 
-          sh """
-            bash -lc '
-            set -Eeuo pipefail
-            mkdir -p "${env.BASE_PROJECT_DIR}" "${env.TEMP_DIR}"
-            '
-          """
-          echo "Owner=${env.IMAGE_OWNER} Repo=${env.IMAGE_NAME}"
+            sh """
+                bash -lc '
+                set -Eeuo pipefail
+                mkdir -p "${env.BASE_PROJECT_DIR}" "${env.TEMP_DIR}"
+                '
+            """
+            echo "Owner=${env.IMAGE_OWNER} Repo=${env.IMAGE_NAME}"
+            }
         }
-      }
     }
+
 
     stage('Clone fresh into TEMP (main)') {
       steps {
