@@ -7,9 +7,9 @@ pipeline {
   }
 
   environment {
-    BASE_DIR         = '/home/ansible'
-    IMAGE_REGISTRY   = 'ghcr.io'
-    GITHUB_CREDS_ID  = '63482712-9185-4fca-b8ba-84649d66a380'
+    BASE_DIR        = '/home/ansible'
+    IMAGE_REGISTRY  = 'ghcr.io'
+    GITHUB_CREDS_ID = '63482712-9185-4fca-b8ba-84649d66a380'
   }
 
   stages {
@@ -27,16 +27,19 @@ pipeline {
           def repoUrl = sh(script: 'git config --get remote.origin.url', returnStdout: true).trim()
           env.REPO_URL = repoUrl
 
-          def norm = repoUrl.replace(':','/')
-          def parts = norm.tokenize('/')
-          def repoPart  = parts[-1]
-          def ownerPart = parts[-2]
-          def repoName  = repoPart.endsWith('.git') ? repoPart[0..-5] : repoPart
+          def norm     = repoUrl.replace(':','/')
+          def parts    = norm.tokenize('/')
+          def repoPart = parts[-1]
+          def owner    = parts[-2]
+          def name     = repoPart.endsWith('.git') ? repoPart[0..-5] : repoPart
 
-          env.IMAGE_OWNER      = ownerPart.toLowerCase()
-          env.IMAGE_NAME       = repoName.toLowerCase()
+          env.IMAGE_OWNER      = owner.toLowerCase()
+          env.IMAGE_NAME       = name.toLowerCase()
           env.BASE_PROJECT_DIR = "${env.BASE_DIR}/${env.IMAGE_NAME}"
           env.TEMP_DIR         = "${env.BASE_PROJECT_DIR}/.tmp_${env.BUILD_NUMBER}"
+
+          // we’re going latest-only now
+          env.IMAGE_TAG        = "latest"
 
           sh '''
             bash -lc '
@@ -44,7 +47,7 @@ pipeline {
               mkdir -p "$BASE_PROJECT_DIR" "$TEMP_DIR"
             '
           '''
-          echo "Owner=${env.IMAGE_OWNER} Repo=${env.IMAGE_NAME}"
+          echo "Owner=${env.IMAGE_OWNER} Repo=${env.IMAGE_NAME} Tag=${env.IMAGE_TAG}"
         }
       }
     }
@@ -57,13 +60,6 @@ pipeline {
             branches: [[name: "*/main"]],
             userRemoteConfigs: [[ url: env.REPO_URL, credentialsId: env.GITHUB_CREDS_ID ]]
           ])
-          script {
-            def commit = sh(script: "git rev-parse --short HEAD", returnStdout: true).trim()
-            env.IMAGE_TAG     = "main-${commit}"
-            env.FULL_IMAGE    = "${env.IMAGE_REGISTRY}/${env.IMAGE_OWNER}/${env.IMAGE_NAME}:${env.IMAGE_TAG}"
-            env.LATEST_IMAGE  = "${env.IMAGE_REGISTRY}/${env.IMAGE_OWNER}/${env.IMAGE_NAME}:latest"
-            echo "Tag=${env.IMAGE_TAG}"
-          }
         }
       }
     }
@@ -78,8 +74,7 @@ pipeline {
               set -Eeuo pipefail
               : "${JENKINS_HOME:=/var/jenkins_home}"
               export DOCKER_CONFIG="${JENKINS_HOME}/.docker"
-              mkdir -p "$DOCKER_CONFIG"
-              chmod 700 "$DOCKER_CONFIG"
+              mkdir -p "$DOCKER_CONFIG" && chmod 700 "$DOCKER_CONFIG"
               echo "$GH_PAT" | docker --config "$DOCKER_CONFIG" login ghcr.io -u "$GH_USER" --password-stdin
             '
           '''
@@ -87,7 +82,7 @@ pipeline {
       }
     }
 
-    stage('Build image via docker-compose.prod.yml') {
+    stage('Build image (:latest) via docker-compose.prod.yml') {
       steps {
         sh '''
           bash -lc '
@@ -99,20 +94,21 @@ pipeline {
               exit 1
             fi
 
+            # Build will tag ghcr.io/$IMAGE_OWNER/$IMAGE_NAME:latest per compose image reference
             docker compose -f docker-compose.prod.yml build
-            docker tag "ghcr.io/$IMAGE_OWNER/$IMAGE_NAME:$IMAGE_TAG" "ghcr.io/$IMAGE_OWNER/$IMAGE_NAME:latest" || true
           '
         '''
       }
     }
 
-    stage('Move deploy files out of TEMP') {
+    stage('Move deploy files out of TEMP (force replace)') {
       steps {
         sh '''
           bash -lc '
             set -Eeuo pipefail
             cd "$TEMP_DIR"
-            for f in docker-compose.prod.yml .env credentials.json; do
+            # -f ensures overwrite if file exists in target dir
+            for f in docker-compose.prod.yml .env .env.local credentials.json; do
               [[ -f "$f" ]] && mv -f "$f" "$BASE_PROJECT_DIR/" || true
             done
           '
@@ -138,23 +134,23 @@ pipeline {
       }
     }
 
-    stage('Push image to GHCR') {
+    stage('Push :latest to GHCR') {
       steps {
         sh '''
           bash -lc '
             set -Eeuo pipefail
-            docker push "ghcr.io/$IMAGE_OWNER/$IMAGE_NAME:$IMAGE_TAG"
-            docker push "ghcr.io/$IMAGE_OWNER/$IMAGE_NAME:latest" || true
+            docker push "ghcr.io/$IMAGE_OWNER/$IMAGE_NAME:latest"
           '
         '''
       }
     }
 
-    stage('Prune dangling images (optional)') {
+    stage('Prune dangling (previous latest)') {
       steps {
         sh '''
           bash -lc '
             set -Eeuo pipefail
+            # remove only untagged/unused images; safe for “latest-only” policy
             docker image prune -f || true
           '
         '''
@@ -172,7 +168,7 @@ pipeline {
       '''
     }
     success {
-      echo "Built, deployed, pushed: ${FULL_IMAGE}"
+      echo "Built, deployed, pushed: ghcr.io/${IMAGE_OWNER}/${IMAGE_NAME}:latest"
     }
   }
 }
