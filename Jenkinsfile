@@ -69,13 +69,15 @@ pipeline {
                                             usernameVariable: 'GH_USER',
                                             passwordVariable: 'GH_PAT')]) {
             sh '''
-                set -euo pipefail
+                bash -lc '
+                set -Eeuo pipefail
                 : "${JENKINS_HOME:=/var/jenkins_home}"
                 export DOCKER_CONFIG="${JENKINS_HOME}/.docker"
                 mkdir -p "$DOCKER_CONFIG"
                 chmod 700 "$DOCKER_CONFIG"
 
                 echo "$GH_PAT" | docker --config "$DOCKER_CONFIG" login ghcr.io -u "$GH_USER" --password-stdin
+                '
             '''
             }
         }
