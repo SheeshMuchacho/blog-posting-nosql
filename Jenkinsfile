@@ -3,9 +3,9 @@ pipeline {
   options { disableConcurrentBuilds(); timestamps() }
 
   environment {
-    BASE_DIR       = '/home/ansible'
-    IMAGE_REGISTRY = 'ghcr.io'
-    GITHUB_CREDS_ID = '63482712-9185-4fca-b8ba-84649d66a380'
+    BASE_DIR         = '/home/ansible'
+    IMAGE_REGISTRY   = 'ghcr.io'
+    GITHUB_CREDS_ID  = '63482712-9185-4fca-b8ba-84649d66a380'
   }
 
   stages {
@@ -20,25 +20,26 @@ pipeline {
     stage('Prep paths & repo vars') {
       steps {
         script {
-          // Get origin URL from the already-checked-out multibranch workspace
           def repoUrl = sh(script: 'git config --get remote.origin.url', returnStdout: true).trim()
           env.REPO_URL = repoUrl
 
-          // Derive owner and repo WITHOUT using a regex Matcher (so it’s serializable)
-          // Handles both https://github.com/owner/repo.git and git@github.com:owner/repo.git
-          def norm = repoUrl.replace(':','/')            // git@github.com:owner/repo.git -> git@github.com/owner/repo.git
-          def parts = norm.tokenize('/')                 // split by '/'
-          def repoPart = parts[-1]                       // "repo.git" or "repo"
-          def ownerPart = parts[-2]                      // "owner"
-          def repoName = repoPart.endsWith('.git') ? repoPart[0..-5] : repoPart
+          def norm = repoUrl.replace(':','/')
+          def parts = norm.tokenize('/')
+          def repoPart  = parts[-1]
+          def ownerPart = parts[-2]
+          def repoName  = repoPart.endsWith('.git') ? repoPart[0..-5] : repoPart
 
-          env.IMAGE_OWNER = ownerPart
-          env.IMAGE_NAME  = repoName
-
+          env.IMAGE_OWNER      = ownerPart
+          env.IMAGE_NAME       = repoName
           env.BASE_PROJECT_DIR = "${env.BASE_DIR}/${env.IMAGE_NAME}"
           env.TEMP_DIR         = "${env.BASE_PROJECT_DIR}/.tmp_${env.BUILD_NUMBER}"
 
-          sh "mkdir -p '${env.BASE_PROJECT_DIR}' '${env.TEMP_DIR}'"
+          sh """
+            bash -lc '
+            set -Eeuo pipefail
+            mkdir -p "${env.BASE_PROJECT_DIR}" "${env.TEMP_DIR}"
+            '
+          """
           echo "Owner=${env.IMAGE_OWNER} Repo=${env.IMAGE_NAME}"
         }
       }
@@ -64,40 +65,45 @@ pipeline {
     }
 
     stage('Docker login (GHCR)') {
-        steps {
-            withCredentials([usernamePassword(credentialsId: env.GITHUB_CREDS_ID,
-                                            usernameVariable: 'GH_USER',
-                                            passwordVariable: 'GH_PAT')]) {
-            sh '''
-                bash -lc '
-                set -Eeuo pipefail
-                : "${JENKINS_HOME:=/var/jenkins_home}"
-                export DOCKER_CONFIG="${JENKINS_HOME}/.docker"
-                mkdir -p "$DOCKER_CONFIG"
-                chmod 700 "$DOCKER_CONFIG"
+      steps {
+        withCredentials([usernamePassword(credentialsId: env.GITHUB_CREDS_ID,
+                                          usernameVariable: 'GH_USER',
+                                          passwordVariable: 'GH_PAT')]) {
+          sh '''
+            bash -lc '
+            set -Eeuo pipefail
+            : "${JENKINS_HOME:=/var/jenkins_home}"
+            export DOCKER_CONFIG="${JENKINS_HOME}/.docker"
+            mkdir -p "$DOCKER_CONFIG"
+            chmod 700 "$DOCKER_CONFIG"
 
-                echo "$GH_PAT" | docker --config "$DOCKER_CONFIG" login ghcr.io -u "$GH_USER" --password-stdin
-                '
-            '''
-            }
+            echo "$GH_PAT" | docker --config "$DOCKER_CONFIG" login ghcr.io -u "$GH_USER" --password-stdin
+            '
+          '''
         }
+      }
     }
 
     stage('Build image via docker-compose.prod.yml') {
       steps {
         sh """
-          set -euo pipefail
-          cd '${TEMP_DIR}'
+          bash -lc '
+          set -Eeuo pipefail
+          cd "${env.TEMP_DIR}"
 
-          export IMAGE_REGISTRY='${IMAGE_REGISTRY}'
-          export IMAGE_OWNER='${IMAGE_OWNER}'
-          export IMAGE_NAME='${IMAGE_NAME}'
-          export IMAGE_TAG='${IMAGE_TAG}'
+          export IMAGE_REGISTRY="${env.IMAGE_REGISTRY}"
+          export IMAGE_OWNER="${env.IMAGE_OWNER}"
+          export IMAGE_NAME="${env.IMAGE_NAME}"
+          export IMAGE_TAG="${env.IMAGE_TAG}"
 
-          [ -f docker-compose.prod.yml ] || { echo 'ERROR: docker-compose.prod.yml not found'; exit 1; }
+          if [[ ! -f docker-compose.prod.yml ]]; then
+            echo "ERROR: docker-compose.prod.yml not found" >&2
+            exit 1
+          fi
 
           docker compose -f docker-compose.prod.yml build
-          docker tag '${FULL_IMAGE}' '${LATEST_IMAGE}' || true
+          docker tag "${env.FULL_IMAGE}" "${env.LATEST_IMAGE}" || true
+          '
         """
       }
     }
@@ -105,11 +111,13 @@ pipeline {
     stage('Move deploy files out of TEMP') {
       steps {
         sh """
-          set -euo pipefail
-          cd '${TEMP_DIR}'
+          bash -lc '
+          set -Eeuo pipefail
+          cd "${env.TEMP_DIR}"
           for f in docker-compose.prod.yml .env credentials.json; do
-            [ -f "\$f" ] && mv -f "\$f" '${BASE_PROJECT_DIR}/' || true
+            [[ -f "$f" ]] && mv -f "$f" "${env.BASE_PROJECT_DIR}/" || true
           done
+          '
         """
       }
     }
@@ -117,15 +125,22 @@ pipeline {
     stage('Compose Up (permanent dir)') {
       steps {
         sh """
-          set -euo pipefail
-          cd '${BASE_PROJECT_DIR}'
-          export IMAGE_REGISTRY='${IMAGE_REGISTRY}'
-          export IMAGE_OWNER='${IMAGE_OWNER}'
-          export IMAGE_NAME='${IMAGE_NAME}'
-          export IMAGE_TAG='${IMAGE_TAG}'
+          bash -lc '
+          set -Eeuo pipefail
+          cd "${env.BASE_PROJECT_DIR}"
 
-          [ -f docker-compose.prod.yml ] || { echo 'WARN: no docker-compose.prod.yml here; skipping up'; exit 0; }
+          export IMAGE_REGISTRY="${env.IMAGE_REGISTRY}"
+          export IMAGE_OWNER="${env.IMAGE_OWNER}"
+          export IMAGE_NAME="${env.IMAGE_NAME}"
+          export IMAGE_TAG="${env.IMAGE_TAG}"
+
+          if [[ ! -f docker-compose.prod.yml ]]; then
+            echo "WARN: no docker-compose.prod.yml here; skipping up"
+            exit 0
+          fi
+
           docker compose -f docker-compose.prod.yml up -d
+          '
         """
       }
     }
@@ -133,21 +148,35 @@ pipeline {
     stage('Push image to GHCR') {
       steps {
         sh """
-          set -euo pipefail
-          docker push '${FULL_IMAGE}'
-          docker push '${LATEST_IMAGE}' || true
+          bash -lc '
+          set -Eeuo pipefail
+          docker push "${env.FULL_IMAGE}"
+          docker push "${env.LATEST_IMAGE}" || true
+          '
         """
       }
     }
 
     stage('Prune dangling images (optional)') {
-      steps { sh "docker image prune -f || true" }
+      steps {
+        sh """
+          bash -lc '
+          set -Eeuo pipefail
+          docker image prune -f || true
+          '
+        """
+      }
     }
   }
 
   post {
     always {
-      sh "rm -rf '${TEMP_DIR}' || true"
+      sh """
+        bash -lc '
+        set -Eeuo pipefail
+        rm -rf "${env.TEMP_DIR}" || true
+        '
+      """
     }
     success {
       echo "Built, deployed, pushed: ${FULL_IMAGE}"
