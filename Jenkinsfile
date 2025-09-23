@@ -111,22 +111,23 @@ pipeline {
     }
 
     stage('Move deploy files out of TEMP') {
-      steps {
-        sh """
-          bash -lc '
-          set -Eeuo pipefail
-          cd "${env.TEMP_DIR}"
-          for f in docker-compose.prod.yml .env credentials.json; do
-            [[ -f "$f" ]] && mv -f "$f" "${env.BASE_PROJECT_DIR}/" || true
-          done
-          '
-        """
-      }
+        steps {
+            sh '''
+            bash -lc '
+            set -Eeuo pipefail
+            cd "'"${env.TEMP_DIR}"'"
+            for f in docker-compose.prod.yml .env credentials.json; do
+                [[ -f "$f" ]] && mv -f "$f" "'"${env.BASE_PROJECT_DIR}"'"/" || true
+            done
+            '
+            '''
+        }
     }
+
 
     stage('Compose Up (permanent dir)') {
       steps {
-        sh """
+        sh '''
           bash -lc '
           set -Eeuo pipefail
           cd "${env.BASE_PROJECT_DIR}"
@@ -143,42 +144,42 @@ pipeline {
 
           docker compose -f docker-compose.prod.yml up -d
           '
-        """
+        '''
       }
     }
 
     stage('Push image to GHCR') {
       steps {
-        sh """
+        sh '''
           bash -lc '
           set -Eeuo pipefail
           docker push "${env.FULL_IMAGE}"
           docker push "${env.LATEST_IMAGE}" || true
           '
-        """
+        '''
       }
     }
 
     stage('Prune dangling images (optional)') {
       steps {
-        sh """
+        sh '''
           bash -lc '
           set -Eeuo pipefail
           docker image prune -f || true
           '
-        """
+        '''
       }
     }
   }
 
   post {
     always {
-      sh """
+      sh '''
         bash -lc '
         set -Eeuo pipefail
         rm -rf "${env.TEMP_DIR}" || true
         '
-      """
+      '''
     }
     success {
       echo "Built, deployed, pushed: ${FULL_IMAGE}"
