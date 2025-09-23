@@ -5,6 +5,7 @@ pipeline {
   environment {
     BASE_DIR       = '/home/ansible'
     IMAGE_REGISTRY = 'ghcr.io'
+    GITHUB_CREDS_ID = '63482712-9185-4fca-b8ba-84649d66a380'
   }
 
   stages {
