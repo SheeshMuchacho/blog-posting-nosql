@@ -21,12 +21,18 @@ pipeline {
         script {
           // Get origin URL from the already-checked-out multibranch workspace
           def repoUrl = sh(script: 'git config --get remote.origin.url', returnStdout: true).trim()
-          // Parse owner/repo and strip optional .git
-          def m = (repoUrl =~ /[:\/]([^\/:]+)\/([^\/]+?)(?:\.git)?$/)
-          if (!m) { error "Cannot parse owner/repo from ${repoUrl}" }
-          env.IMAGE_OWNER = m[0][1]
-          env.IMAGE_NAME  = m[0][2]                 // e.g. acumen-site (no .git)
-          env.REPO_URL    = repoUrl                  // reuse later
+          env.REPO_URL = repoUrl
+
+          // Derive owner and repo WITHOUT using a regex Matcher (so it’s serializable)
+          // Handles both https://github.com/owner/repo.git and git@github.com:owner/repo.git
+          def norm = repoUrl.replace(':','/')            // git@github.com:owner/repo.git -> git@github.com/owner/repo.git
+          def parts = norm.tokenize('/')                 // split by '/'
+          def repoPart = parts[-1]                       // "repo.git" or "repo"
+          def ownerPart = parts[-2]                      // "owner"
+          def repoName = repoPart.endsWith('.git') ? repoPart[0..-5] : repoPart
+
+          env.IMAGE_OWNER = ownerPart
+          env.IMAGE_NAME  = repoName
 
           env.BASE_PROJECT_DIR = "${env.BASE_DIR}/${env.IMAGE_NAME}"
           env.TEMP_DIR         = "${env.BASE_PROJECT_DIR}/.tmp_${env.BUILD_NUMBER}"
@@ -43,10 +49,7 @@ pipeline {
           checkout([
             $class: 'GitSCM',
             branches: [[name: "*/main"]],
-            userRemoteConfigs: [[
-              url: env.REPO_URL,
-              credentialsId: 'github-ghcr-creds'
-            ]]
+            userRemoteConfigs: [[ url: env.REPO_URL, credentialsId: 'github-ghcr-creds' ]]
           ])
           script {
             def commit = sh(script: "git rev-parse --short HEAD", returnStdout: true).trim()
