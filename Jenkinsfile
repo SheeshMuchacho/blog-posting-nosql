@@ -160,15 +160,20 @@ pipeline {
 
   post {
     always {
-      sh '''
+        sh '''
         bash -lc '
-          set -Eeuo pipefail
-          rm -rf "$TEMP_DIR" || true
+            set -Eeuo pipefail
+            # Remove current build temp (if present)
+            rm -rf "$TEMP_DIR" || true
+            # Remove any stale temp dirs from earlier runs, including Jenkins @tmp siblings
+            find "$BASE_PROJECT_DIR" -maxdepth 1 -type d \\( -name ".tmp_*" -o -name ".tmp_*@tmp" \\) \
+            ! -path "$TEMP_DIR" -exec rm -rf {} + || true
         '
-      '''
+        '''
     }
     success {
-      echo "Built, deployed, pushed: ghcr.io/${IMAGE_OWNER}/${IMAGE_NAME}:latest"
+        echo "Built, deployed, pushed: ghcr.io/${IMAGE_OWNER}/${IMAGE_NAME}:latest"
     }
   }
+
 }
