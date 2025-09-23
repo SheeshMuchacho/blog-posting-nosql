@@ -64,13 +64,21 @@ pipeline {
     }
 
     stage('Docker login (GHCR)') {
-      steps {
-        withCredentials([usernamePassword(credentialsId: env.GITHUB_CREDS_ID,
-                                          usernameVariable: 'GH_USER',
-                                          passwordVariable: 'GH_PAT')]) {
-          sh 'echo "$GH_PAT" | docker login ${IMAGE_REGISTRY} -u "$GH_USER" --password-stdin'
+        steps {
+            withCredentials([usernamePassword(credentialsId: env.GITHUB_CREDS_ID,
+                                            usernameVariable: 'GH_USER',
+                                            passwordVariable: 'GH_PAT')]) {
+            sh '''
+                set -euo pipefail
+                : "${JENKINS_HOME:=/var/jenkins_home}"
+                export DOCKER_CONFIG="${JENKINS_HOME}/.docker"
+                mkdir -p "$DOCKER_CONFIG"
+                chmod 700 "$DOCKER_CONFIG"
+
+                echo "$GH_PAT" | docker --config "$DOCKER_CONFIG" login ghcr.io -u "$GH_USER" --password-stdin
+            '''
+            }
         }
-      }
     }
 
     stage('Build image via docker-compose.prod.yml') {
