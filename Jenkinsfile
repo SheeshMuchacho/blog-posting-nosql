@@ -50,7 +50,7 @@ pipeline {
           checkout([
             $class: 'GitSCM',
             branches: [[name: "*/main"]],
-            userRemoteConfigs: [[ url: env.REPO_URL, credentialsId: 'github-ghcr-creds' ]]
+            userRemoteConfigs: [[ url: env.REPO_URL, credentialsId: env.GITHUB_CREDS_ID ]]
           ])
           script {
             def commit = sh(script: "git rev-parse --short HEAD", returnStdout: true).trim()
