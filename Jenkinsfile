@@ -65,7 +65,7 @@ pipeline {
 
     stage('Docker login (GHCR)') {
       steps {
-        withCredentials([usernamePassword(credentialsId: 'github-ghcr-creds',
+        withCredentials([usernamePassword(credentialsId: env.GITHUB_CREDS_ID,
                                           usernameVariable: 'GH_USER',
                                           passwordVariable: 'GH_PAT')]) {
           sh 'echo "$GH_PAT" | docker login ${IMAGE_REGISTRY} -u "$GH_USER" --password-stdin'
