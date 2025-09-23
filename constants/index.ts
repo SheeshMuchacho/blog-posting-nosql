@@ -71,7 +71,7 @@ export const NAV_LINKS: NavLink[] = [
       {
         key: "resource-library",
         label: { en: "Resource Library", ja: "リソースライブラリ", ko: "리소스 라이브러리" },
-        href: "/resource-library",
+        href: "/whitepaper",
       },
     ],
   },

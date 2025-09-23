@@ -21,12 +21,6 @@ services:
       - /app/node_modules
       - next_cache:/app/.next
     command: npm run dev
-    networks:
-      - acumen_net
-
-networks:
-  acumen_net:
-    external: true
 
 volumes:
   next_cache:
