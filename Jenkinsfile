@@ -1,10 +1,10 @@
 pipeline {
   agent any
-  options { ansiColor('xterm'); disableConcurrentBuilds(); timestamps() }
+  options { disableConcurrentBuilds(); timestamps() }
 
   environment {
-    BASE_DIR       = '/home/ansible' // permanent per-repo dir
-    IMAGE_REGISTRY = 'ghcr.io'       // GitHub Container Registry
+    BASE_DIR       = '/home/ansible'
+    IMAGE_REGISTRY = 'ghcr.io'
   }
 
   stages {
@@ -19,16 +19,20 @@ pipeline {
     stage('Prep paths & repo vars') {
       steps {
         script {
-          def repoUrl  = sh(script: "git config --get remote.origin.url", returnStdout: true).trim()
-          def repoName = repoUrl.tokenize('/').last().replaceAll(/\\.git$/, '')
-          def owner    = repoUrl.tokenize('/')[-2]
+          // Get origin URL from the already-checked-out multibranch workspace
+          def repoUrl = sh(script: 'git config --get remote.origin.url', returnStdout: true).trim()
+          // Parse owner/repo and strip optional .git
+          def m = (repoUrl =~ /[:\/]([^\/:]+)\/([^\/]+?)(?:\.git)?$/)
+          if (!m) { error "Cannot parse owner/repo from ${repoUrl}" }
+          env.IMAGE_OWNER = m[0][1]
+          env.IMAGE_NAME  = m[0][2]                 // e.g. acumen-site (no .git)
+          env.REPO_URL    = repoUrl                  // reuse later
 
-          env.IMAGE_OWNER      = owner
-          env.IMAGE_NAME       = repoName
-          env.BASE_PROJECT_DIR = "${env.BASE_DIR}/${repoName}"
+          env.BASE_PROJECT_DIR = "${env.BASE_DIR}/${env.IMAGE_NAME}"
           env.TEMP_DIR         = "${env.BASE_PROJECT_DIR}/.tmp_${env.BUILD_NUMBER}"
 
           sh "mkdir -p '${env.BASE_PROJECT_DIR}' '${env.TEMP_DIR}'"
+          echo "Owner=${env.IMAGE_OWNER} Repo=${env.IMAGE_NAME}"
         }
       }
     }
@@ -36,18 +40,20 @@ pipeline {
     stage('Clone fresh into TEMP (main)') {
       steps {
         dir("${env.TEMP_DIR}") {
-          checkout([$class: 'GitSCM',
+          checkout([
+            $class: 'GitSCM',
             branches: [[name: "*/main"]],
             userRemoteConfigs: [[
-              url: sh(script: "git config --get remote.origin.url", returnStdout: true).trim(),
+              url: env.REPO_URL,
               credentialsId: 'github-ghcr-creds'
             ]]
           ])
           script {
             def commit = sh(script: "git rev-parse --short HEAD", returnStdout: true).trim()
-            env.IMAGE_TAG    = "main-${commit}"
-            env.FULL_IMAGE   = "${env.IMAGE_REGISTRY}/${env.IMAGE_OWNER}/${env.IMAGE_NAME}:${env.IMAGE_TAG}"
-            env.LATEST_IMAGE = "${env.IMAGE_REGISTRY}/${env.IMAGE_OWNER}/${env.IMAGE_NAME}:latest"
+            env.IMAGE_TAG     = "main-${commit}"
+            env.FULL_IMAGE    = "${env.IMAGE_REGISTRY}/${env.IMAGE_OWNER}/${env.IMAGE_NAME}:${env.IMAGE_TAG}"
+            env.LATEST_IMAGE  = "${env.IMAGE_REGISTRY}/${env.IMAGE_OWNER}/${env.IMAGE_NAME}:latest"
+            echo "Tag=${env.IMAGE_TAG}"
           }
         }
       }
@@ -74,10 +80,7 @@ pipeline {
           export IMAGE_NAME='${IMAGE_NAME}'
           export IMAGE_TAG='${IMAGE_TAG}'
 
-          if [ ! -f docker-compose.prod.yml ]; then
-            echo 'ERROR: docker-compose.prod.yml not found.' >&2
-            exit 1
-          fi
+          [ -f docker-compose.prod.yml ] || { echo 'ERROR: docker-compose.prod.yml not found'; exit 1; }
 
           docker compose -f docker-compose.prod.yml build
           docker tag '${FULL_IMAGE}' '${LATEST_IMAGE}' || true
@@ -107,11 +110,7 @@ pipeline {
           export IMAGE_NAME='${IMAGE_NAME}'
           export IMAGE_TAG='${IMAGE_TAG}'
 
-          if [ ! -f docker-compose.prod.yml ]; then
-            echo 'WARN: docker-compose.prod.yml not found in permanent dir; skipping up.'
-            exit 0
-          fi
-
+          [ -f docker-compose.prod.yml ] || { echo 'WARN: no docker-compose.prod.yml here; skipping up'; exit 0; }
           docker compose -f docker-compose.prod.yml up -d
         """
       }
@@ -137,7 +136,7 @@ pipeline {
       sh "rm -rf '${TEMP_DIR}' || true"
     }
     success {
-      echo "Built, deployed, and pushed: ${FULL_IMAGE}"
+      echo "Built, deployed, pushed: ${FULL_IMAGE}"
     }
   }
 }
