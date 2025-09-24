@@ -3,7 +3,7 @@
 import { Target, BarChart3, Mail, Users, Zap, Shield } from "lucide-react";
 import { motion } from "framer-motion";
 import ServiceCard from "@/components/ui/ServiceCard";
-import contentsynd from "@/public/services/content-syndication/contentsynd1.jpg";
+import contentsynd from "@/public/services/content-syndication/contentsynd1.png";
 import displayad from "@/public/services/display-advertising/displayad1.png";
 import leadgen from "@/public/services/lead-generation/leadgen1.png";
 import webinar from "@/public/services/webinar/webinar1.png";

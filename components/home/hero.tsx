@@ -116,7 +116,13 @@ export default function HeroSection() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.6 }}
             >
-              <Button type="button" title={t(CTA_PRIMARY, lang)} className="btn btn-primary" />
+              <Link href={"/services"}>
+                <Button 
+                  type="button" 
+                  title={t(CTA_PRIMARY, lang)} 
+                  className="btn btn-primary" 
+                />
+              </Link>
               <Link href="/about">
                 <Button
                   type="button"

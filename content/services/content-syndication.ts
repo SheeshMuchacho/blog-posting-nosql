@@ -12,7 +12,7 @@ const svc: Service = {
     ja: "最適なチャネルで、実際の購買者に貴社の優れたコンテンツを届けます。",
     ko: "적합한 채널에서 실제 구매자에게 최고의 콘텐츠를 전달하세요.",
   },
-  ogImage: "/services/content-syndication/contentsynd1.jpg",
+  ogImage: "/services/content-syndication/contentsynd1.png",
   sections: [
     {
       type: "hero",
@@ -29,7 +29,7 @@ const svc: Service = {
         ko:
           "전략적 파트너십과 광범위한 유통 네트워크를 통해 귀사의 귀중한 콘텐츠가 적시에 적절한 사람들에게 도달할 수 있도록 보장합니다. 저희 전문가 팀은 귀사와 긴밀히 협력하여 타겟 시장의 공감을 얻고, 관심을 사로잡으며 의미 있는 참여를 이끌어내는 매력적인 구매자 중심 콘텐츠를 제작합니다. \n\n 저희의 콘텐츠 신디케이션 서비스를 활용하시면 브랜드를 선도적인 사고의 선두주자로 자리매김하고, 고품질 리드를 창출하며, 고객 관계를 강화하실 수 있습니다.",
       },
-      image: "/services/content-syndication/contentsynd1.jpg",
+      image: "/services/content-syndication/contentsynd1.png",
     },
     {
       type: "cards",
