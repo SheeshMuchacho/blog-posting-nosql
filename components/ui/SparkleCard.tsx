@@ -51,7 +51,7 @@ export default function TiltShineCard({
     const my = e.clientY - r.top;
     const px = mx / r.width - 0.5;
     const py = my / r.height - 0.5;
-    const rx = (-py) * 10; // max 10deg
+    const rx = (-py) * 20; // max 10deg
     const ry = px * 10;
     setVars({ rx, ry, mx, my });
   }, [reduce]);
