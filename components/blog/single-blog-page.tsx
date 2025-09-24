@@ -28,7 +28,7 @@ export default function SingleBlogPage({
   content, 
   date, 
   author = "Acumen Intelligence",
-  authorImage = "/logo/ailogo.jpg",
+  authorImage = "/logo/ailogo.png",
   featuredImage,
 }: SingleBlogPageProps) {
   const formattedDate = new Date(date).toLocaleDateString("en-US", {
@@ -89,7 +89,7 @@ export default function SingleBlogPage({
                 <img
                   src={authorImage}
                   alt={author}
-                  className="w-16 h-16 rounded-full border-3 border-white/30 shadow-lg object-cover"
+                  className="w-16 h-16 rounded-full border-3 border-white/30 shadow-lg object-cover bg-white p-3"
                 />
               </div>
               <div className="text-center">
