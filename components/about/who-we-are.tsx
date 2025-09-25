@@ -94,7 +94,7 @@ export default function WhoWeAre() {
             ref={scopeRef}
             className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center"
             variants={containerVariants}
-            initial="hidden"
+            initial={false}
             animate={controls}
           >
             {/* Left: content */}
