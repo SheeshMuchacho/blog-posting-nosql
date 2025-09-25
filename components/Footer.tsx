@@ -64,27 +64,49 @@ const Footer = () => {
   const [subscribed, setSubscribed] = useState(false);
   const [emailError, setEmailError] = useState("");
   const yearRef = useRef(new Date().getFullYear());
+  const [loading, setLoading] = useState(false);
+
 
   const validateEmail = (value: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (!email.trim()) {
       setEmailError(t(ERR_REQUIRED, lang));
       return;
     }
-
     if (!validateEmail(email)) {
       setEmailError(t(ERR_INVALID, lang));
       return;
     }
 
     setEmailError("");
-    setSubscribed(true);
-    setEmail("");
+    setLoading(true);
+    try {
+      const res = await fetch("/api/subscribe", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email,
+          locale: lang,
+          source: "acumen-site",
+        }),
+      });
 
-    setTimeout(() => setSubscribed(false), 3000);
+      const data = await res.json();
+      if (!res.ok || !data.ok) {
+        throw new Error(data.error || "Failed to subscribe");
+      }
+
+      setSubscribed(true);
+      setEmail("");
+      setTimeout(() => setSubscribed(false), 3000);
+    } catch (err: any) {
+      setEmailError(err?.message || "Something went wrong");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -193,8 +215,9 @@ const Footer = () => {
                     />
                     <Button
                       type="submit"
-                      title={t(BTN_SUBSCRIBE, lang)}
-                      className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-white hover:bg-blue-500 text-sm text-black hover:text-white px-5 py-2 rounded-lg transition-all duration-300 hover:scale-105 font-medium"
+                      title={loading ? "…" : t(BTN_SUBSCRIBE, lang)}
+                      className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-white hover:bg-blue-500 text-sm text-black hover:text-white px-5 py-2 rounded-lg transition-all duration-300 hover:scale-105 font-medium disabled:opacity-60"
+                      disabled={loading}
                     />
                   </div>
                   {emailError && (
