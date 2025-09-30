@@ -14,7 +14,7 @@ export default function WhitepaperHero() {
 
   const Description: LStr = {
     en: "Discover insights, strategies, and data-driven approaches to enhance your marketing performance",
-    ja: "マーケティングパフォーマンスを向上させるためのインサイト、戦略、データ駆動型アプローチをご覧ください",
+    ja: "マーケティングパフォーマンスを向上させるためのインサイト、戦略、データドリブンのアプローチの数々をご覧ください",
     ko: "마케팅 성과를 향상시키기 위한 인사이트, 전략 및 데이터 기반 접근 방식을 알아보세요",
   };
 

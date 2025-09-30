@@ -14,7 +14,7 @@ export default function BlogHero() {
 
   const Description: LStr = {
     en: "Stay updated with the latest insights, trends, and stories from our team",
-    ja: "私たちのチームからの最新の洞察、トレンド、ストーリーで最新情報を入手してください",
+    ja: "アキュメンインテリジェンスの最新インサイト、トレンド、ストーリーをご確認ください",
     ko: "우리 팀의 최신 인사이트, 트렌드, 스토리를 확인하세요",
   };
 
