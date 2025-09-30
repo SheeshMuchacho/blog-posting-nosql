@@ -11,7 +11,7 @@ function isErrno(e: unknown): e is NodeJS.ErrnoException & { address?: string; p
 
 export async function POST(req: NextRequest) {
   try {
-    const { fullName, email, company, phone, message } = await req.json();
+    const { fullName, email, company, phone, subject, message } = await req.json();
     if (!fullName || !email || !company) {
       return new Response(JSON.stringify({ error: 'Missing required fields' }), { status: 400 });
     }
@@ -21,6 +21,15 @@ export async function POST(req: NextRequest) {
       return new Response(JSON.stringify({ error: 'Server configuration error' }), { status: 500 });
     }
 
+    const SUBJECT_LABELS: Record<string, string> = {
+      project: 'Project inquiry',
+      partnership: 'Partnership',
+      support: 'Support request',
+      careers: 'Careers',
+      other: 'Other',
+    };
+    const subjectLabel = SUBJECT_LABELS[subject] ?? 'Other';
+
     const html = `
       <div style="font-family:system-ui,Segoe UI,Arial,sans-serif">
         <h2>New Contact Form Submission</h2>
@@ -28,13 +37,18 @@ export async function POST(req: NextRequest) {
         <p><strong>Email:</strong> ${email}</p>
         <p><strong>Company:</strong> ${company}</p>
         ${phone ? `<p><strong>Phone:</strong> ${phone}</p>` : ''}
+        <p><strong>Subject:</strong> ${subjectLabel}</p>
         ${message ? `<p><strong>Message:</strong><br>${String(message).replace(/\n/g,'<br>')}</p>` : ''}
       </div>
     `;
 
+    const recipients = (process.env.MAIL_TO || 'juzer@acumenintelligence.com')
+      .split(',')
+      .map(email => email.trim());
+
     await transporter.sendMail({
       from: process.env.MAIL_FROM || process.env.SMTP_USER,
-      to: process.env.MAIL_TO || 'sheedh@acumenintelligence.com',
+      to: recipients,
       replyTo: email,
       subject: `Contact — ${fullName} (${company})`,
       html,

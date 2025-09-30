@@ -23,54 +23,110 @@ export default function ExploreOurLocations() {
 
   const locations = [
     {
-      country: "United Kingdom",
+      country: {
+        en: "United Kingdom",
+        ja: "イギリス",
+        ko: "영국",
+      },
       countryCode: "/country/uk-c.png",
       flagImage: "/country/uk.png",
-      city: "London",
-      address: "123 Business District, London EC1A 1AA",
+      city: { en: "London", ja: "ロンドン", ko: "런던" },
+      address: {
+        en: "123 Business District, London EC1A 1AA",
+        ja: "123 ビジネス地区、ロンドン EC1A 1AA",
+        ko: "123 비즈니스 지구, 런던 EC1A 1AA",
+      },
       email: "info@acumenintelligence.com",
-      team: "10+ Professionals",
-      gradient: "from-red-500 to-blue-600"
+      team: {
+        en: "10+ Professionals",
+        ja: "10名以上の専門家",
+        ko: "10명 이상의 전문가",
+      },
+      gradient: "from-red-500 to-blue-600",
     },
     {
-      country: "Sri Lanka",
+      country: {
+        en: "Sri Lanka",
+        ja: "スリランカ",
+        ko: "스리랑카",
+      },
       countryCode: "/country/sl-c.png",
       flagImage: "/country/sl.png",
-      city: "Colombo",
-      address: "456 Business Center, Colombo 00100",
+      city: { en: "Colombo", ja: "コロンボ", ko: "콜롬보" },
+      address: {
+        en: "456 Business Center, Colombo 00100",
+        ja: "456 ビジネスセンター、コロンボ 00100",
+        ko: "456 비즈니스 센터, 콜롬보 00100",
+      },
       email: "info@acumenintelligence.com",
-      team: "40+ Professionals",
-      gradient: "from-green-500 to-orange-600"
+      team: {
+        en: "40+ Professionals",
+        ja: "40名以上の専門家",
+        ko: "40명 이상의 전문가",
+      },
+      gradient: "from-green-500 to-orange-600",
     },
     {
-      country: "Singapore",
+      country: {
+        en: "Singapore",
+        ja: "シンガポール",
+        ko: "싱가포르",
+      },
       countryCode: "/country/sg-c.png",
       flagImage: "/country/sg.png",
-      city: "Singapore",
-      address: "789 Marina Bay, Singapore 018956",
+      city: { en: "Singapore", ja: "シンガポール", ko: "싱가포르" },
+      address: {
+        en: "789 Marina Bay, Singapore 018956",
+        ja: "789 マリーナベイ、シンガポール 018956",
+        ko: "789 마리나 베이, 싱가포르 018956",
+      },
       email: "info@acumenintelligence.com",
-      team: "20+ Professionals",
-      gradient: "from-red-600 to-white"
+      team: {
+        en: "20+ Professionals",
+        ja: "20名以上の専門家",
+        ko: "20명 이상의 전문가",
+      },
+      gradient: "from-red-600 to-white",
     },
     {
-      country: "Indonesia",
+      country: {
+        en: "Indonesia",
+        ja: "インドネシア",
+        ko: "인도네시아",
+      },
       countryCode: "/country/id-c.png",
       flagImage: "/country/id.png",
-      city: "Jakarta",
-      address: "321 SCBD District, Jakarta 12190",
+      city: { en: "Jakarta", ja: "ジャカルタ", ko: "자카르타" },
+      address: {
+        en: "321 SCBD District, Jakarta 12190",
+        ja: "321 SCBD地区、ジャカルタ 12190",
+        ko: "321 SCBD 지구, 자카르타 12190",
+      },
       email: "info@acumenintelligence.com",
-      team: "15+ Professionals",
-      gradient: "from-red-600 to-white"
+      team: {
+        en: "15+ Professionals",
+        ja: "15名以上の専門家",
+        ko: "15명 이상의 전문가",
+      },
+      gradient: "from-red-600 to-white",
     },
     {
-      country: "Japan",
+      country: { en: "Japan", ja: "日本", ko: "일본" },
       countryCode: "/country/jp-c.png",
       flagImage: "/country/jp.png",
-      city: "Tokyo",
-      address: "654 Shibuya District, Tokyo 150-0002",
+      city: { en: "Tokyo", ja: "東京", ko: "도쿄" },
+      address: {
+        en: "654 Shibuya District, Tokyo 150-0002",
+        ja: "654 渋谷地区、東京 150-0002",
+        ko: "654 시부야 지구, 도쿄 150-0002",
+      },
       email: "info@acumenintelligence.com",
-      team: "10+ Professionals",
-      gradient: "from-red-600 to-white"
+      team: {
+        en: "10+ Professionals",
+        ja: "10名以上の専門家",
+        ko: "10명 이상의 전문가",
+      },
+      gradient: "from-red-600 to-white",
     },
   ];
 
@@ -161,7 +217,7 @@ export default function ExploreOurLocations() {
         >
           {locations.map((location, index) => (
             <motion.div
-              key={location.country}
+              key={t(location.country, lang)}
               variants={cardVariants as any}
               whileHover={{ 
                 y: -10,
@@ -189,9 +245,9 @@ export default function ExploreOurLocations() {
                       </div>
                       <div>
                         <h3 className="text-xl font-bold text-gray-900 group-hover:text-primary transition-colors">
-                          {location.country}
+                          {t(location.country, lang)}
                         </h3>
-                        <p className="text-sm text-gray-500">{location.city}</p>
+                        <p className="text-sm text-gray-500">{t(location.city, lang)}</p>
                       </div>
                     </div>
                     <div className="group-hover:scale-110 transition-transform duration-300">
@@ -210,7 +266,7 @@ export default function ExploreOurLocations() {
                 <div className="relative z-10 space-y-3">
                   <div className="flex items-start space-x-3">
                     <MapPin className="w-4 h-4 text-primary mt-1 flex-shrink-0" />
-                    <p className="text-sm text-gray-600 leading-relaxed">{location.address}</p>
+                    <p className="text-sm text-gray-600 leading-relaxed">{t(location.address, lang)}</p>
                   </div>
                   
                   <div className="flex items-center space-x-3">
@@ -220,7 +276,7 @@ export default function ExploreOurLocations() {
                   
                   <div className="flex items-center space-x-3 pt-2 border-t border-gray-100">
                     <Users className="w-4 h-4 text-primary flex-shrink-0" />
-                    <p className="text-sm font-medium text-gray-700">{location.team}</p>
+                    <p className="text-sm font-medium text-gray-700">{t(location.team, lang)}</p>
                   </div>
                 </div>
               </div>

@@ -15,7 +15,6 @@ import { motion } from "framer-motion";
 import { useLanguage } from "@/app/i18n/LanguageProvider";
 import { t, type LStr } from "@/lib/i18n";
 
-// ---------- Translated UI copy ----------
 const HEADING: LStr = {
   en: "What our clients say",
   ja: "お客様の声",
@@ -28,7 +27,6 @@ const INTRO: LStr = {
   ko: "고객들의 실제 스토리를 통해 당사의 맞춤형 B2B 이메일 마케팅 솔루션이 어떻게 도달과 참여를 변화시켰는지 확인해 보세요. 선도 기업들이 전략 강화를 위해 우리를 신뢰하는 이유를 만나보세요.",
 };
 
-// ---------- Testimonials (text translated; names/usernames kept as-is) ----------
 const testimonials = [
   {
     text: {

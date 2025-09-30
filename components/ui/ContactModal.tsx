@@ -12,6 +12,7 @@ interface FormData {
   email: string;
   company: string;
   phone: string;
+  subject: string;
   message: string;
 }
 
@@ -20,12 +21,14 @@ const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) => {
   const modalRef = useRef<HTMLDivElement>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle");
+  const [optIn, setOptIn] = useState(false);
 
   const [formData, setFormData] = useState<FormData>({
     fullName: "",
     email: "",
     company: "",
     phone: "",
+    subject: "",
     message: ""
   });
 
@@ -108,9 +111,24 @@ const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) => {
       );
     }
 
+    if (!formData.subject) {
+      newErrors.message = t(
+        { en: "Please choose a subject", ja: "件名を選択してください", ko: "제목을 선택하세요" },
+        lang
+      );
+    }
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
+
+  const SUBJECT_OPTIONS = [
+    { value: "project",  label: t({ en:"Project inquiry",   ja:"プロジェクト相談", ko:"프로젝트 문의" }, lang) },
+    { value: "partnership", label: t({ en:"Partnership",    ja:"パートナーシップ", ko:"파트너십" }, lang) },
+    { value: "support",  label: t({ en:"Support request",   ja:"サポート依頼", ko:"지원 요청" }, lang) },
+    { value: "careers",  label: t({ en:"Careers",           ja:"採用", ko:"채용" }, lang) },
+    { value: "other",    label: t({ en:"Other",             ja:"その他", ko:"기타" }, lang) },
+  ];
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -155,7 +173,7 @@ const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) => {
   };
 
   const resetAndClose = () => {
-    setFormData({ fullName: "", email: "", company: "", phone: "", message: "" });
+    setFormData({ fullName: "", email: "", company: "", phone: "", subject: "", message: "" });
     setErrors({});
     setSubmitStatus("idle");
     onClose();
@@ -320,6 +338,36 @@ const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) => {
               </div>
             </div>
 
+            {/* Subject */}
+            <div>
+              <label htmlFor="subject" className="block text-sm font-medium text-black mb-2">
+                {t({ en: "Subject", ja: "件名", ko: "제목" }, lang)} *
+              </label>
+              <select
+                id="subject"
+                name="subject"
+                value={formData.subject}
+                onChange={handleInputChange as any}
+                className={`w-full px-4 py-3 border rounded-lg backdrop-blur-sm transition-all focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 bg-white/50 appearance-none cursor-pointer ${!formData.subject ? 'text-gray-500' : 'text-black'} ${
+                  (errors as any).subject ? "border-red-300 bg-red-50/50" : "border-gray-200 hover:bg-white/70" 
+                }`}
+                style={{
+                  backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23374151' d='M6 9L1 4h10z'/%3E%3C/svg%3E")`,
+                  backgroundRepeat: 'no-repeat',
+                  backgroundPosition: 'right 1rem center',
+                  paddingRight: '2.5rem'
+                }}
+              >
+                <option value="" disabled>
+                  {t({ en:"Select a subject…", ja:"件名を選択…", ko:"제목을 선택…" }, lang)}
+                </option>
+                {SUBJECT_OPTIONS.map(opt => (
+                  <option key={opt.value} value={opt.value}>{opt.label}</option>
+                ))}
+              </select>
+              {(errors as any).subject && <p className="text-red-600 text-sm mt-1">{(errors as any).subject}</p>}
+            </div>
+
             {/* Message */}
             <div>
               <label htmlFor="message" className="block text-sm font-medium text-black mb-2">
@@ -346,6 +394,19 @@ const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) => {
               />
             </div>
 
+              {/* Opt-in Checkbox */}
+              <div className="flex items-center">
+                <input
+                  type="checkbox"
+                  id="optIn"
+                  name="optIn"
+                  checked={optIn}
+                  onChange={(e) => setOptIn(e.target.checked)}
+                  className="mr-2 h-5 w-5 rounded text-blue-600 focus:ring-blue-500"
+                />
+                <label htmlFor="optIn" className="text-sm text-gray-700">{t({en:"I agree to receive marketing emails", ja: "マーケティングメールの受信に同意します", ko: "마케팅 이메일 수신에 동의합니다"}, lang)}</label>
+              </div>
+
             {/* Submit Button */}
             <div className="flex flex-col sm:flex-row gap-4 pt-4">
               <button
@@ -357,7 +418,15 @@ const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) => {
               </button>
               <button
                 type="submit"
-                disabled={isSubmitting || submitStatus === "success"}
+                disabled={
+                  isSubmitting ||
+                  submitStatus === "success" ||
+                  !formData.fullName ||
+                  !formData.email ||
+                  !formData.company ||
+                  !formData.subject ||
+                  !optIn
+                }
                 className={`flex-1 px-6 py-3 bg-gradient-to-r from-primary to-primary/80 text-white rounded-lg font-medium transition-all transform hover:scale-[1.02] hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none ${
                   isSubmitting ? "animate-pulse" : ""
                 }`}
