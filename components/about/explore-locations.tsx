@@ -11,13 +11,13 @@ export default function ExploreOurLocations() {
 
   const HEADING: LStr = {
     en: "Explore Our Global Locations",
-    ja: "グローバル拠点を探索",
+    ja: "グローバル拠点を検索",
     ko: "글로벌 위치 탐색",
   };
 
   const SUBHEADING: LStr = {
     en: "Connecting businesses worldwide through our strategic office locations",
-    ja: "戦略的なオフィス拠点を通じて世界中のビジネスを結び付けます",
+    ja: "オフィス拠点を通じて世界中のビジネスを繋ぎます",
     ko: "전략적 오피스 위치를 통해 전 세계 비즈니스를 연결합니다",
   };
 

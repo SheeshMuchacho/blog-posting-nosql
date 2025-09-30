@@ -12,7 +12,7 @@ export default function AboutHero() {
 
     const BADGE: LStr = {
     en: "About Us",
-    ja: "私たちについて",
+    ja: "アキュメンについて",
     ko: "회사 소개",
   };
 
@@ -36,7 +36,7 @@ export default function AboutHero() {
 
   const DESCRIPTION: LStr = {
     en: "Acumen Intelligence is a global leader in Demand Generation and Database Marketing - the driving force behind your lead generation triumph. Join us in exploring the boundless potential of B2B lead generation, and let us lead you to unparalleled success with our direct access to key decision makers.",
-    ja: "Acumen Intelligenceは、需要創出とデータベースマーケティングにおけるグローバルリーダーであり、お客様のリードジェネレーション成功の原動力となります。B2Bリードジェネレーションの無限の可能性を探求する私たちのパートナーとして、主要な意思決定者への直接アクセスを通して、比類のない成功へと導きます。",
+    ja: "アキュメンインテリジェンスは、リードジェネレーションとデータベースマーケティングにおけるグローバルリーダーであり、お客様のリードジェネレーション成功の原動力となります。B2Bリードジェネレーションの無限の可能性を探求するパートナーとして、主要な意思決定者への直接アクセスを通して、比類なき成功を約束します。",
     ko: "Acumen Intelligence는 수요 창출 및 데이터베이스 마케팅 분야의 글로벌 리더로서, 귀사의 리드 생성 성공을 위한 원동력입니다. B2B 리드 생성의 무한한 잠재력을 함께 탐색해 보세요. 주요 의사 결정권자와 직접 소통하여 귀사의 성공을 위한 최고의 길로 안내해 드리겠습니다.",
   };
 

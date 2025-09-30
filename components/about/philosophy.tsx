@@ -17,7 +17,7 @@ export default function PhilosophyAndDeliveryEnhanced() {
 
   const PHILOSOPHY_DESCRIPTION: LStr = {
     en: "To provide cost effective solutions at same time building trust, end goal and maximum ROI. Working with you, we at Acumen Intelligence will design an online lead generation strategy that has clear goals and design and can streamline your lead qualification process with our sales lead tracking software.",
-    ja: "お客様と協力して、Acumen Intelligenceでは、明確な目標と設計を持ち、弊社の営業リード追跡ソフトウェアでリード適格化プロセスを合理化できるオンラインリード生成戦略を設計いたします。",
+    ja: "お客様と協力して、アキュメンインテリジェンスでは、明確な目標をプランし、弊社のリード追跡ソフトウェアでリード適格化プロセスに基づきオンラインリード生成戦略を設計します。",
     ko: "고객과 협력하여, Acumen Intelligence는 명확한 목표와 설계를 가지고 있으며 당사의 영업 리드 추적 소프트웨어로 리드 검증 프로세스를 합리화할 수 있는 온라인 리드 생성 전략을 설계합니다.",
   };
 
@@ -29,7 +29,7 @@ export default function PhilosophyAndDeliveryEnhanced() {
 
   const DELIVERY_DESCRIPTION: LStr = {
     en: "Minimizing cost per lead while maximizing lead quality – that's the objective of Overdrive's ongoing Lead Generation Capture and Lead Quality Optimization services. Because ultimately, a low cost lead is only good for your online marketing campaign if it can be converted into a sale.",
-    ja: "リード単価を最小化しながらリード品質を最大化する - これがOverdriveの継続的なリード生成キャプチャとリード品質最適化サービスの目標です。最終的に、低コストリードは、それが売上に変換できる場合にのみ、オンラインマーケティングキャンペーンに有効だからです。",
+    ja: "リード単価を最小化しながらリード品質を最大化する - これが継続的なリード生成キャプチャとリード最適化サービスの目標です。リードは売上に変換できる場合にのみ有効だからです。",
     ko: "리드당 비용을 최소화하면서 리드 품질을 극대화하는 것 - 이것이 Overdrive의 지속적인 리드 생성 캡처 및 리드 품질 최적화 서비스의 목표입니다. 궁극적으로, 저비용 리드는 판매로 전환될 수 있을 때만 온라인 마케팅 캠페인에 유용하기 때문입니다.",
   };
 

@@ -15,7 +15,7 @@ export default function WhoWeAre() {
   // --- Copy (unchanged) ---
   const HEADING: LStr = {
     en: "Winning Formula to be your One-Stop Growth Partner, with:",
-    ja: "ワンストップ成長パートナーとなるための Winning Formula の特長:",
+    ja: "成長パートナーとなるための弊社方程式とは:",
     ko: "Winning Formula는 다음과 같은 원스톱 성장 파트너가 되어 드립니다.",
   };
 
@@ -25,7 +25,7 @@ export default function WhoWeAre() {
       title: { en: "Decades of Experience", ja: "数十年の経験", ko: "수십 년의 경험" },
       description: {
         en: "Its decades of experience in B2B Lead Generation",
-        ja: "B2Bリード生成における数十年の経験",
+        ja: "B2Bリード生成における数10年の経験",
         ko: "B2B 리드 생성 분야의 수십 년 경험",
       },
     },
@@ -34,7 +34,7 @@ export default function WhoWeAre() {
       title: { en: "Data-Driven Strategies", ja: "データ駆動戦略", ko: "데이터 기반 전략" },
       description: {
         en: "Data-Driven Strategy methodologies",
-        ja: "データ駆動戦略の方法論",
+        ja: "データドリブン戦略の方法論",
         ko: "데이터 기반 전략 방법론",
       },
     },
