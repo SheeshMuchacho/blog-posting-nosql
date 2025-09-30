@@ -39,7 +39,7 @@ export default function TopServices() {
 
   const HEADING: LStr = {
     en: "Excellent Solutions That Drive Growth",
-    ja: "成長を促進する優れたソリューション",
+    ja: "成長を加速するソリューション",
     ko: "성장을 견인하는 뛰어난 솔루션",
   };
 
@@ -65,7 +65,7 @@ export default function TopServices() {
       title: { en: "ABM", ja: "ABM", ko: "ABM" },
       description: {
         en: "Account-Based Marketing strategies to target high-value accounts with personalized campaigns and measurable results.",
-        ja: "価値の高いアカウントを対象に、パーソナライズされたキャンペーンと測定可能な成果を提供するアカウントベースドマーケティング戦略。",
+        ja: "価値の高いアカウントを対象に、パーソナライズされたキャンペーンと測定可能な成果を提供するアカウントベースドマーケティング(ABM)戦略。",
         ko: "가치가 높은 계정을 타겟으로 맞춤형 캠페인과 측정 가능한 결과를 제공하는 계정 기반 마케팅 전략.",
       },
     },

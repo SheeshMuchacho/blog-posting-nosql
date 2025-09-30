@@ -15,7 +15,7 @@ export default function HeroSection() {
 
   const BADGE: LStr = {
     en: "Empower your business",
-    ja: "ビジネスを強化する",
+    ja: "ビジネスを支援する",
     ko: "비즈니스를 강화하세요",
   };
 
@@ -27,24 +27,24 @@ export default function HeroSection() {
 
   const HEADING_PART2: LStr = {
     en: "Solutions",
-    ja: "支援",
+    ja: "ソリューション",
     ko: "솔루션",
   };
 
   const HEADING_TAIL: LStr = {
     en: "for your Business",
-    ja: "をあなたの\nビジネスに",
+    ja: "を貴社ビジネスに",
     ko: "을(를) 위한",
   };
 
   const DESCRIPTION: LStr = {
     en: "From data to delivery, we provide a seamless, all-in-one marketing solution tailored to meet every aspect of your business's growth strategy.",
-    ja: "データからデリバリーまで、ビジネスの成長戦略のあらゆる側面に対応するシームレスなオールインワンのマーケティングソリューションを提供します。",
+    ja: "ターゲット戦略からリードジェネレーションまで、ビジネスの成長戦略のあらゆる側面に対応するシームレスなオールインワンのマーケティングソリューションを提供します。",
     ko: "데이터에서 실행까지, 비즈니스 성장 전략의 모든 측면을 충족하는 원스톱 통합 마케팅 솔루션을 제공합니다.",
   };
 
   const CTA_PRIMARY: LStr = { en: "Explore Solutions", ja: "ソリューションを見る", ko: "솔루션 살펴보기" };
-  const CTA_SECONDARY: LStr = { en: "Learn more", ja: "さらに詳しく", ko: "자세히 알아보기" };
+  const CTA_SECONDARY: LStr = { en: "Learn more", ja: "詳細はこちら", ko: "자세히 알아보기" };
 
   return (
   <section className="relative flex items-center bg-white bg-[radial-gradient(125%_125%_at_50%_90%,#fff_40%,#1E90FF_100%)] bg-fixed overflow-x-clip pt-20 pb-16 md:pb-20">

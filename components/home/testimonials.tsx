@@ -23,7 +23,7 @@ const HEADING: LStr = {
 
 const INTRO: LStr = {
   en: "Dive into the real stories of our clients and see how our tailored B2B email marketing solutions have transformed their outreach and engagement. Uncover why leading businesses trust us to elevate their strategies.",
-  ja: "実際のお客様のストーリーをご覧ください。私たちのB2Bメールマーケティングソリューションが、アプローチとエンゲージメントをどのように変革したのかをご紹介します。多くの企業が当社を信頼する理由がここにあります。",
+  ja: "お客様事例をご覧ください。私たちのB2Bメールマーケティングソリューションが、エンゲージメントをどのように変革したのかご紹介します。多くの企業が当社を信頼する理由はここにあります。",
   ko: "고객들의 실제 스토리를 통해 당사의 맞춤형 B2B 이메일 마케팅 솔루션이 어떻게 도달과 참여를 변화시켰는지 확인해 보세요. 선도 기업들이 전략 강화를 위해 우리를 신뢰하는 이유를 만나보세요.",
 };
 
@@ -51,7 +51,7 @@ const testimonials = [
   {
     text: {
       en: "This app has completely transformed how I manage my projects and deadlines.",
-      ja: "このアプリでプロジェクトと期限の管理がまったく新しくなりました。",
+      ja: "このアプリでプロジェクトと期限管理が一つになりました。",
       ko: "이 앱은 프로젝트와 마감일 관리를 완전히 바꿔 놓았습니다.",
     } as LStr,
     imageSrc: avatar3.src,
@@ -71,7 +71,7 @@ const testimonials = [
   {
     text: {
       en: "Planning and executing events has never been easier. Nothing slips through the cracks anymore.",
-      ja: "イベントの計画と実行がこれまでになく簡単に。抜け漏れがなくなりました。",
+      ja: "イベントの計画と実行がこれまでになく簡単に。不足、抜け漏れがなくなりました。",
       ko: "이벤트 기획과 실행이 그 어느 때보다 쉬워졌습니다. 누락이 사라졌어요.",
     } as LStr,
     imageSrc: avatar5.src,
