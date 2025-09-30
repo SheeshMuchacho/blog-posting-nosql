@@ -125,7 +125,7 @@ export const ServicesSection = () => {
         en:
           "Webinars are a great visual companion for your business. They allow for collaboration and storytelling, no matter how far apart you are.",
         ja:
-          "ウェビナーは、距離に関係なくコラボレーションとストーリーテリングを実現する強力な手段です。",
+          "ウェビナーは、場所を問わずコラボレーションとストーリーテリングを実現する強力な手段です。",
         ko:
           "웨비나는 거리와 무관하게 협업과 스토리텔링을 가능하게 하는 강력한 수단입니다.",
       },
