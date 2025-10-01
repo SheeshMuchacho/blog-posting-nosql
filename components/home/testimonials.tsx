@@ -175,7 +175,7 @@ function MarqueeColumn({
     >
       <motion.div
         className="flex flex-col gap-6"
-        animate={{ y: reverse ? ["0%", "-30%"] : ["-30%", "0%"] }}
+        animate={{ y: reverse ? ["0%", "-50%"] : ["-50%", "0%"] }}
         transition={{ duration, ease: "linear", repeat: Infinity, repeatType: "loop" }}
       >
         {repeated.map((item, idx) => (
