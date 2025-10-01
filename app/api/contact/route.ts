@@ -1,13 +1,9 @@
+// app/api/contact/route.ts
 import { getTransporter } from '@/lib/mailer';
 import type { NextRequest } from 'next/server';
 
 export const runtime = 'nodejs';
 const transporter = getTransporter();
-
-// Type guard for Node.js network errors (e.g., ECONNREFUSED)
-function isErrno(e: unknown): e is NodeJS.ErrnoException & { address?: string; port?: number } {
-  return !!e && typeof e === 'object' && 'code' in e;
-}
 
 export async function POST(req: NextRequest) {
   try {
@@ -30,7 +26,8 @@ export async function POST(req: NextRequest) {
     };
     const subjectLabel = SUBJECT_LABELS[subject] ?? 'Other';
 
-    const html = `
+    // Internal notification email (to your team)
+    const internalHtml = `
       <div style="font-family:system-ui,Segoe UI,Arial,sans-serif">
         <h2>New Contact Form Submission</h2>
         <p><strong>Name:</strong> ${fullName}</p>
@@ -42,28 +39,51 @@ export async function POST(req: NextRequest) {
       </div>
     `;
 
+    // Thank-you email (to the submitter)
+    const brand = process.env.BRAND_NAME || 'Acumen Intelligence';
+    const site  = process.env.SITE_URL || 'https://acumenintelligence.com';
+    const thankYouHtml = `
+      <div style="font-family:system-ui,Segoe UI,Arial,sans-serif; color:#111">
+        <h2>Thanks, ${fullName} </h2>
+        <p>We received your message about <strong>${subjectLabel}</strong>.</p>
+        <p>Our team will get back to you at <strong>${email}</strong>${
+          phone ? ` or <strong>${phone}</strong>` : ''
+        } shortly.</p>
+        ${message ? `<blockquote style="margin:1rem 0;padding:1rem;background:#f7f7f7;border-left:4px solid #2c74b3">
+          ${String(message).replace(/\n/g,'<br>')}
+        </blockquote>` : ''}
+        <p style="margin-top:1rem">— ${brand}</p>
+        <p style="font-size:12px;color:#666;margin-top:16px">
+          This confirmation was sent because you submitted the contact form at <a href="${site}">${site}</a>.
+          If this wasn’t you, just ignore this email.
+        </p>
+      </div>
+    `;
+
     const recipients = (process.env.MAIL_TO || 'juzer@acumenintelligence.com')
       .split(',')
-      .map(email => email.trim());
+      .map(e => e.trim());
 
-    await transporter.sendMail({
-      from: process.env.MAIL_FROM || process.env.SMTP_USER,
-      to: recipients,
-      replyTo: email,
-      subject: `Contact — ${fullName} (${company})`,
-      html,
-    });
+    // Require BOTH emails to succeed
+    await Promise.all([
+      transporter.sendMail({
+        from: process.env.MAIL_FROM || process.env.SMTP_USER,
+        to: recipients,
+        replyTo: email,
+        subject: `Contact — ${fullName} (${company})`,
+        html: internalHtml,
+      }),
+      transporter.sendMail({
+        from: process.env.MAIL_FROM || process.env.SMTP_USER,
+        to: email,
+        subject: `Thanks for contacting ${brand}`,
+        html: thankYouHtml,
+      }),
+    ]);
 
     return new Response(JSON.stringify({ ok: true }), { status: 200 });
-  } catch (err: unknown) {
+  } catch (err) {
     console.error('Contact API error:', err);
-
-    if (isErrno(err) && err.code === 'ECONNREFUSED') {
-      const addr = err.address ?? 'unknown-host';
-      const prt  = err.port ?? 0;
-      console.error(`Connection refused. Is the SMTP server running at ${addr}:${prt}?`);
-    }
-
     return new Response(JSON.stringify({ error: 'Failed to send' }), { status: 500 });
   }
 }
