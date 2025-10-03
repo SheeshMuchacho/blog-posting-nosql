@@ -18,13 +18,11 @@ export default function BlogPostsGrid({ posts }: { posts: any[] }) {
       >
         {posts.map((post) => (
           <BlogCard
-            key={post.id}
-            id={post.id}
             title={post.title}
             slug={post.slug}
             date={post.date}
             excerpt={post.excerpt || ""}
-            featuredImage={post._embedded?.["wp:featuredmedia"]?.[0]}
+            featuredImage={post.image}
           />
         ))}
       </motion.div>

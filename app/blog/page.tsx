@@ -11,17 +11,13 @@ export default async function Blog({
 }) {
   const { page, q, perPage } = (await searchParams) ?? {};
   const pageNum = Number(page ?? "1");
-  // keep default perPage = 12 here; if you’re doing responsive perPage, compute and pass it in
   const per = Number(perPage ?? "12");
 
   return (
     <>
       <BlogHero />
       <BlogSearch />
-      <Suspense key={`${pageNum}-${q ?? ""}-${per}`} fallback={<Loading />}>
-        {/* Server fetch + grid + pagination */}
-        <BlogList page={pageNum} perPage={per} searchTerm={q ?? null} />
-      </Suspense>
+      <BlogList page={pageNum} perPage={per} searchTerm={q ?? null} />
     </>
   );
 }

@@ -11,10 +11,10 @@ export default async function Post({
   if (!post) return <div>Not found</div>;
   return (
     <SingleBlogPage
-      title={post.title.rendered}
-      content={post.content.rendered}
+      title={post.title}
+      content={post.content}
       date={post.date}
-      featuredImage={post._embedded?.["wp:featuredmedia"]?.[0]}
+      featuredImage={post.featuredImage}
     />
   );
 }

@@ -25,7 +25,6 @@ export default async function BlogList({ page, perPage, searchTerm }: BlogListPr
       ) : (
         <>
           <BlogPostsGrid posts={posts} />
-
           {totalPages > 1 && (
             <div className="mt-10">
               <Pagination currentPage={page} totalPages={totalPages} />
