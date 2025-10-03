@@ -4,7 +4,7 @@ import { LazyMotion, m, domAnimation, useAnimation, useInView, useReducedMotion 
 import { Database, TrendingUp, Zap, Globe } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useRef } from "react";
-import { useLanguage } from "@/app/i18n/LanguageProvider";
+import { useLanguage } from "@/app/(main)/i18n/LanguageProvider";
 import { t, type LStr } from "@/lib/i18n";
 import FeatureList, { Feature } from "../ui/FeatureList";
 

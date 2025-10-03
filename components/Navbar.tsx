@@ -9,7 +9,7 @@ import LangSwitcher from "./LangSwitcher";
 import ContactModal from "./ui/ContactModal";
 import { useSearchParams } from "next/navigation";
 
-import { useLanguage } from "@/app/i18n/LanguageProvider";
+import { useLanguage } from "@/app/(main)/i18n/LanguageProvider";
 import { t } from "@/lib/i18n";
 
 const SCROLL_THRESHOLD = 24;

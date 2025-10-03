@@ -6,7 +6,7 @@ import Link from "next/link";
 import Button from "./ui/Button";
 import { NAV_LINKS, SOCIAL_LINKS } from "@/constants";
 
-import { useLanguage } from "@/app/i18n/LanguageProvider";
+import { useLanguage } from "@/app/(main)/i18n/LanguageProvider";
 import { t, type LStr } from "@/lib/i18n";
 
 const servicesItems = NAV_LINKS.find((link) => link.key === "services")?.dropdown || [];

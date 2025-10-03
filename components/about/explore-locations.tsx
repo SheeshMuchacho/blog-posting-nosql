@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import { MapPin, Phone, Mail, Users } from "lucide-react";
-import { useLanguage } from "@/app/i18n/LanguageProvider";
+import { useLanguage } from "@/app/(main)/i18n/LanguageProvider";
 import { t, type LStr } from "@/lib/i18n";
 import Image from "next/image";
 

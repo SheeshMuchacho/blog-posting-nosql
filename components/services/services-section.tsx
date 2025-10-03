@@ -13,7 +13,7 @@ import abm from "@/public/services/abm/abm1.jpg";
 import type { Variants, TargetAndTransition } from "framer-motion";
 import Link from "next/link";
 
-import { useLanguage } from "@/app/i18n/LanguageProvider";
+import { useLanguage } from "@/app/(main)/i18n/LanguageProvider";
 import { t, type LStr } from "@/lib/i18n";
 
 type Solution = {

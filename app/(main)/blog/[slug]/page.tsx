@@ -12,7 +12,9 @@ export default async function Post({
   return (
     <SingleBlogPage
       title={post.title}
-      content={post.content}
+      content={post.description}
+      author={post.author}
+      authorImage={post.authorImage}
       date={post.date}
       featuredImage={post.featuredImage}
     />

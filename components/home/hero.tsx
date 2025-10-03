@@ -7,7 +7,7 @@ import Button from "@/components/ui/Button";
 import { AuroraText } from "@/components/ui/AuroraText";
 import Link from "next/link";
 
-import { useLanguage } from "@/app/i18n/LanguageProvider";
+import { useLanguage } from "@/app/(main)/i18n/LanguageProvider";
 import { t, type LStr } from "@/lib/i18n";
 
 export default function HeroSection() {

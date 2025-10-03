@@ -1,4 +1,4 @@
-import type { Locale } from "@/app/i18n/LanguageProvider";
+import type { Locale } from "@/app/(main)/i18n/LanguageProvider";
 
 export type LStr = string | Record<Locale, string>;
 export type LSTr = LStr; 

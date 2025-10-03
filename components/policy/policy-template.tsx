@@ -1,7 +1,7 @@
 "use client";
 
 import { t, type LStr } from "@/lib/i18n";
-import { useLanguage } from "@/app/i18n/LanguageProvider";
+import { useLanguage } from "@/app/(main)/i18n/LanguageProvider";
 
 type Section = {
   heading?: LStr;

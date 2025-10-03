@@ -1,17 +1,18 @@
 import Link from "next/link";
 
 interface BlogCardProps {
-  title: { rendered: string };
+  title: string;
+  subtitle: string;
   slug: string;
-  excerpt: { rendered: string };
   featuredImage?: {
     source_url: string;
     alt_text?: string;
   };
   date: string;
+  categories?: { name: string }[];
 }
 
-export function BlogCard({ title, slug, excerpt, featuredImage, date }: BlogCardProps) {
+export function BlogCard({ title, slug, subtitle, featuredImage, date, categories }: BlogCardProps) {
 
   const formattedDate = new Date(date).toLocaleDateString("en-US", {
     year: "numeric",
@@ -19,52 +20,49 @@ export function BlogCard({ title, slug, excerpt, featuredImage, date }: BlogCard
     day: "numeric",
   });
 
+  const category = categories?.[0]?.name || "Uncategorized";
+
   return (
-    <div className="bg-white rounded-lg shadow-sm border border-primary overflow-hidden hover:shadow-md transition-shadow duration-200">
-      {(
-        featuredImage?.source_url ||
-        "/default.jpg"
-      ) && (
+    <div className="bg-white rounded-lg shadow-sm border border-primary/20 overflow-hidden hover:shadow-xl hover:border-primary/40 transition-all duration-300 flex flex-col h-full group">
+      {featuredImage?.source_url && (
         <div className="aspect-[16/10] overflow-hidden">
-          <img
-            src={featuredImage?.source_url || "/default.jpg"}
-            alt={featuredImage?.alt_text || "Blog post image"}
-            className="w-full h-full object-cover"
-            loading="lazy"
-          />
+          <Link href={`/blog/${slug}`}>
+            <img
+              src={featuredImage.source_url}
+              alt={featuredImage.alt_text || title}
+              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+              loading="lazy"
+            />
+          </Link>
         </div>
       )}
       
-      <div className="p-6">
+      <div className="p-5 flex flex-col flex-grow">
         <div className="mb-3">
-          <span className="inline-block bg-[#144272] text-white text-xs font-medium px-3 py-1 rounded">
-            {formattedDate}
+          <span className="inline-block bg-secondary/10 text-secondary text-xs font-bold px-3 py-1 rounded-full">
+            {category}
           </span>
         </div>
         
-        <h3 className="text-gray-900 font-semibold text-sm mb-3 line-clamp-2 leading-tight">
-          <span dangerouslySetInnerHTML={{ __html: title.rendered }} />
+        <h3 className="text-gray-900 font-semibold text-base mb-3 line-clamp-2 leading-tight flex-grow">
+          <span dangerouslySetInnerHTML={{ __html: title }} />
         </h3>
         
         <div 
           className="text-gray-600 text-sm leading-relaxed mb-4 line-clamp-3"
-          dangerouslySetInnerHTML={{ __html: excerpt.rendered }} 
+          dangerouslySetInnerHTML={{ __html: subtitle }} 
         />
         
-        <Link 
-          href={`/blog/${slug}`}
-          className="text-[#2c74b3] text-sm font-medium hover:text-[#144272] transition-colors duration-200 inline-flex items-center group"
-        >
-          Read more
-          <svg 
-            className="ml-1 w-4 h-4 group-hover:translate-x-0.5 transition-transform duration-200" 
-            fill="none" 
-            stroke="currentColor" 
-            viewBox="0 0 24 24"
+        <div className="mt-auto pt-4 border-t border-gray-100 flex justify-between items-center">
+          <Link 
+            href={`/blog/${slug}`}
+            className="text-secondary text-sm font-medium hover:text-primary transition-colors duration-200 inline-flex items-center"
           >
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-          </svg>
-        </Link>
+            Read more
+            <svg className="ml-1 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
+          </Link>
+          <span className="text-gray-400 text-xs font-medium">{formattedDate}</span>
+        </div>
       </div>
     </div>
   );

@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import { useLanguage } from "@/app/i18n/LanguageProvider";
+import { useLanguage } from "@/app/(main)/i18n/LanguageProvider";
 import { t } from "@/lib/i18n";
 
 interface ContactModalProps {

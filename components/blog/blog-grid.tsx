@@ -3,7 +3,13 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { BlogCard } from "@/components/ui/BlogCard";
 
-export default function BlogPostsGrid({ posts }: { posts: any[] }) {
+function extractFirstImage(html: string) {
+  const imgRegex = /<img[^>]+src="([^">]+)"/;
+  const match = html.match(imgRegex);
+  return match ? { source_url: match[1], alt_text: "" } : undefined;
+}
+
+export default function BlogPostsGrid({ posts }: { posts: BlogPost[] }) {
   const key = posts.map((p) => p.id).join("_");
 
   return (
@@ -16,15 +22,20 @@ export default function BlogPostsGrid({ posts }: { posts: any[] }) {
         transition={{ duration: 0.35, ease: "easeOut" }}
         className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
       >
-        {posts.map((post) => (
-          <BlogCard
-            title={post.title}
-            slug={post.slug}
-            date={post.date}
-            excerpt={post.excerpt || ""}
-            featuredImage={post.image}
-          />
-        ))}
+        {posts.map((post) => {
+          const featuredImage = extractFirstImage(post.html);
+          return (
+            <BlogCard
+              key={post.id}
+              title={post.title.rendered}
+              slug={post.slug}
+              date={post.date}
+              subtitle={post.subtitle}
+              featuredImage={featuredImage}
+              categories={post.categories}
+            />
+          );
+        })}
       </motion.div>
     </AnimatePresence>
   );

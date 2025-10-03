@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { useLanguage, type Locale } from "@/app/i18n/LanguageProvider";
+import { useLanguage, type Locale } from "@/app/(main)/i18n/LanguageProvider";
 import { useRouter } from "next/navigation";
 
 const LABELS: Record<Locale, string> = { en: "EN", ja: "日本語", ko: "한국어" };

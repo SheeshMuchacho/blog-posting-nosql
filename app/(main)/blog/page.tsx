@@ -1,5 +1,3 @@
-import { Suspense } from "react";
-import Loading from "./loading";
 import BlogHero from "@/components/blog/hero";
 import BlogSearch from "@/components/blog/search";
 import BlogList from "@/components/blog/list";

@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import { Service } from "@/lib/service-data";
 import { useState, useEffect } from "react";
 import { ExpandableCard } from "../ui/ExpandableCard";
-import { useLanguage } from "@/app/i18n/LanguageProvider";
+import { useLanguage } from "@/app/(main)/i18n/LanguageProvider";
 import { t } from "@/lib/i18n";
 import ContactModal from "../ui/ContactModal";
 

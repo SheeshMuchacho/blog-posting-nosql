@@ -12,7 +12,7 @@ import avatar9 from "@/public/avatar/avatar-9.png";
 import Image from "next/image";
 import { twMerge } from "tailwind-merge";
 import { motion } from "framer-motion";
-import { useLanguage } from "@/app/i18n/LanguageProvider";
+import { useLanguage } from "@/app/(main)/i18n/LanguageProvider";
 import { t, type LStr } from "@/lib/i18n";
 
 const HEADING: LStr = {

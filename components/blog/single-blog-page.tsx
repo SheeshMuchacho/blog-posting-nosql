@@ -17,6 +17,7 @@ import {
 interface SingleBlogPageProps {
   title: string;
   content: string;
+  subtitle: string;
   date: string;
   author?: string;
   authorImage?: string;
