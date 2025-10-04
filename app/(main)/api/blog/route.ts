@@ -19,6 +19,17 @@ export async function GET(request: NextRequest){
 // API Endpoint For Uploading Blogs
 export async function POST(request: NextRequest){
     const formData = await request.formData();
+
+    // Helper function to generate a slug
+    const slugify = (text: string): string => {
+        return text
+            .toString()
+            .toLowerCase()
+            .trim()
+            .replace(/\s+/g, '-')       // Replace spaces with -
+            .replace(/[^\w\-]+/g, '')   // Remove all non-word chars except hyphens
+            .replace(/\-\-+/g, '-');    // Replace multiple hyphens with a single one
+    };
     const timestamp = Date.now();
 
     const image = formData.get('image') as File;
@@ -37,8 +48,11 @@ export async function POST(request: NextRequest){
         return value ? String(value) : '';
     };
 
+    const title = getString(formData.get('title'));
+
     const blogData = {
-        title: getString(formData.get('title')),
+        title: title,
+        slug: slugify(title),
         subtitle: getString(formData.get('subtitle')),
         description: getString(formData.get('description')),
         category: getString(formData.get('category')),

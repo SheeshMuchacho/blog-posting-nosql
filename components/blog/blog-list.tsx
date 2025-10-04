@@ -7,6 +7,7 @@ import BlogCard from './../../components/blog/blog-card';
 interface Blog {
   _id: string;
   title: string;
+  slug: string;
   subtitle: string;
   image: string;
   category: string;
@@ -43,7 +44,7 @@ const BlogList = () => {
         {blogs
           .filter((item) => menu === "All" ? true : item.category === menu)
           .map((item) => {
-            return <BlogCard key={item._id} id={item._id} image={item.image} title={item.title} subtitle={item.subtitle} category={item.category} />
+            return <BlogCard key={item._id} {...item} />
         })}
       </div>
     </div>

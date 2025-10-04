@@ -5,15 +5,16 @@ import Link from "next/link";
 
 interface BlogCardProps {
   id: string;
+  slug: string;
   title: string;
   image: string;
   category: string;
   subtitle: string;
 }
 
-const BlogCard = ({id, title, image, category, subtitle}: BlogCardProps) => {
+const BlogCard = ({id, slug, title, image, category, subtitle}: BlogCardProps) => {
   return (
-    <Link href={`/blog/${id}`}>
+    <Link href={`/blog/${slug}`}>
       <div className="max-w-[330px] sm:max-w-[300px] bg-white border border-secondary hover:shadow-[-7px_7px_0px_#2c74b3] cursor-pointer">
         <Image
           src={image}
