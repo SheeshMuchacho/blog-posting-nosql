@@ -82,72 +82,24 @@ export default function AddBlogs() {
   };
 
   return (
-    <form
-      onSubmit={onSubmitHandler}
-      className="pt-5 px-5 sm:pt-12 sm:pl-16"
-      noValidate
-    >
+    <form onSubmit={onSubmitHandler} className="" noValidate>
       <p className="text-xl">Upload Thumbnail</p>
       <label htmlFor="image">
-        <Image
-          className="mt-4"
-          src={
-            image ? URL.createObjectURL(image) : "/admin/upload_area.png"
-          }
-          width={140}
-          height={70}
-          alt="thumbnail"
-        />
+        <Image className="mt-4" src={image ? URL.createObjectURL(image) : "/admin/upload_area.png"} width={140} height={70} alt="thumbnail"/>
       </label>
-      <input
-        onChange={(e) => setImage(e.target.files?.[0] || null)}
-        type="file"
-        id="image"
-        hidden
-        required
-      />
+      <input onChange={(e) => setImage(e.target.files?.[0] || null)} type="file" id="image" hidden required />
 
       <p className="text-xl mt-4">Blog Title</p>
-      <input
-        name="title"
-        onChange={onChangeHandler}
-        value={data.title}
-        className="w-full sm:w-[500px] mt-4 px-4 py-3 border"
-        type="text"
-        placeholder="Type here"
-        required
-      />
+      <input name="title" onChange={onChangeHandler} value={data.title} className="w-full sm:w-[500px] mt-4 px-4 py-3 border" type="text" placeholder="Type here" required />
 
       <p className="text-xl mt-4">Blog Subtitle</p>
-      <input
-        name="subtitle"
-        onChange={onChangeHandler}
-        value={data.subtitle}
-        className="w-full sm:w-[500px] mt-4 px-4 py-3 border"
-        type="text"
-        placeholder="Type here"
-        required
-      />
+      <input name="subtitle" onChange={onChangeHandler} value={data.subtitle} className="w-full sm:w-[500px] mt-4 px-4 py-3 border" type="text" placeholder="Type here" required />
 
       <p className="text-xl mt-4">Blog Description</p>
-      <textarea
-        name="description"
-        onChange={onChangeHandler}
-        value={data.description}
-        className="w-full sm:w-[500px] mt-4 px-4 py-3 border"
-        placeholder="Write content here"
-        rows={6}
-        required
-      />
+      <textarea name="description" onChange={onChangeHandler} value={data.description} className="w-full sm:w-[500px] mt-4 px-4 py-3 border" placeholder="Write content here" rows={6} required />
 
       <p className="text-xl mt-4">Blog Category</p>
-      <select
-        name="category"
-        onChange={onChangeHandler}
-        value={data.category}
-        className="w-40 mt-4 px-4 py-3 border text-gray-500"
-        required
-      >
+      <select name="category" onChange={onChangeHandler} value={data.category} className="w-40 mt-4 px-4 py-3 border text-gray-500" required >
         <option value="" disabled>
           Select category
         </option>
@@ -158,10 +110,7 @@ export default function AddBlogs() {
       </select>
 
       <br />
-      <button
-        type="submit"
-        className="mt-8 w-40 h-12 bg-black text-white"
-      >
+      <button type="submit" className="mt-8 w-40 h-12 bg-black text-white">
         Add
       </button>
     </form>

@@ -19,7 +19,7 @@ export default async function Layout({children,}: Readonly<{children: React.Reac
         </header>
 
         <main className="flex-1 overflow-y-auto">
-          <div className="p-12">
+          <div className="py-12 px-16">
             {children}
           </div>
         </main>

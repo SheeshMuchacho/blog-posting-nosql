@@ -39,3 +39,23 @@ export async function appendSubscriberRow({
     requestBody: { values },
   });
 }
+
+export async function getSubscriberRows() {
+  const auth = getAuth();
+  const sheets = google.sheets({ version: "v4", auth });
+
+  const spreadsheetId = process.env.GOOGLE_SHEETS_SPREADSHEET_ID!;
+  const tabName = process.env.GOOGLE_SHEETS_TAB_NAME || "Subscribers";
+
+  const response = await sheets.spreadsheets.values.get({
+    spreadsheetId,
+    range: `${tabName}!A:D`, 
+  });
+
+  const values = response.data.values;
+  if (!values) {
+    return [];
+  }
+
+  return values.slice(1).filter(row => row && row.length > 0 && row[0]);
+}

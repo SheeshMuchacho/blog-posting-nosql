@@ -224,6 +224,16 @@ body {
   animation: dash4 1.5s ease-in-out infinite;
 }
 
+.scrollbar-hide::-webkit-scrollbar{
+  display: none;
+}
+
+.scrollbar-hide{
+  d-ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+
 @keyframes rotate4 {
   100% {
     transform: rotate(360deg);

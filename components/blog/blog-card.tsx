@@ -14,13 +14,13 @@ interface BlogCardProps {
 const BlogCard = ({id, title, image, category, subtitle}: BlogCardProps) => {
   return (
     <Link href={`/blog/${id}`}>
-      <div className="max-w-[330px] sm:max-w-[300px] bg-white border border-black hover:shadow-[-7px_7px_0px_#000000] cursor-pointer">
+      <div className="max-w-[330px] sm:max-w-[300px] bg-white border border-secondary hover:shadow-[-7px_7px_0px_#2c74b3] cursor-pointer">
         <Image
           src={image}
           width={400}
           height={400}
           alt={title}
-          className="border-b border-black h-[200px] w-[400px] object-cover" 
+          className="border-b border-primary h-[200px] w-[400px] object-cover" 
         />
         <p className="ml-5 mt-5 py-1 px-2 inline-block bg-black text-white text-sm">{category}</p>
         <div className="p-5">

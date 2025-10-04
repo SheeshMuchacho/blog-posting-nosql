@@ -1,6 +1,7 @@
 import { ConnectDB } from "@/lib/config/db"
 import { NextRequest, NextResponse } from "next/server"
-import {writeFile} from 'fs/promises';
+import {writeFile, unlink} from 'fs/promises';
+import fs from 'fs';
 import BlogModel from "@/lib/models/BlogModel";
 
 const LoadDB = async () => {
@@ -49,4 +50,29 @@ export async function POST(request: NextRequest){
     await BlogModel.create(blogData);
 
     return NextResponse.json({success:true, message:"Blog Added Successfully"})
+}
+
+// API Endpoint For Deleting a Blog
+export async function DELETE(request: NextRequest){
+    const id = request.nextUrl.searchParams.get('id');
+    if (!id) {
+        return NextResponse.json({ success: false, message: "No ID provided" }, { status: 400 });
+    }
+
+    try {
+        const blog = await BlogModel.findById(id);
+        if (!blog) {
+            return NextResponse.json({ success: false, message: "Blog not found" }, { status: 404 });
+        }
+
+        const imagePath = `.${blog.image}`;
+        if (fs.existsSync(imagePath)) {
+            await unlink(imagePath);
+        }
+        await BlogModel.findByIdAndDelete(id);
+        return NextResponse.json({ success: true, message: "Blog Deleted Successfully" });
+    } catch (error) {
+        console.error("Error deleting blog:", error);
+        return NextResponse.json({ success: false, message: "Error deleting blog" }, { status: 500 });
+    }
 }
