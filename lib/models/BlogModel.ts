@@ -13,7 +13,7 @@ const Schema = new mongoose.Schema({
         type:String,
         required:true
     },
-    slug:{
+    category:{
         type:String,
         required:true
     },
