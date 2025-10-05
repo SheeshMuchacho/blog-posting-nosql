@@ -29,6 +29,7 @@ const getString = (value: FormDataEntryValue | null): string => {
 export async function GET(request: NextRequest){
     const id = request.nextUrl.searchParams.get("id"); // for delete
     const slug = request.nextUrl.searchParams.get("slug"); // for edit
+    const searchQuery = request.nextUrl.searchParams.get("q");
     if (id) {
         const blog = await BlogModel.findById(id);
         return NextResponse.json({blog});
@@ -36,6 +37,16 @@ export async function GET(request: NextRequest){
     if (slug) {
         const blog = await BlogModel.findOne({ slug });
         return NextResponse.json({blog});
+    }
+    if (searchQuery) {
+        const blogs = await BlogModel.find({
+            $or: [
+                { title: { $regex: searchQuery, $options: "i" } },
+                { subtitle: { $regex: searchQuery, $options: "i" } },
+                { description: { $regex: searchQuery, $options: "i" } },
+            ]
+        });
+        return NextResponse.json({blog: blogs});
     }
     const blogs = await BlogModel.find({});
     return NextResponse.json({blog: blogs})

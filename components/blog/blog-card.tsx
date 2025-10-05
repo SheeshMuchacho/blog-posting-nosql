@@ -23,7 +23,7 @@ const BlogCard = ({id, slug, title, image, category, subtitle}: BlogCardProps) =
           alt={title}
           className="border-b border-primary h-[200px] w-[400px] object-cover" 
         />
-        <p className="ml-5 mt-5 py-1 px-2 inline-block bg-black text-white text-sm">{category}</p>
+        <p className="ml-5 mt-5 py-1 px-2 inline-block bg-primary text-white text-sm">{category}</p>
         <div className="p-5">
           <h5 className="mb-2 text-lg font-medium tracking-tight text-gray-900">{title}</h5>
           <p className="mb-3 text-sm tracking-tight text-gray-700">{subtitle}</p>

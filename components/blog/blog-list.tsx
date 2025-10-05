@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useState, useEffect, useCallback } from 'react'
+import { useSearchParams } from 'next/navigation';
 import axios from 'axios';
 import BlogCard from './../../components/blog/blog-card';
 
@@ -17,15 +18,19 @@ const BlogList = () => {
 
   const [menu, setMenu] = useState("All");
   const [blogs, setBlogs] = useState<Blog[]>([]);
+  const searchParams = useSearchParams();
+  const searchQuery = searchParams.get("q");
 
   const fetchBlogs = useCallback(async () => {
     try {
-      const response = await axios.get('/api/blog');
+      const response = await axios.get('/api/blog', {
+        params: { q: searchQuery }
+      });
       setBlogs(response.data.blog || []);
     } catch (error) {
       console.error("Failed to fetch blogs:", error);
     }
-  }, []);
+  }, [searchQuery]);
 
   useEffect(() => {
     fetchBlogs();
