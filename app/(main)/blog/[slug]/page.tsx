@@ -1,7 +1,6 @@
 import { ConnectDB } from "@/lib/config/db";
 import BlogModel from "@/lib/models/BlogModel";
 import Image from "next/image";
-import Link from "next/link";
 import { notFound } from "next/navigation";
 
 interface BlogPageProps {

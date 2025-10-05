@@ -1,10 +1,12 @@
 "use client";
 import React from "react";
 import Image from "next/image";
-import { FaTrash } from "react-icons/fa";
+import { FaTrash, FaEdit } from "react-icons/fa";
+import Link from "next/link";
 
 interface BlogTableProps {
   _id: string;
+  slug: string;
   authorImg: string;
   author: string;
   title: string;
@@ -12,7 +14,7 @@ interface BlogTableProps {
   deleteBlog: (id: string) => void;
 }
 
-const BlogTable = ({ _id, authorImg, author, title, date, deleteBlog }: BlogTableProps) => {
+const BlogTable = ({ _id, slug, authorImg, author, title, date, deleteBlog }: BlogTableProps) => {
   const blogDate = new Date(date);
 
   return (
@@ -26,8 +28,13 @@ const BlogTable = ({ _id, authorImg, author, title, date, deleteBlog }: BlogTabl
       </th>
       <td className="px-6 py-4">{title ? title : "No Title"}</td>
       <td className="px-6 py-4">{blogDate.toDateString()}</td>
-      <td onClick={() => deleteBlog(_id)} className="px-6 py-4 cursor-pointer text-red-600 hover:text-red-800">
-        <FaTrash />
+      <td className="px-6 py-4">
+        <div className="flex items-center gap-4">
+          <Link href={`/admin/edit-blog/${slug}`}>
+            <FaEdit className="cursor-pointer text-blue-600 hover:text-blue-800" />
+          </Link>
+          <FaTrash onClick={() => deleteBlog(_id)} className="cursor-pointer text-red-600 hover:text-red-800" />
+        </div>
       </td>
     </tr>
   );
