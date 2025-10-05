@@ -28,7 +28,7 @@ const BlogCard = ({id, slug, title, image, category, subtitle}: BlogCardProps) =
           <h5 className="mb-2 text-lg font-medium tracking-tight text-gray-900">{title}</h5>
           <p className="mb-3 text-sm tracking-tight text-gray-700">{subtitle}</p>
           <div className="inline-flex items-center py-2 font-semibold text-center">
-            Read More <Image src='/admin/arrow_icon.png' width={12} height={12} className="ml-2" alt='' />
+            Read More <Image src='/admin/arrow.png' width={12} height={12} className="ml-2" alt='' />
           </div>
         </div>
       </div>
