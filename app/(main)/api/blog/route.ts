@@ -60,10 +60,11 @@ export async function POST(request: NextRequest){
     const imgUrl = `/blogs/${timestamp}_${image.name}`
 
     const title = getString(formData.get('title'));
+    const slug = getString(formData.get('slug'));
 
     const blogData = {
         title: title,
-        slug: slugify(title),
+        slug: slug || slugify(title),
         subtitle: getString(formData.get('subtitle')),
         description: getString(formData.get('description')),
         category: getString(formData.get('category')),
@@ -72,9 +73,9 @@ export async function POST(request: NextRequest){
         authorImg: getString(formData.get('authorImg'))
     }
 
-    await BlogModel.create(blogData);
+    const newBlog = await BlogModel.create(blogData);
 
-    return NextResponse.json({success:true, message:"Blog Added Successfully"})
+    return NextResponse.json({success:true, message:"Blog Added Successfully", blog: newBlog})
 }
 
 // API Endpoint For Updating a Blog

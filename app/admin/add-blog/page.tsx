@@ -1,12 +1,14 @@
 "use client";
 
 import React, { useState } from "react";
+import { useRouter } from "next/navigation";
 import Image from "next/image";
 import axios from "axios";
 import { toast } from "react-toastify";
 
 interface BlogData {
   title: string;
+  slug: string;
   subtitle: string;
   description: string;
   category: string;
@@ -15,9 +17,11 @@ interface BlogData {
 }
 
 export default function AddBlogs() {
+  const router = useRouter();
   const [image, setImage] = useState<File | null>(null);
   const [data, setData] = useState<BlogData>({
     title: "",
+    slug: "",
     subtitle: "",
     description: "",
     category: "Startup",
@@ -25,13 +29,27 @@ export default function AddBlogs() {
     authorImg: "/logo/ailogo.png",
   });
 
+  const slugify = (text: string): string => {
+    return text
+      .toString()
+      .toLowerCase()
+      .trim()
+      .replace(/\s+/g, "-") // Replace spaces with -
+      .replace(/[^\w\-]+/g, "") // Remove all non-word chars except hyphens
+      .replace(/\-\-+/g, "-"); // Replace multiple hyphens with a single one
+  };
+
   const onChangeHandler = (
     e: React.ChangeEvent<
       HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
     >
   ) => {
     const { name, value } = e.target;
-    setData((prev) => ({ ...prev, [name]: value }));
+    if (name === "title") {
+      setData((prev) => ({ ...prev, title: value, slug: slugify(value) }));
+    } else {
+      setData((prev) => ({ ...prev, [name]: value }));
+    }
   };
 
   const onSubmitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -47,6 +65,7 @@ export default function AddBlogs() {
 
     const formData = new FormData();
     formData.append("title", data.title);
+    formData.append("slug", data.slug);
     formData.append("subtitle", data.subtitle);
     formData.append("description", data.description);
     formData.append("category", data.category);
@@ -63,15 +82,7 @@ export default function AddBlogs() {
 
       if (response.data.success) {
         toast.success(response.data.message ?? "Blog created successfully");
-        setImage(null);
-        setData({
-          title: "",
-          subtitle: "",
-          description: "",
-          category: "Startup",
-          author: "Acumen Admin",
-          authorImg: "/logo/ailogo.png",
-        });
+        router.push("/admin/blog-list");
       } else {
         toast.error(response.data.message ?? "Error occurred");
       }
@@ -91,6 +102,9 @@ export default function AddBlogs() {
 
       <p className="text-xl mt-4">Blog Title</p>
       <input name="title" onChange={onChangeHandler} value={data.title} className="w-full sm:w-[500px] mt-4 px-4 py-3 border" type="text" placeholder="Type here" required />
+
+      <p className="text-xl mt-4">Blog Slug</p>
+      <input name="slug" value={data.slug} className="w-full sm:w-[500px] mt-4 px-4 py-3 border bg-gray-100" type="text" placeholder="auto-generated-slug" readOnly />
 
       <p className="text-xl mt-4">Blog Subtitle</p>
       <input name="subtitle" onChange={onChangeHandler} value={data.subtitle} className="w-full sm:w-[500px] mt-4 px-4 py-3 border" type="text" placeholder="Type here" required />
